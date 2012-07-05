@@ -6,8 +6,6 @@ import javax.persistence.Id;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.sun.tools.corba.se.idl.constExpr.Equal;
-
 @Entity
 public class
 Binary
@@ -93,7 +91,12 @@ Binary
 	
 	public boolean equals( Object obj )
 	{
-		return new EqualsBuilder().append( false, ; );
+		if ( !( obj instanceof Binary ) )
+		{
+			return false;
+		}
+		final Binary bin = (Binary) obj;
+		return new EqualsBuilder().append( id, bin.id ).isEquals();
 	}
 	
 }
