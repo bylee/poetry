@@ -1,4 +1,4 @@
-package com.poetry;
+package com.poetry.controller;
 
 
 public class AbstractController
