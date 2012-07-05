@@ -1,5 +1,2 @@
 dist/
 bin/
-*.war
-*.jar
-*.class
