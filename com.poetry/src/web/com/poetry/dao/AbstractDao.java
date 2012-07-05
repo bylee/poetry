@@ -10,12 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import escode.KeyedFactory;
+
 public class AbstractDao
 {
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired
 	protected SessionFactory sessionFactory;
+	
+	@Autowired
+	protected KeyedFactory<Object, String> idGenerator;
 	
 	public
 	void
@@ -29,6 +34,27 @@ public class AbstractDao
 	protected Session getSession()
 	{
 		return sessionFactory.getCurrentSession();
+	}
+	
+	public KeyedFactory<Object, String> getIdGenerator()
+	{
+		return idGenerator;
+	}
+	
+	public
+	void
+	setIdGenerator(
+		final KeyedFactory<Object, String> idGenerator
+	)
+	{
+		this.idGenerator = idGenerator;
+	}
+	
+	protected
+	String
+	generateId( Object obj )
+	{
+		return idGenerator.create( obj );
 	}
 	
 	public void insert( Object obj )
