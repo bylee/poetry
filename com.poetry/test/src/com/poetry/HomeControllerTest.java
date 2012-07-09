@@ -58,7 +58,6 @@ HomeControllerTest
 	{
 		final Object[][] TEST_CASES = new Object[][] {
 			new Object[] { "/today", "GET", null, "\"title\":" },
-			new Object[] { "/today/poetry2", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry1", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry2", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry3", "GET", null, "\"title\":" },

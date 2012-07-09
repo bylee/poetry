@@ -26,13 +26,14 @@
 			</props>
 		</property>
 
-		<property name="packagesToScan" value="com.poetry"/>
+		<property name="packagesToScan" value="com.poetry.dao"/>
 	</bean>
+	
 	<bean class="com.poetry.util.IdGenerator"></bean>
-	<bean class="com.poetry.service.TodayService"></bean>
-	<bean class="com.poetry.service.PoetryService"></bean>
-	<bean class="com.poetry.service.ReplyService"></bean>
-	<bean class="com.poetry.service.BinaryService"></bean>
+	<bean class="com.poetry.service.TodayServiceMock"></bean>
+	<bean class="com.poetry.service.PoetryServiceMock"></bean>
+	<bean class="com.poetry.service.ReplyServiceMock"></bean>
+	<bean class="com.poetry.service.BinaryServiceMock"></bean>
 
 </beans>
 
