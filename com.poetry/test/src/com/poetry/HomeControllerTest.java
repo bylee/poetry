@@ -3,6 +3,8 @@ package com.poetry;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Set;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 
@@ -28,7 +30,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 )
 @MockWebApplication( name="sample" )
 public class
-ControllerTest
+HomeControllerTest
 {
 	protected Logger logger = LoggerFactory.getLogger( getClass() );
 	
@@ -55,22 +57,22 @@ ControllerTest
 	public void test_create() throws Exception
 	{
 		final Object[][] TEST_CASES = new Object[][] {
-//			new Object[] { "/user/", "POST", "\"username\":" },
-//			new Object[] { "/user/testuser", "GET", "\"username\":" },	// 사용자 정보
-//			new Object[] { "/user/testuser/books", "GET", "\"id\":" },	// 사용자가 소유한 책
-//			
-//			new Object[] { "/book/testbook/chapters", "GET", "\"id\":" },	// testbokk( 책 )의 챕터들
-//			new Object[] { "/book/", "POST", "\"id\":" },	// 책을 생성
-//			new Object[] { "/html/books.html", "GET", "<html>" },	// 책 정보에 대한 Form
-//			
-//			new Object[] { "/html/chapters.html", "GET", "<html>" },	// 챕터에 대한 Form
+			new Object[] { "/today", "GET", null, "\"title\":" },
+			new Object[] { "/today/poetry2", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry1", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry2", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry3", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry4", "GET", null, "\"title\":" },
+			new Object[] { "/binary/image1", "GET", "image/jpeg", null },
+			new Object[] { "/reply/poetry1", "GET", null, "wonderful" },
 		};
 		
 		for ( final Object[] TEST_CASE : TEST_CASES )
 		{
 			final String path = (String) TEST_CASE[0];
 			final String method = (String) TEST_CASE[1];
-			final String containing = (String) TEST_CASE[2];
+			final String headerContaining = (String) TEST_CASE[2];
+			final String bodyContaining = (String) TEST_CASE[3];
 			logger.trace( "Path :{}, method :{}", path, method );
 			final MockHttpServletRequest req = new MockHttpServletRequest( method, path );
 			final MockHttpServletResponse res = new MockHttpServletResponse();
@@ -82,13 +84,35 @@ ControllerTest
 				);
 			
 			chain.doFilter( req, res );
-			final String contents = res.getContentAsString();
-			logger.info( "Contents :{}", contents );
-			assertNotNull( contents );
-			assertTrue(
-				path + "(" + method + ") failed",
-				contents.contains( containing )
-			);
+			
+			if ( null != headerContaining )
+			{
+				final Set<String> headerNames = res.getHeaderNames();
+				boolean bContaining = false;
+				for ( final String name : headerNames )
+				{
+					String contents = res.getHeader( name );
+					logger.info( "Name :{}, Contents :{}", name, contents );
+					if ( contents.contains( headerContaining ) )
+					{
+						bContaining = true;
+					}
+				}
+				
+				assertTrue( path + "(" + method + ") failed", bContaining );
+
+			}
+			
+			if ( null != bodyContaining )
+			{
+				final String contents = res.getContentAsString();
+				logger.info( "Contents :{}", contents );
+				assertTrue(
+					path + "(" + method + ") failed",
+					contents.contains( bodyContaining )
+				);
+
+			}
 			
 		}
 		

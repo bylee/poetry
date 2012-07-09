@@ -3,15 +3,15 @@ package com.poetry.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Reply
 {
+	@Id
 	protected String id;
 	
 	protected String targetId;
-	
-	protected String targetType;
 	
 	protected String user;
 	
@@ -58,22 +58,6 @@ public class Reply
 	public void setTargetId( String targetId )
 	{
 		this.targetId = targetId;
-	}
-
-	/**
-	 * @return the targetType
-	 */
-	public String getTargetType()
-	{
-		return targetType;
-	}
-
-	/**
-	 * @param targetType the targetType to set
-	 */
-	public void setTargetType( String targetType )
-	{
-		this.targetType = targetType;
 	}
 
 	/**

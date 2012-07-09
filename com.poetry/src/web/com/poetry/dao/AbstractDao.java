@@ -12,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import escode.KeyedFactory;
 
-public class AbstractDao
+public class
+AbstractDao
 {
+	
+	protected static final int LIMIT = 20;
+
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired
@@ -103,7 +107,7 @@ public class AbstractDao
 	)
 	{
 		getSession().flush();
-		Query query = getSession().createQuery( queryStr );
+		final Query query = getSession().createQuery( queryStr );
 		
 		return query.list();
 

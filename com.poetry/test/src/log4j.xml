@@ -11,13 +11,13 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="americano">
+	<logger name="com.poetry">
 		<level value="trace" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="debug" />
+		<level value="warn" />
 	</logger>
 	
 	<!-- Root Logger -->

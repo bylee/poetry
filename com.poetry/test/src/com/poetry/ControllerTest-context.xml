@@ -28,7 +28,7 @@
 			</props>
 		</property>
 
-		<property name="packagesToScan" value="americano.model"/>
+		<property name="packagesToScan" value="com.poetry.model"/>
 	</bean>
 
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -39,6 +39,14 @@
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/html/**" location="/html/" />
 	
-	<context:component-scan base-package="americano" />
+	<context:component-scan base-package="com.poetry" />
+	
+	<bean class="com.poetry.util.IdGenerator"></bean>
+	<bean class="com.poetry.service.TodayServiceMock"></bean>
+	<bean class="com.poetry.service.PoetryServiceMock"></bean>
+	<bean class="com.poetry.service.ReplyServiceMock"></bean>
+	<bean class="com.poetry.service.BinaryServiceMock"></bean>
+	
+	
 </beans>
 

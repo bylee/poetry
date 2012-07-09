@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Poetry
@@ -13,9 +14,19 @@ public class Poetry
 	
 	protected String title;
 	
+	protected String author;
+	
 	protected String contents;
+	
+	protected String imageId;
 
 	protected Date createdDate;
+	
+	@Transient
+	protected int good;
+	
+	@Transient
+	protected int reply;
 
 	/**
 	 * @return the id
@@ -48,6 +59,16 @@ public class Poetry
 	{
 		this.title = title;
 	}
+	
+	public String getAuthor()
+	{
+		return this.author;
+	}
+	
+	public void setAuthor( final String author )
+	{
+		this.author = author;
+	}
 
 	/**
 	 * @return the contents
@@ -63,6 +84,16 @@ public class Poetry
 	public void setContents( String contents )
 	{
 		this.contents = contents;
+	}
+	
+	public String getImageId()
+	{
+		return this.imageId;
+	}
+	
+	public void setImageId( final String imageId )
+	{
+		this.imageId = imageId;
 	}
 
 	/**
@@ -81,5 +112,24 @@ public class Poetry
 		this.createdDate = createdDate;
 	}
 
+	public int getGood()
+	{
+		return this.good;
+	}
+	
+	public void setGood( final int good )
+	{
+		this.good = good;
+	}
+	
+	public int getReply()
+	{
+		return this.reply;
+	}
+	
+	public void setReply( final int reply )
+	{
+		this.reply = reply;
+	}
 	
 }

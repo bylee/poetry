@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.springframework.stereotype.Repository;
+
 import sun.util.calendar.Gregorian;
 
 import com.poetry.model.DailySubject;
 
+@Repository
 public class
 DailySubjectDao
 extends AbstractDao

@@ -2,11 +2,13 @@ package com.poetry.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
+@Table( name = "file" )
 public class
 Binary
 {

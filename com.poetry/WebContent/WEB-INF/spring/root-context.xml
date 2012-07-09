@@ -11,8 +11,8 @@
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="true">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1/poetry"/>
-		<property name="username" value="root"/>
-		<property name="password" value=""/>
+		<property name="username" value="poet"/>
+		<property name="password" value="poet"/>
 	</bean>
 	
 	<tx:annotation-driven/>
@@ -26,7 +26,7 @@
 			</props>
 		</property>
 
-		<property name="packagesToScan" value="americano.model"/>
+		<property name="packagesToScan" value="com.poetry"/>
 	</bean>
 	<!-- 
 	<bean class="poetry.service.UserService"></bean>
