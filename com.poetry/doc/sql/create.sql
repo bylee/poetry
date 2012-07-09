@@ -9,11 +9,19 @@ create table file
 create table poetry
 (
 	id varchar( 64 ),
-	created_date date,
+	createdDate date,
 	title varchar( 256 ),
 	contents TEXT
 );
 
+create table reply
+(
+	id varchar( 64 ),
+	targetId varchar( 64 ),
+	user varchar( 128 ),
+	contents varchar( 256 ),
+	createdDate date
+);
 
 select * from poetry
 

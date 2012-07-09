@@ -28,10 +28,11 @@
 
 		<property name="packagesToScan" value="com.poetry"/>
 	</bean>
-	<!-- 
-	<bean class="poetry.service.UserService"></bean>
-	<bean class="poetry.service.BookService"></bean>
-	 -->
+	<bean class="com.poetry.util.IdGenerator"></bean>
+	<bean class="com.poetry.service.TodayService"></bean>
+	<bean class="com.poetry.service.PoetryService"></bean>
+	<bean class="com.poetry.service.ReplyService"></bean>
+	<bean class="com.poetry.service.BinaryService"></bean>
 
 </beans>
 
