@@ -26,8 +26,6 @@ extends AbstractDao
 		final Locale locale
 	)
 	{
-		final long tick = System.currentTimeMillis();
-		TimeZone timeZone = TimeZone.getTimeZone( locale.getCountry() );
 		Date date = new Date();
 		return get( DailySubject.class, date );
 	}
@@ -47,8 +45,6 @@ extends AbstractDao
 		final Date date
 	)
 	{
-		final long tick = System.currentTimeMillis();
-		TimeZone timeZone = TimeZone.getTimeZone( locale.getCountry() );
 		return get( DailySubject.class, date );
 	}
 

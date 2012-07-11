@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 	">
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -26,14 +28,17 @@
 			</props>
 		</property>
 
-		<property name="packagesToScan" value="com.poetry.dao"/>
+		<property name="packagesToScan" value="com.poetry.model"/>
 	</bean>
+
+	<bean name="idGenerator" class="com.poetry.util.IdGenerator"></bean>
 	
-	<bean class="com.poetry.util.IdGenerator"></bean>
-	<bean class="com.poetry.service.TodayService"></bean>
-	<bean class="com.poetry.service.PoetryService"></bean>
-	<bean class="com.poetry.service.ReplyService"></bean>
-	<bean class="com.poetry.service.BinaryService"></bean>
+	<context:component-scan base-package="com.poetry.dao" />
+	
+	<bean name="todayService" class="com.poetry.service.TodayService"></bean>
+	<bean name="poetryService" class="com.poetry.service.PoetryService"></bean>
+	<bean name="replyService" class="com.poetry.service.ReplyService"></bean>
+	<bean name="binaryService" class="com.poetry.service.BinaryService"></bean>
 
 </beans>
 

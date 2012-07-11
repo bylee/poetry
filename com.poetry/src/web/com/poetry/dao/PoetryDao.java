@@ -22,7 +22,7 @@ extends AbstractDao
 	public List<Poetry> list()
 	{
 		final String query =
-			MessageFormat.format( "from poetry order by poetry.id limit {}", LIMIT );
+			"from Poetry poetry order by poetry";
 		
 		return (List<Poetry>) find( query ); 
 	}
@@ -30,7 +30,7 @@ extends AbstractDao
 	public List<Poetry> listAfter( final String startId )
 	{
 		final String query =
-			MessageFormat.format( "from poetry where poetry.id < '{}' order by poetry.id limit {}", startId, LIMIT );
+			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
 		
 		return (List<Poetry>) find( query ); 
 	}

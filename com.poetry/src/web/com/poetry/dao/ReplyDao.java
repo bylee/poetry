@@ -38,7 +38,7 @@ extends AbstractDao
 	)
 	{
 		final String query =
-			MessageFormat.format( "from reply where reply.targetId = '{}'", id );
+			MessageFormat.format( "from Reply reply where reply.targetId = '{}'", id );
 		return (List<Reply>) find( query );
 	}
 }
