@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" viewPortWidth="320px" viewPortHeight="480px">
+	
+	<ScrollPanel>
+	<Panel><Panel.styles width="100%" height="11px"></Panel.styles></Panel>
+	<Label text="Title"><Label.styles width="51px" textAlign="center" height="33px" paddingTop="10px"></Label.styles></Label><TextField><TextField.styles height="30px" width="212px"></TextField.styles></TextField>
+	<Button><Button.label normal="Img"></Button.label><Button.styles width="56px"></Button.styles></Button>
+	<Label text="Contents"><Label.styles display="block" height="30px" paddingTop="10px" paddingLeft="10px"></Label.styles></Label>
+	<TextArea><TextArea.styles height="255px" paddingBottom="7px" marginBottom="20px"></TextArea.styles></TextArea>
+	<Panel><Button><Button.styles display="-webkit-box"></Button.styles><Button.label normal="Cancel"></Button.label></Button><Button><Button.styles display="-webkit-box"></Button.styles><Button.label normal="Temp Save"></Button.label></Button><Button><Button.styles display="-webkit-box"></Button.styles><Button.label normal="Share"></Button.label></Button><Panel.styles width="100%" position="" display="-webkit-box" WebkitBoxPack="center" marginBottom="20px" height="32px"></Panel.styles></Panel>
+	</ScrollPanel>
+	
+	
+	
+</Scene>

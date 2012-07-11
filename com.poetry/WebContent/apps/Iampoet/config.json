@@ -1,0 +1,10 @@
+config({
+  classname : 'iampoet.MainController',
+  require 	: '/main.js',
+  version 	: '',
+  title 	: 'Iampoet',
+  vendor	: 'XX',
+  theme		: 'ios',
+  icon 		: '/icon.png',
+  loglevel	  : 1,
+});

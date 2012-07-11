@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Carousel id="todaypoetlist">
+		<TextView>
+			<TextView.styles display="inline">
+			</TextView.styles>
+		</TextView>
+		<TextView>
+			<TextView.styles display="inline">
+			</TextView.styles>
+		</TextView>
+		<TextView>
+			<TextView.styles display="inline">
+			</TextView.styles>
+		</TextView>
+	</Carousel>
+
+</Scene>
