@@ -6,8 +6,6 @@ import java.util.TimeZone;
 
 import org.springframework.stereotype.Repository;
 
-import sun.util.calendar.Gregorian;
-
 import com.poetry.model.DailySubject;
 
 @Repository
@@ -28,9 +26,6 @@ extends AbstractDao
 		final Locale locale
 	)
 	{
-		final long tick = System.currentTimeMillis();
-		TimeZone timeZone = TimeZone.getTimeZone( locale.getCountry() );
-		Gregorian.getGregorianCalendar().getCalendarDate( tick, timeZone );
 		Date date = new Date();
 		return get( DailySubject.class, date );
 	}
@@ -50,9 +45,6 @@ extends AbstractDao
 		final Date date
 	)
 	{
-		final long tick = System.currentTimeMillis();
-		TimeZone timeZone = TimeZone.getTimeZone( locale.getCountry() );
-		Gregorian.getGregorianCalendar().getCalendarDate( tick, timeZone );
 		return get( DailySubject.class, date );
 	}
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	viewPortWidth="320px" viewPortHeight="480px">
+
+
+	<ScrollPanel id="mainPanel">
+		<ImageView id="today-pic">
+			<ImageView.styles height="286px" margin="" width="100%"></ImageView.styles>
+		</ImageView>
+		<TextView id="today-text">
+			<TextView.styles display="block" height="124px"
+				backgroundImage="-webkit-gradient(linear, left top, left bottom,from(#EAF4D6),to(#FFFFFF))"
+				borderStyle="solid" borderWidth="1px" WebkitBorderRadius="14px"></TextView.styles>
+		</TextView>
+		<Panel align="center" id="wBtnPanel">
+
+			<Button onTap="handleWriteView">
+				<Button.styles display="block" width="240px"
+					marginTop="10px"></Button.styles>
+				<Button.label normal="작성하기"></Button.label>
+			</Button>
+
+			<Panel.styles width="100%" height="65px" textAlign=""
+				position="" display="-webkit-box" WebkitBoxOrient="Vertical"
+				WebkitBoxAlign="center">
+			</Panel.styles>
+		</Panel>
+		<TextArea vScroll="true" visible="false" placeholderLabel="시를 작성해 주세요."
+			id="writeTextarea">
+			<TextArea.styles height="150px" display="block"
+				backgroundImage="-webkit-gradient(linear, left top, left bottom,from(#DFEAF8),to(#FFFFFF))"
+				WebkitBorderRadius="12px"></TextArea.styles>
+		</TextArea>
+
+		<Panel id="btnPanel" visible="false">
+			<Button id="cancelBtn" onTap="handleCancel">
+				<Button.styles display="block" width="100px"
+					marginRight="20px"></Button.styles>
+				<Button.label normal="취소"></Button.label>
+			</Button>
+			<Button onTap="handleSubmit">
+				<Button.styles display="block" width="100px"
+					marginLeft="20px"></Button.styles>
+				<Button.label normal="전송"></Button.label>
+			</Button>
+			<Panel.styles width="100%" position="" display="-webkit-box"
+				WebkitBoxOrient="Horizontal" WebkitBoxPack="center"></Panel.styles>
+		</Panel>
+
+
+	</ScrollPanel>
+	
+	
+	
+	
+</Scene>

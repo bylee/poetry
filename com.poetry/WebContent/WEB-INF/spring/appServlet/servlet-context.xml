@@ -44,6 +44,6 @@
 	
 	<default-servlet-handler />
 
-	<context:component-scan base-package="com.poetry" />
-	
+	<context:component-scan base-package="com.poetry.controller" />
+
 </beans:beans>
