@@ -1,15 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>LogIn</title>
+<title>Sign In</title>
 </head>
 <body>
-	<form>
-		Username : <input type="text" /><br>
-		Password : <input type="password" /><br>
-		<input type="submit" />
-	</form>
+<form action="<c:url value='/signin/facebook' />" method="POST">
+<button type="submit">Sign in with Facebook</button>
+<input type="hidden" name="scope" value="email,publish_stream,offline_access" />	
+</form>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.poetry;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
