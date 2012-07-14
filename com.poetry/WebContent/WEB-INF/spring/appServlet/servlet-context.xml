@@ -12,7 +12,7 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-
+	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/js/**" location="/js/" />
@@ -42,8 +42,19 @@
   		</beans:property>
 	</beans:bean>
 	
-	<default-servlet-handler />
-
+	<default-servlet-handler/>
+	
+	<interceptors>
+        <beans:bean class="com.poetry.service.user.UserInterceptor" >
+        	<beans:constructor-arg ref="usersConnectionRepository"></beans:constructor-arg>
+        </beans:bean>
+    </interceptors>
 	<context:component-scan base-package="com.poetry.controller" />
-
+	<beans:bean id="providerSignInController" class="org.springframework.social.connect.web.ProviderSignInController">
+		<beans:constructor-arg ref="connectionFactoryLocator" />
+		<beans:constructor-arg ref="usersConnectionRepository" />
+		<beans:constructor-arg>
+			<beans:bean class="com.poetry.service.user.SimpleSignInAdapter" />
+		</beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

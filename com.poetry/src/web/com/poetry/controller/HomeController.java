@@ -38,6 +38,14 @@ public class HomeController
 	@Autowired
 	protected ReplyService replyService;
 	
+	@RequestMapping( value = "/signin" )
+	public String
+	formSignin()
+	{
+		return "signin";
+	}
+	
+	
 	@RequestMapping(
 		value = "/user/{userid}",
 		method = RequestMethod.GET

@@ -4,34 +4,4 @@
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
-
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="oauthProvider" />
-    </security:authentication-manager>
-
-    <security:http entry-point-ref="oauthEntryPoint">
-        <security:custom-filter before="CAS_FILTER" ref="oauthFilter" />
-        <security:intercept-url pattern="/service/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <security:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />
-        <security:logout />
-    </security:http>
-
-    <bean id="facebookProvider" class="org.scribe.up.provider.impl.FacebookProvider">
-        <property name="key" value="326713090747554" />
-        <property name="secret" value="dec1645bb28739a88c2c299f751f975f" />
-        <property name="callbackUrl" value="http://poetry.cloudfoundry.com/j_spring_oauth_security_check" />
-    </bean>
-
-    <bean id="oauthEntryPoint" class="com.github.leleuj.ss.oauth.client.web.OAuthAuthenticationEntryPoint">
-        <property name="provider" ref="facebookProvider" />
-    </bean>
-
-    <bean id="oauthFilter" class="com.github.leleuj.ss.oauth.client.web.OAuthAuthenticationFilter">
-        <property name="provider" ref="facebookProvider" />
-        <property name="authenticationManager" ref="authenticationManager" />
-    </bean>
-
-    <bean id="oauthProvider" class="com.github.leleuj.ss.oauth.client.authentication.OAuthAuthenticationProvider">
-        <property name="provider" ref="facebookProvider" />
-    </bean>
 </beans>
