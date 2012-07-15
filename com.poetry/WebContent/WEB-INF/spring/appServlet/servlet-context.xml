@@ -44,17 +44,5 @@
 	
 	<default-servlet-handler/>
 	
-	<interceptors>
-        <beans:bean class="com.poetry.service.user.UserInterceptor" >
-        	<beans:constructor-arg ref="usersConnectionRepository"></beans:constructor-arg>
-        </beans:bean>
-    </interceptors>
 	<context:component-scan base-package="com.poetry.controller" />
-	<beans:bean id="providerSignInController" class="org.springframework.social.connect.web.ProviderSignInController">
-		<beans:constructor-arg ref="connectionFactoryLocator" />
-		<beans:constructor-arg ref="usersConnectionRepository" />
-		<beans:constructor-arg>
-			<beans:bean class="com.poetry.service.user.SimpleSignInAdapter" />
-		</beans:constructor-arg>
-	</beans:bean>
 </beans:beans>

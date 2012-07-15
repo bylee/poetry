@@ -1,3 +1,10 @@
+create table poet
+(
+	username varchar( 32 ),
+	password varchar( 64 ),
+	pen_name varchar( 32 )
+);
+
 create table file
 (
 	id varchar( 64 ),
@@ -9,8 +16,10 @@ create table file
 create table poetry
 (
 	id varchar( 64 ),
-	createdDate date,
 	title varchar( 256 ),
+	author varchar( 32 ),
+	image varchar( 64 ),
+	createdDate date,
 	contents TEXT
 );
 

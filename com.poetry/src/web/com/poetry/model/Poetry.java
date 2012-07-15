@@ -2,6 +2,7 @@ package com.poetry.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
@@ -18,6 +19,7 @@ public class Poetry
 	
 	protected String contents;
 	
+	@Column( name = "image" )
 	protected String imageId;
 
 	protected Date createdDate;

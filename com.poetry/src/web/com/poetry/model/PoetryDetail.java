@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class
-PoetDetail
+PoetryDetail
 extends Poetry
 {
 	protected HashSet<String> tags = new HashSet<String>();
