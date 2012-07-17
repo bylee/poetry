@@ -18,6 +18,7 @@
 	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/html/**" location="/html/" />
 	<resources mapping="/lib/**" location="/lib/" />
+	<resources mapping="/apps/**" location="/apps/" />
 
 	<beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
   		<beans:property name="mediaTypes">
