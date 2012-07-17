@@ -16,7 +16,7 @@ function initScene() {
 	panel3.add(textField2);
 	var panel4 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', height: '40px', position: '', width: '100%'}});
 	panel1.add(panel4);
-	var checkbox1 = new tau.ui.Checkbox({id : 'remember' , value : 'true' , styles : {display: 'block', marginRight: '', paddingRight: ''}});
+	var checkbox1 = new tau.ui.Checkbox({id : 'remember' , styles : {display: 'block', marginRight: '', paddingRight: ''}});
 	panel4.add(checkbox1);
 	var label3 = new tau.ui.Label({text : 'Remember me' , styles : {display: 'block', height: '24px', marginLeft: '', paddingLeft: '10px', paddingRight: '10px', width: '178px'}});
 	panel4.add(label3);

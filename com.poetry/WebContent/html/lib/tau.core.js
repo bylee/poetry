@@ -1563,7 +1563,7 @@
               + params;
         } else {
           tau.forEach(params, function (value, i) {
-            this.append(i, value);
+            this.appendParam(i, value);
           }, this);
         }
       }

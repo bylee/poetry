@@ -30,11 +30,10 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		
 		var req = tau.req({
 			type: 'POST',
-			url: '/login',
+			url: tau.resolveURL('../login'),
 			params: {
 				id: id,
-				pw: pw,
-				remember: remember
+				pw: pw
 			},
 			callbackFn: function (resp) {
 				tau.log(resp);
