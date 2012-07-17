@@ -39,6 +39,7 @@
 	
 	<security:http auto-config="true" >
 		<security:intercept-url pattern="/launcher.html" access="ROLE_ANONYMOUS"/>
+		<security:intercept-url pattern="/lib/**" access="ROLE_ANONYMOUS"/>
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
 		<security:logout logout-success-url="/login/success" />
 		<security:form-login login-page="/launcher.html"/>
