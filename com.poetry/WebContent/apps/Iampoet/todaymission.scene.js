@@ -32,7 +32,7 @@ function initScene() {
 	panel4.add(label3);
 	var panel5 = new tau.ui.Panel({align : 'center' , styles : {backgroundColor: 'transparent', backgroundImage: 'none', height: '110px', margin: '', padding: '10px', position: '', textAlign: '', width: '100%'}});
 	panel4.add(panel5);
-	var textView2 = new tau.ui.TextView({text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
+	var textView2 = new tau.ui.TextView({id : 'pPoem1' , text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
 	panel5.add(textView2);
 	var panel6 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', position: '', width: '100%'}});
 	panel3.add(panel6);
@@ -60,7 +60,7 @@ function initScene() {
 	panel9.add(label5);
 	var panel10 = new tau.ui.Panel({align : 'center' , styles : {backgroundColor: 'transparent', backgroundImage: 'none', height: '110px', margin: '', padding: '10px', position: '', textAlign: '', width: '100%'}});
 	panel9.add(panel10);
-	var textView3 = new tau.ui.TextView({text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
+	var textView3 = new tau.ui.TextView({id : 'pPoem2' , text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
 	panel10.add(textView3);
 	var panel11 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', position: '', width: '100%'}});
 	panel8.add(panel11);
@@ -88,7 +88,7 @@ function initScene() {
 	panel14.add(label7);
 	var panel15 = new tau.ui.Panel({align : 'center' , styles : {backgroundColor: 'transparent', backgroundImage: 'none', height: '110px', margin: '', padding: '10px', position: '', textAlign: '', width: '100%'}});
 	panel14.add(panel15);
-	var textView4 = new tau.ui.TextView({text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
+	var textView4 = new tau.ui.TextView({id : 'pPoem3' , text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
 	panel15.add(textView4);
 	var panel16 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', position: '', width: '100%'}});
 	panel13.add(panel16);
@@ -116,7 +116,7 @@ function initScene() {
 	panel19.add(label9);
 	var panel20 = new tau.ui.Panel({align : 'center' , styles : {backgroundColor: 'transparent', backgroundImage: 'none', height: '110px', margin: '', padding: '10px', position: '', textAlign: '', width: '100%'}});
 	panel19.add(panel20);
-	var textView5 = new tau.ui.TextView({text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
+	var textView5 = new tau.ui.TextView({id : 'pPoem4' , text : '움켜쥔 손 안의 모래알처럼 시간이 새고 있다 \n 집착이란 이처럼 허망한 것이다. \n 그렇게 네가 가고 나면 내게 남겨진 가을은 \n  김장끝난 텃밭에 싸락눈을 불러올 것이다. \n \n 문장이 되지못한 말(語)들이\n  반쯤 걷다가 바람의 뒷발에 채인다.\n 추억이란 아름답지만 때로는 치사한 것\n 먼 훗 날 내 가슴의 터엔 회한의 먼지만이 붐빌 것이다.\n' , styles : {WebkitBorderRadius: '2px', backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))', display: 'inline-block', fontSize: '13px', margin: '', width: ''}});
 	panel20.add(textView5);
 	var panel21 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', position: '', width: '100%'}});
 	panel18.add(panel21);

@@ -12,7 +12,7 @@ function initScene() {
 	panel1.add(label1);
 	var imageView2 = new tau.ui.ImageView({src : '/image/mainimage.jpeg' , styles : {backgroundImage: '-webkit-gradient(linear, left top, left bottom,from(#EEDCDC),to(#FFFFFF))', display: 'block', height: '100%', width: '320px'}});
 	scrollPanel1.add(imageView2);
-	var textView1 = new tau.ui.TextView({text : '\n  하늘은 늘 거기에 있네\n\n 소리 없이 열려 있네\n\n 구름떼에 뒤덮이고\n\n 눈비에 가리워도\n\n 늘 거기에 열려\n\n 마알갛게 웃고 있네\n\n 지금은 안개 자욱한\n\n 저 산봉우리 너머로\n\n ...\n\n ...999\n\n...999\n\n...999\n\n...999\n\n ' , styles : {color: '#FFFFFF', display: 'block', height: 'auto', position: 'absolute', top: '32px', zIndex: '10000'}});
+	var textView1 = new tau.ui.TextView({id : 'poem' , text : '\n  하늘은 늘 거기에 있네\n\n 소리 없이 열려 있네\n\n 구름떼에 뒤덮이고\n\n 눈비에 가리워도\n\n 늘 거기에 열려\n\n 마알갛게 웃고 있네\n\n 지금은 안개 자욱한\n\n 저 산봉우리 너머로\n\n ...\n\n ...999\n\n...999\n\n...999\n\n...999\n\n ' , styles : {color: '#FFFFFF', display: 'block', height: 'auto', position: 'absolute', top: '32px', zIndex: '10000'}});
 	scrollPanel1.add(textView1);
 	var panel2 = new tau.ui.Panel({styles : {WebkitBoxOrient: 'Horizontal', WebkitBoxPack: 'center', display: '-webkit-box', position: '', width: '100%'}});
 	scrollPanel1.add(panel2);

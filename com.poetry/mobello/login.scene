@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	viewPortWidth="320px" viewPortHeight="480px">
+	<Panel>
+		<Panel>
+			<Label text="ID"><Label.styles width="50px" height="34px" textAlign="center" display="block" paddingTop="16px"></Label.styles></Label>
+			<TextField id="id" type="email"><TextField.styles display="-webkit-box" width="198px" height="34px"></TextField.styles></TextField>
+			<Panel.styles width="100%" position="" display="-webkit-box" WebkitBoxOrient="Horizontal" WebkitBoxAlign="center" WebkitBoxPack="center" height="50px"></Panel.styles>
+		</Panel>
+		<Panel>
+			<Label text="PW"><Label.styles textAlign="center" width="50px" height="34px" display="block" paddingTop="16px"></Label.styles></Label>
+			<TextField id="pw" type="password"><TextField.styles display="-webkit-box" width="198px" height="34px"></TextField.styles></TextField>
+			<Panel.styles width="100%" position="" display="-webkit-box" WebkitBoxPack="center" WebkitBoxAlign="center" height="50px"></Panel.styles>
+		</Panel>
+	<Panel>
+	<Checkbox id="remember" value="true"><Checkbox.styles display="block" marginRight="" paddingRight=""></Checkbox.styles></Checkbox>
+	<Label text="Remember me"><Label.styles display="block" width="178px" height="24px" marginLeft="" paddingLeft="10px" paddingRight="10px"></Label.styles></Label><Panel.styles width="100%" position="" display="-webkit-box" WebkitBoxOrient="Horizontal" WebkitBoxPack="center" height="40px"></Panel.styles></Panel>
+	<Panel>
+	
+	<Button id="cancel"><Button.styles display="block" marginRight="10px"></Button.styles><Button.label normal="Cancel"></Button.label></Button><Button id="login"><Button.styles display="-webkit-box" marginLeft="10px"></Button.styles><Button.label normal="Login"></Button.label></Button><Panel.styles width="100%" position="" display="-webkit-box" WebkitBoxPack="center" height="50px"></Panel.styles></Panel>
+		<Panel.styles width="100%" height="100%" position="" display="-webkit-box" WebkitBoxOrient="Vertical" WebkitBoxAlign="center" WebkitBoxPack="center"></Panel.styles>
+	</Panel>
+
+
+</Scene>
