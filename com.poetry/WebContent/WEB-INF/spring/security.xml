@@ -41,6 +41,6 @@
 		<security:intercept-url pattern="/html/**" access="ROLE_ANONYMOUS"/>
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
 		<security:logout logout-success-url="/login/success" />
-		<security:form-login login-page="/html/launcher.html?app=Iampoet"/>
+		<security:form-login login-page="/html/launcher.html?app=iampoet"/>
 	</security:http>
 </beans>
