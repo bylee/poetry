@@ -1,4 +1,4 @@
-package com.poetry;
+package com.poetry.servlet;
 
 import static org.springframework.web.context.WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
 

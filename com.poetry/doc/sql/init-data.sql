@@ -10,4 +10,7 @@ INSERT INTO Poet ( username, password, pen_name ) VALUES
 INSERT INTO Poet ( username, password, pen_name ) VALUES
 ( 'hellojintae', 'hellojintae', '정진태');
 
+INSERT INTO Poetry( id, title, author, image, contents ) VALUES
+( 'first', 'My First Poetry', 'bylee', 'aaaa', 'Hello, world' );
+
 select * from Poet;

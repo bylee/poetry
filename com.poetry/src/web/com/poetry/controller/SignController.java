@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.poetry.model.User;
 import com.poetry.model.SignStatus;
-import com.poetry.model.Poet;
 
 @Controller
 public class
@@ -26,7 +27,6 @@ SignController
 
 	@RequestMapping( value = "/service/signstatus", method = RequestMethod.GET )
 	@ResponseBody
-	@SuppressWarnings("rawtypes")
 	public
 	SignStatus
 	getStatus()
@@ -36,13 +36,12 @@ SignController
 		{
 			return new SignStatus( auth.getName(), "success" );
 		} else {
-			return new SignStatus( null, "success" );
+			return new SignStatus( null, "fail" );
 		}
 	}
 
 	@RequestMapping( value = "/service/signin", method = RequestMethod.POST )
 	@ResponseBody
-	@SuppressWarnings("rawtypes")
 	public
 	SignStatus
 	login(
@@ -53,7 +52,7 @@ SignController
 
 		final UsernamePasswordAuthenticationToken token =
 			new UsernamePasswordAuthenticationToken( username, password );
-		final Poet details = new Poet();
+		final User details = new User();
 		details.setUsername( username );
 		token.setDetails( details );
 
@@ -62,7 +61,7 @@ SignController
 			SecurityContextHolder.getContext().setAuthentication( auth );
 			return new SignStatus( auth.getName(), "success" );
 		} catch (BadCredentialsException e) {
-			return new SignStatus( username, "fail" );
+			return new SignStatus( null, "fail" );
 		}
 	}
 

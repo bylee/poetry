@@ -1,4 +1,4 @@
-package com.poetry;
+package com.poetry.controller;
 
 import static org.junit.Assert.assertTrue;
 
@@ -22,10 +22,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.poetry.SessionInViewFilter;
+import com.poetry.servlet.MockWebApplication;
+import com.poetry.servlet.MockWebApplicationContextLoader;
+
 @RunWith( SpringJUnit4ClassRunner.class )
 @ContextConfiguration(
 	loader=MockWebApplicationContextLoader.class,
-	locations= { "classpath:com/poetry/ControllerTest-context.xml" }
+	locations= { "classpath:com/poetry/controller/HomeControllerTest-context.xml" }
 )
 @MockWebApplication( name="sample" )
 public class
@@ -41,7 +45,8 @@ HomeControllerTest
 	@Before
 	public void setUpFilter() throws Exception
 	{
-		final FilterConfig config = new MockFilterConfig( servlet.getServletContext() );
+		final FilterConfig config =
+			new MockFilterConfig( servlet.getServletContext() );
 		this.filter = new SessionInViewFilter();
 		this.filter.init( config );
 	}
@@ -56,7 +61,7 @@ HomeControllerTest
 	public void test_create() throws Exception
 	{
 		final Object[][] TEST_CASES = new Object[][] {
-			new Object[] { "/today", "GET", null, "\"title\":" },
+			new Object[] { "/today/20120718", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry1", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry2", "GET", null, "\"title\":" },
 			new Object[] { "/poetry/poetry3", "GET", null, "\"title\":" },

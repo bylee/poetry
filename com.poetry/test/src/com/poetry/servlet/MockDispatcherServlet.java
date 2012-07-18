@@ -1,4 +1,4 @@
-package com.poetry;
+package com.poetry.servlet;
 
 import org.springframework.web.servlet.DispatcherServlet;
 

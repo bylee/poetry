@@ -2,12 +2,13 @@
 DISCONNECT
 /*C5*/SET SCHEMA PUBLIC
 drop table DailySubject if exists
-drop table Poet if exists
 drop table Poetry if exists
 drop table Reply if exists
+drop table User if exists
 drop table file if exists
 create table DailySubject (id varchar(255) not null, date timestamp, imageId varchar(255), primary key (id))
-create table Poet (username varchar(255) not null, password varchar(255), pen_name varchar(255), primary key (username))
-create table Poetry (id varchar(255) not null, author varchar(255), contents varchar(255), createdDate timestamp, image varchar(255), title varchar(255), primary key (id))
+create table Poetry (id varchar(255) not null, contents varchar(255), createdDate timestamp, image varchar(255), title varchar(255), author varchar(255), primary key (id))
 create table Reply (id varchar(255) not null, contents varchar(255), createDate timestamp, targetId varchar(255), user varchar(255), primary key (id))
+create table User (username varchar(255) not null, password varchar(255), pen_name varchar(255), primary key (username))
 create table file (id varchar(255) not null, contents varbinary(255), mime varchar(255), name varchar(255), primary key (id))
+alter table Poetry add constraint FK8ECF8DD5D8033FC7 foreign key (author) references User

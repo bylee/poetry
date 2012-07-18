@@ -2,18 +2,18 @@ package com.poetry.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.poetry.model.Poet;
+import com.poetry.model.User;
 
 @Repository
 public class
 PoetDao
 extends AbstractDao
 {
-	public Poet getPoet(
+	public User getPoet(
 		final String username
 	)
 	{
-		return get( Poet.class, username );
+		return get( User.class, username );
 	}
 
 }

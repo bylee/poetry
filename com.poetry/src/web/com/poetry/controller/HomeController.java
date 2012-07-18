@@ -66,23 +66,22 @@ public class HomeController
 	 * 
 	 * <code>startId</code>가 <code>null</code>이면, 첫번째를 전송한다.
 	 * 
-	 * @param startId 시작할 시의 id
+	 * @param date 시작할 시의 id
 	 * 
 	 * @return 시 {@link List}
 	 */
 	@RequestMapping(
-		value = "/today",
+		value = "/today/{date}",
 		method = RequestMethod.GET
 	)
 	public
 	@ResponseBody
 	List<Poetry>
 	getTodayPoetry(
-		@RequestParam( value = "start", required = false )
-		final String startId
+		final String date
 	)
 	{
-		return todayService.getTodayPoetries( startId );
+		return todayService.getTodayPoetries( date );
 	}
 	
 	/**

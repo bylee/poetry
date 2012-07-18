@@ -1,5 +1,9 @@
 package com.poetry.controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +16,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import com.poetry.model.SignStatus;
 
 public class SignControllerTest
 {
@@ -83,10 +86,10 @@ public class SignControllerTest
 	{
 		final Authentication auth = new TestingAuthenticationToken("foo", "bar");
 		auth.setAuthenticated( false );
-		when( authenticationManager.authenticate( Matchers.<authentication>anyObject() ) )
+		when( authenticationManager.authenticate( Matchers.<Authentication>anyObject() ) )
 			.thenThrow( new BadCredentialsException( "Bad Credentials" ) );
 		final SignStatus status = loginService.login( "foo", "bar" );
-		assertEquals( "fail", status.isLoggedIn() );
+		assertEquals( "fail", status.getStatus() );
 		assertEquals( null, status.getUsername() );
 	}
 }
