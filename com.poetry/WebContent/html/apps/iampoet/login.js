@@ -37,13 +37,13 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 			  j_username: id,
 			  j_password: pw
 			},
-			callbackFn: tau.ctxAware(this.handleLogin, this)
+			callbackFn: tau.ctxAware(this.handleLoginCallBack, this)
 		});
 		
 		req.send();
 	},
 	
-	handleLogin: function (resp) {
+	handleLoginCallBack: function (resp) {
 	  tau.log(resp);
 	}
 });
