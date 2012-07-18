@@ -44,6 +44,25 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleLoginCallBack: function (resp) {
-	  tau.log(resp);
+	  var resJson = resp.responseJSON;
+	  if (resJson.status === 'success') {
+	    var req = tau.req({
+	      type: 'GET',
+	      url: '../today/20120712',
+	      callbackFn: tau.ctxAware(this.handleMain, this)
+	    });
+	    
+	    req.send();
+	    
+	  } else {
+	    tau.alert("Login fail");
+	  }
+	},
+	
+	handleMain: function (resp) {
+	  this.fireEvent('dismiss');
+	  var resJson = resp.responseJSON;
+	  tau.alert('login success and today data!!');
+	  tau.log(resJson);
 	}
 });
