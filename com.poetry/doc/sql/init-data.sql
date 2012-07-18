@@ -1,14 +1,14 @@
 INSERT INTO Poet ( username, password, pen_name ) VALUES
-( 'bylee', 'bylee', '이본용');
+( 'bylee', 'bylee', 'bylee1');
 
 INSERT INTO Poet ( username, password, pen_name ) VALUES
-( 'anjong', 'anjong', '권종현');
+( 'anjong', 'anjong', 'anjong1');
 
 INSERT INTO Poet ( username, password, pen_name ) VALUES
-( 'csoonoosc', 'csoonoosc', '박충순');
+( 'csoonoosc', 'csoonoosc', 'choongsun');
 
 INSERT INTO Poet ( username, password, pen_name ) VALUES
-( 'hellojintae', 'hellojintae', '정진태');
+( 'hellojintae', 'hellojintae', 'jintae');
 
 INSERT INTO Poetry( id, title, author, image, contents ) VALUES
 ( 'first', 'My First Poetry', 'bylee', 'aaaa', 'Hello, world' );
