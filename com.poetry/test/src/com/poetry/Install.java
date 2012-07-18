@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
-import org.springframework.social.facebook.api.Facebook;
 
 public class
 Install
@@ -16,6 +15,7 @@ implements Runnable
 		Install instance = new Install();
 		instance.run();
 	}
+	
 	public void run()
 	{
 		final GenericXmlApplicationContext context =
