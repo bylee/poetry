@@ -38,9 +38,9 @@
 	
 	
 	<security:http auto-config="true" >
-		<security:intercept-url pattern="/html/**" access="ROLE_ANONYMOUS"/>
+		<security:intercept-url pattern="/service/signin" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/html/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
-		<security:logout logout-success-url="/login/success" />
 		<security:form-login login-page="/html/launcher.html?app=iampoet"/>
 	</security:http>
 </beans>
