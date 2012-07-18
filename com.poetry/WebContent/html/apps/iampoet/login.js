@@ -47,7 +47,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 	  var resJson = resp.responseJSON;
 	  if (resJson.status === 'success') {
 	    var req = tau.req({
-	      type: 'GET', 
+	      type: 'GET',
 	      url: '../today/20120712',
 	      callbackFn: tau.ctxAware(this.handleMain, this)
 	    });
