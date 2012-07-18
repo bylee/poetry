@@ -6,7 +6,7 @@ import com.poetry.model.User;
 
 @Repository
 public class
-PoetDao
+UserDao
 extends AbstractDao
 {
 	public User getPoet(

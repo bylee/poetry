@@ -22,7 +22,7 @@ extends TodayService
 			poetry1.setTitle( "Into the sky" );
 			poetry1.setAuthor( new Poet( "AJ", "안종현" ) );
 			poetry1.setContents( "dive into the sky. blah blah" );
-			poetry1.setImageId( "image1" );
+			poetry1.setImage( "image1" );
 			ret.add( poetry1 );
 			
 			
@@ -31,7 +31,7 @@ extends TodayService
 			poetry2.setTitle( "Without you" );
 			poetry2.setAuthor( new Poet( "Park", "박충순" ) );
 			poetry2.setContents( "Life is alone ~" );
-			poetry2.setImageId( "Image2" );
+			poetry2.setImage( "Image2" );
 			ret.add( poetry2 );
 		}
 		else if ( "poetry2".equals( startId ) )
@@ -41,7 +41,7 @@ extends TodayService
 			poetry3.setTitle( "Big picture..." );
 			poetry3.setAuthor( new Poet( "Lee", "이본용" ) );
 			poetry3.setContents( "Open your ..." );
-			poetry3.setImageId( "image3" );
+			poetry3.setImage( "image3" );
 			ret.add( poetry3 );
 			
 			
@@ -50,7 +50,7 @@ extends TodayService
 			poetry4.setTitle( "Rule the sky" );
 			poetry4.setAuthor( new Poet( "Sung", "성한승" ) );
 			poetry4.setContents( "Life is alone ~" );
-			poetry4.setImageId( "image4" );
+			poetry4.setImage( "image4" );
 			ret.add( poetry4 );
 		}
 		
