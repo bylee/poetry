@@ -32,16 +32,18 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 			type: 'POST',
 			//url: tau.resolveURL('../login'),
 			//url: '../login',
-			url: '../j_spring_security_check',
+			url: '../service/signin',
 			params: {
 			  j_username: id,
 			  j_password: pw
 			},
-			callbackFn: function (resp) {
-				tau.log(resp);
-			}
+			callbackFn: tau.ctxAware(this.handleLogin, this)
 		});
 		
 		req.send();
+	},
+	
+	handleLogin: function (resp) {
+	  tau.log(resp);
 	}
 });
