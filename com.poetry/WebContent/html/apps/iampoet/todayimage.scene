@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	viewPortWidth="320px" viewPortHeight="480px">
+
+
+
+
+
+
+	<ScrollPanel data-layout-mode="absolute">
+		<ScrollPanel.styles position=""></ScrollPanel.styles>
+
+
+		
+		
+		<ImageView id="mainImage" onTap="handleMainImage" src="/image/mainimage.jpeg">
+			<ImageView.styles height="258px" width="320px"
+				padding="4px" borderStyle="solid" borderWidth="3px"
+				WebkitBorderRadius="7px"></ImageView.styles>
+		</ImageView>
+		<ImageView id="image2-1" onTap="handleImage2_1" src="/image/image2-1.jpeg">
+			<ImageView.styles height="160px" width="160px"
+				padding="02px" borderStyle="solid" borderWidth="2px"
+				WebkitBorderRadius="7px"></ImageView.styles>
+		</ImageView>
+		<ImageView id="image2-2" src="/image/image2-2.jpeg">
+			<ImageView.styles height="160px" width="160px"
+				padding="02px" borderStyle="solid" borderWidth="2px"
+				WebkitBorderRadius="7px"></ImageView.styles>
+		</ImageView>
+		<ImageView id="image3-1" src="/image/image3-1.jpeg">
+			<ImageView.styles width="160px" height="160px"
+				padding="02px" borderStyle="solid" borderWidth="2px"
+				WebkitBorderRadius="7px"></ImageView.styles>
+		</ImageView>
+		<ImageView id="image3-3" src="/image/image3-2.jpeg">
+			<ImageView.styles width="160px" height="160px"
+				padding="02px" WebkitBorderRadius="7px" borderStyle="solid"
+				borderWidth="2px"></ImageView.styles>
+		</ImageView><Label text="Big Picture" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="266px" right="67%" left="10px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF"></Label.styles>
+		</Label><Label text="By Lee" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="390px" right="7%" left="51px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF" textAlign="right"></Label.styles>
+		</Label><Label text="Under the Sea" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="111px" top="266px" right="67%" left="169px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF"></Label.styles>
+		</Label><Label text="By Jay Park" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="108px" top="391px" right="7%" left="202px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF" textAlign="right"></Label.styles>
+		</Label><Label text="차가운 심장" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="429px" right="67%" left="10px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF"></Label.styles>
+		</Label><Label text="By 유리" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="547px" right="7%" left="51px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF" textAlign="right"></Label.styles>
+		</Label><Label text="By 문재용" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="546px" right="7%" left="214px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF" textAlign="right"></Label.styles>
+		</Label><Label text="내 마음 같은 눈" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="111px" top="429px" right="67%" left="169px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF"></Label.styles>
+		</Label><Label text="Into the Sky" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="10px" right="67%" left="10px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF"></Label.styles>
+		</Label><Label text="By AJ" style="position: static">
+			<Label.styles display="block" position="absolute" height="17px" width="96px" top="221px" right="7%" left="202px" bottom="auto" backgroundColor="transparent" backgroundImage="none" color="#FFFFFF" textAlign="right"></Label.styles>
+		</Label>
+		
+
+
+	</ScrollPanel>
+
+
+</Scene>

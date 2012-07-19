@@ -1,11 +1,11 @@
-create table poet
+create table Poet
 (
 	username varchar( 32 ),
 	password varchar( 64 ),
 	pen_name varchar( 32 )
 );
 
-create table file
+create table File
 (
 	id varchar( 64 ),
 	name varchar( 256 ),
@@ -13,7 +13,7 @@ create table file
 	contents blob
 );
 
-create table poetry
+create table Poetry
 (
 	id varchar( 64 ),
 	title varchar( 256 ),
@@ -23,7 +23,7 @@ create table poetry
 	contents TEXT
 );
 
-create table reply
+create table Reply
 (
 	id varchar( 64 ),
 	targetId varchar( 64 ),

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	viewPortWidth="320px" viewPortHeight="480px"><Scene.styles backgroundImage="none" backgroundColor="transparent"></Scene.styles>
+	<ScrollPanel id="panel1">
+		<ImageView id="imagePanel" src="/image/image2-1.jpeg"><ImageView.styles width="320px" height="403px"></ImageView.styles></ImageView>
+	<TextView text="\n\n\n\n\n 달 하나와 나"><TextView.styles display="block" position="absolute" top="0px" left="0px" color="#FFFFFF" backgroundColor="transparent" backgroundImage="none" fontSize="17px"></TextView.styles></TextView>
+		<Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="Good"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles width="48px" backgroundImage="url('/image/addcomment.gif')"
+						borderStyle="none" backgroundColor="#FFFFFF" color="transparent"
+						display="-webkit-box" backgroundRepeat="no-repeat"
+						WebkitBorderRadius="0px"></Button.styles>
+
+				</Button>
+
+
+
+				<Panel>
+					<Panel.styles WebkitBoxFlex="4" width="180px"
+						backgroundColor="#FFFFFF"></Panel.styles>
+				</Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="G 27"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles borderStyle="none"
+						backgroundImage="url('/image/comments.gif')" backgroundColor="#FFFFFF"
+						color="#516691" borderColor="transparent" display="-webkit-box"
+						WebkitBorderRadius="0px" backgroundPosition="left center" width="78px"
+						textAlign="right" backgroundSize="50%"></Button.styles>
+					<Button.label normal="19"></Button.label>
+				</Button>
+				<Panel.styles width="100%" position="" display="-webkit-box"
+					WebkitBoxOrient="Horizontal" WebkitBoxPack="center" height="32px"></Panel.styles>
+			</Panel>
+	</ScrollPanel>
+	<ScrollPanel id="panel2"><ScrollPanel.styles WebkitBoxOrient="Horizontal"></ScrollPanel.styles>
+		<ImageView id="imagePanel" src="/image/image2-2.jpeg"><ImageView.styles width="320px" height="500px"></ImageView.styles></ImageView>
+		<TextView text="\n\n 옹기 종기 모여 있는 \n 우리는 \n 사무실에서도 옹기종기 \n\n 산과 들엔 누가?"><TextView.styles display="block" position="absolute" top="0px" left="0px" color="#FFFFFF" backgroundColor="transparent" backgroundImage="none" fontSize="18px"></TextView.styles></TextView>
+		<Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="Good"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles width="48px" backgroundImage="url('/image/addcomment.gif')"
+						borderStyle="none" backgroundColor="#FFFFFF" color="transparent"
+						display="-webkit-box" backgroundRepeat="no-repeat"
+						WebkitBorderRadius="0px"></Button.styles>
+
+				</Button>
+
+
+
+				<Panel>
+					<Panel.styles WebkitBoxFlex="4" width="180px"
+						backgroundColor="#FFFFFF"></Panel.styles>
+				</Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="G 27"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles borderStyle="none"
+						backgroundImage="url('/image/comments.gif')" backgroundColor="#FFFFFF"
+						color="#516691" borderColor="transparent" display="-webkit-box"
+						WebkitBorderRadius="0px" backgroundPosition="left center" width="78px"
+						textAlign="right" backgroundSize="50%"></Button.styles>
+					<Button.label normal="19"></Button.label>
+				</Button>
+				<Panel.styles width="100%" position="" display="-webkit-box"
+					WebkitBoxOrient="Horizontal" WebkitBoxPack="center" height="32px"></Panel.styles>
+			</Panel>
+	</ScrollPanel>
+	<ScrollPanel id="panel3"><ScrollPanel.styles height="auto"></ScrollPanel.styles>
+		<ImageView id="imagePanel" src="/image/image3-1.jpeg"><ImageView.styles width="320px"></ImageView.styles></ImageView>
+		<TextView text="\n\n 여름엔 겨울이 그립고 \n 겨울엔 여름이 그립고 \n 외로운 남자는 여자가 그립고 \n 여자는 핸드백이 그립고 (농담임) "><TextView.styles display="block" position="absolute" top="0px" left="0px" color="#FFFFFF" backgroundColor="transparent" backgroundImage="none" fontSize="17px" fontFamily='"Tahoma","Verdana","Arial","Sans-Serif"'></TextView.styles></TextView>
+		<Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="Good"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles width="48px" backgroundImage="url('/image/addcomment.gif')"
+						borderStyle="none" backgroundColor="#FFFFFF" color="transparent"
+						display="-webkit-box" backgroundRepeat="no-repeat"
+						WebkitBorderRadius="0px"></Button.styles>
+
+				</Button>
+
+
+
+				<Panel>
+					<Panel.styles WebkitBoxFlex="4" width="180px"
+						backgroundColor="#FFFFFF"></Panel.styles>
+				</Panel>
+				<Button>
+					<Button.styles display="-webkit-box" borderStyle="none"
+						WebkitBorderRadius="0px"></Button.styles>
+					<Button.label normal="G 27"></Button.label>
+				</Button>
+				<Button>
+					<Button.styles borderStyle="none"
+						backgroundImage="url('/image/comments.gif')" backgroundColor="#FFFFFF"
+						color="#516691" borderColor="transparent" display="-webkit-box"
+						WebkitBorderRadius="0px" backgroundPosition="left center" width="78px"
+						textAlign="right" backgroundSize="50%"></Button.styles>
+					<Button.label normal="19"></Button.label>
+				</Button>
+				<Panel.styles width="100%" position="" display="-webkit-box"
+					WebkitBoxOrient="Horizontal" WebkitBoxPack="center" height="32px"></Panel.styles>
+			</Panel>
+	</ScrollPanel>
+	<Carousel id="carousel">
+	</Carousel>
+	<Button id="write" onTap="handleWrite"><Button.label normal="write"></Button.label></Button>
+	
+</Scene>

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 
-import com.poetry.dao.PoetDao;
+import com.poetry.dao.UserDao;
 
 public class
 PoetService
@@ -18,7 +18,7 @@ implements UserDetailsManager
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired
-	protected PoetDao poetDao;
+	protected UserDao poetDao;
 
 	public
 	UserDetails

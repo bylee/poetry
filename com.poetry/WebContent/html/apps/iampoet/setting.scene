@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" viewPortWidth="320px" viewPortHeight="480px">
+	<Table id="main">
+	<TableCell groupName="personal" id="pInfo" title="개인정보"></TableCell><TableCell groupName="personal" id="following" title="Following" subTitle="(255)"></TableCell><TableCell groupName="personal" id="follower" title="Follower" subTitle="(1007)"></TableCell><TableCell groupName="poem" id="histroy" title="나의 시" subTitle="작성된 시를 타임라인으로 볼 수 있습니다."></TableCell>
+	
+	
+	<TableCell groupName="setting" id="nofi" title="Notification" subTitle="알림을 켜고 끌 수 있습니다."></TableCell>
+	<TableCell subTitle="계정 탈퇴"></TableCell>
+	</Table>
+	
+</Scene>

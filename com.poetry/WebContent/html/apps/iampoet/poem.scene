@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene xmlns="http://mobello.github.com/tau/scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	viewPortWidth="320px" viewPortHeight="480px">
+	<ScrollPanel>
+		<ScrollPanel.styles
+			backgroundImage="-webkit-gradient(linear, left top, left bottom,from(#907373),color-stop(17%,#907373),to(#FFFFFF))"
+			backgroundColor="#FFFFFF"></ScrollPanel.styles>
+		<Panel>
+			<Panel.styles width="100%" height="32px" backgroundColor="#FFFFFF" backgroundImage="-webkit-gradient(linear, left top, right top,from(#000000),to(#FFFFFF))"></Panel.styles>
+			<ImageView src="/image/person.jpeg">
+				<ImageView.styles width="32px" height="32px" display="inline" borderStyle="solid" borderWidth="2px" borderColor="#CCCCCC"></ImageView.styles>
+			</ImageView>
+	<Button><Button.styles borderStyle="none" backgroundImage="none" backgroundColor="transparent"></Button.styles><Button.label normal="AJ"></Button.label></Button>
+	<Label text="2011.07"><Label.styles fontSize="11px" right="5px" position="absolute" bottom="5px"></Label.styles></Label>
+
+		</Panel>
+		<ImageView src="/image/mainimage.jpeg">
+			<ImageView.styles display="block" width="320px"
+				backgroundImage="-webkit-gradient(linear, left top, left bottom,from(#EEDCDC),to(#FFFFFF))"
+				height="100%"></ImageView.styles>
+		</ImageView>
+
+
+		<TextView
+			text="\n
+	하늘은 늘 거기에 있네\n\n
+소리 없이 열려 있네\n\n
+구름떼에 뒤덮이고\n\n
+눈비에 가리워도\n\n
+늘 거기에 열려\n\n
+마알갛게 웃고 있네\n\n
+지금은 안개 자욱한\n\n
+저 산봉우리 너머로\n\n
+...\n\n
+...999\n\n...999\n\n...999\n\n...999\n\n
+" id="poem">
+			<TextView.styles color="#FFFFFF" zIndex="10000"
+				position="absolute" height="auto" display="block" top="32px"></TextView.styles>
+		</TextView>
+
+
+		<Panel>
+			<Button>
+				<Button.styles display="-webkit-box" borderStyle="none"
+					WebkitBorderRadius="0px"></Button.styles>
+				<Button.label normal="Good"></Button.label>
+			</Button>
+			<Button>
+				<Button.styles width="48px" backgroundImage="url('/image/addcomment.gif')"
+					borderStyle="none" backgroundColor="#FFFFFF" color="transparent"
+					display="-webkit-box" backgroundRepeat="no-repeat"
+					WebkitBorderRadius="0px"></Button.styles>
+				
+			</Button>
+
+
+
+			<Panel>
+				<Panel.styles WebkitBoxFlex="4" width="180px"
+					backgroundColor="#FFFFFF"></Panel.styles>
+			</Panel>
+			<Button>
+				<Button.styles display="-webkit-box" borderStyle="none"
+					WebkitBorderRadius="0px"></Button.styles>
+				<Button.label normal="G 27"></Button.label>
+			</Button>
+			<Button>
+				<Button.styles borderStyle="none"
+					backgroundImage="url('/image/comments.gif')" backgroundColor="#FFFFFF"
+					color="#516691" borderColor="transparent" display="-webkit-box"
+					WebkitBorderRadius="0px" backgroundPosition="left center" width="78px"
+					textAlign="right" backgroundSize="50%"></Button.styles>
+				<Button.label normal="19"></Button.label>
+			</Button>
+			<Panel.styles width="100%" position="" display="-webkit-box"
+				WebkitBoxOrient="Horizontal" WebkitBoxPack="center"></Panel.styles>
+		</Panel>
+	</ScrollPanel>
+
+</Scene>

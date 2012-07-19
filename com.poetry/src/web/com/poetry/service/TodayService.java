@@ -20,16 +20,16 @@ TodayService
 	public
 	List<Poetry>
 	getTodayPoetries(
-		final String startId
+		final String date
 	)
 	{
-		if ( null == startId )
+		if ( null == date )
 		{
 			return poetryDao.list();
 		}
 		else
 		{
-			return poetryDao.listAfter( startId );
+			return poetryDao.listAfter( date );
 		}
 		
 	}

@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -15,17 +17,19 @@ public class Poetry
 	
 	protected String title;
 	
-	protected String author;
+	@ManyToOne
+	@JoinColumn( name = "author" )
+	protected Poet author;
 	
 	protected String contents;
 	
 	@Column( name = "image" )
-	protected String imageId;
-
+	protected String image;
+	
 	protected Date createdDate;
 	
 	@Transient
-	protected int good;
+	protected int star;
 	
 	@Transient
 	protected int reply;
@@ -62,12 +66,12 @@ public class Poetry
 		this.title = title;
 	}
 	
-	public String getAuthor()
+	public Poet getAuthor()
 	{
 		return this.author;
 	}
 	
-	public void setAuthor( final String author )
+	public void setAuthor( final Poet author )
 	{
 		this.author = author;
 	}
@@ -88,14 +92,14 @@ public class Poetry
 		this.contents = contents;
 	}
 	
-	public String getImageId()
+	public String getImage()
 	{
-		return this.imageId;
+		return this.image;
 	}
 	
-	public void setImageId( final String imageId )
+	public void setImage( final String image )
 	{
-		this.imageId = imageId;
+		this.image = image;
 	}
 
 	/**
@@ -114,14 +118,14 @@ public class Poetry
 		this.createdDate = createdDate;
 	}
 
-	public int getGood()
+	public int getStar()
 	{
-		return this.good;
+		return this.star;
 	}
 	
-	public void setGood( final int good )
+	public void setStar( final int star )
 	{
-		this.good = good;
+		this.star = star;
 	}
 	
 	public int getReply()
