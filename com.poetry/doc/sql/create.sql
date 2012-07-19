@@ -1,8 +1,10 @@
 create table Poet
 (
 	username varchar( 32 ),
+	pen_name varchar( 32 ),
 	password varchar( 64 ),
-	pen_name varchar( 32 )
+	authority varchar( 128 )
+	
 );
 
 create table File
@@ -10,7 +12,7 @@ create table File
 	id varchar( 64 ),
 	name varchar( 256 ),
 	mime varchar( 64 ),
-	contents blob
+	contents mediumblob
 );
 
 create table Poetry
@@ -20,23 +22,16 @@ create table Poetry
 	author varchar( 32 ),
 	image varchar( 64 ),
 	createdDate date,
-	contents TEXT
+	contents TEXT,
+	star numeric
 );
 
 create table Reply
 (
 	id varchar( 64 ),
 	targetId varchar( 64 ),
-	user varchar( 128 ),
+	writer varchar( 128 ),
 	contents varchar( 256 ),
 	createdDate date
 );
-
-select * from poetry
-
-select * from binary
-
-
-
-
 

@@ -1,5 +1,7 @@
 package com.poetry.dao;
 
+import static com.poetry.util.PoetryUtils.strip;
+
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -13,31 +15,40 @@ public class
 PoetryDao
 extends AbstractDao
 {
-	public void insert( final Poetry poetry )
+	public void addPoetry( final Poetry poetry )
 	{
 		poetry.setId( generateId( poetry ) );
 		super.insert( poetry );
 	}
 
-	public List<Poetry> list()
+	@SuppressWarnings("unchecked")
+	public List<Poetry> listPoetry()
 	{
 		final String query =
 			"from Poetry poetry order by poetry";
 		
-		return (List<Poetry>) find( query ); 
+		return strip( (List<Poetry>) find( query ) ); 
 	}
 
-	public List<Poetry> listAfter( final String startId )
+	@SuppressWarnings("unchecked")
+	public List<Poetry> listPoetryAfter( final String startId )
 	{
 		final String query =
 			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
 		
-		return (List<Poetry>) find( query ); 
+		return strip( (List<Poetry>) find( query ) ); 
 	}
 
-	public Poetry get( final String id )
+	public Poetry getPoetry( final String id )
 	{
-		return get( Poetry.class, id );
+		final Poetry poetry = get( Poetry.class, id );
+		
+		if ( null == poetry )
+		{
+			return null;
+		}
+		
+		return strip( poetry )[0];
 	}
 
 }

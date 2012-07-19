@@ -1,5 +1,8 @@
 package com.poetry.dao;
 
+import static com.poetry.util.ReplyUtils.strip;
+
+
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -13,7 +16,7 @@ ReplyDao
 extends AbstractDao
 {
 	
-	public String insert( Reply reply )
+	public String addReply( Reply reply )
 	{
 		final String id = generateId( reply );
 		reply.setId( id );
@@ -31,6 +34,7 @@ extends AbstractDao
 		return get( Reply.class, id );
 	}
 
+	@SuppressWarnings("unchecked")
 	public
 	List<Reply>
 	list(
@@ -38,7 +42,19 @@ extends AbstractDao
 	)
 	{
 		final String query =
-			MessageFormat.format( "from Reply reply where reply.targetId = '{}'", id );
-		return (List<Reply>) find( query );
+			MessageFormat.format( "from Reply reply where reply.targetId = ''{0}''", id );
+		return strip( (List<Reply>) find( query ) );
+	}
+
+	public
+	long
+	getNumberOfReply(
+		final String targetId
+	)
+	{
+		getSession().flush();
+		final String query = 
+			MessageFormat.format( "select count(reply.id) from Reply reply where reply.targetId = ''{0}''" , targetId );
+		return (Long) getSession().createQuery( query ).uniqueResult();
 	}
 }

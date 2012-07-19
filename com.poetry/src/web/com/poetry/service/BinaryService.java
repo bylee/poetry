@@ -19,7 +19,7 @@ BinaryService
 
 	public String upload( final Binary binary )
 	{
-		return binaryDao.insert( binary );
+		return binaryDao.addBinary( binary );
 		
 	}
 

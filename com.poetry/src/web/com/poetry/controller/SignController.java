@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.poetry.model.User;
+import com.poetry.model.Poet;
 import com.poetry.model.SignStatus;
 
 @Controller
@@ -52,7 +52,7 @@ SignController
 
 		final UsernamePasswordAuthenticationToken token =
 			new UsernamePasswordAuthenticationToken( username, password );
-		final User details = new User();
+		final Poet details = new Poet();
 		details.setUsername( username );
 		token.setDetails( details );
 

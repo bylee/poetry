@@ -2,7 +2,6 @@ package com.poetry.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -10,7 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
-public class Poetry
+public class
+Poetry
 {
 	@Id
 	protected String id;
@@ -23,16 +23,29 @@ public class Poetry
 	
 	protected String contents;
 	
-	@Column( name = "image" )
 	protected String image;
 	
 	protected Date createdDate;
 	
-	@Transient
 	protected int star;
 	
 	@Transient
 	protected int reply;
+	
+	public Poetry()
+	{
+	}
+	
+	public Poetry(
+		final String title,
+		final Poet author,
+		final String image
+	)
+	{
+		this.title = title;
+		this.author = author;
+		this.image = image;
+	}
 
 	/**
 	 * @return the id
@@ -138,4 +151,11 @@ public class Poetry
 		this.reply = reply;
 	}
 	
+	@Override
+	public
+	String
+	toString()
+	{
+		return "Poetry[" + getId() + "]";
+	}
 }
