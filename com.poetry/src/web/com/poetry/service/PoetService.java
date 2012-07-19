@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 
@@ -30,7 +29,7 @@ implements UserDetailsManager
 		UserDetails userDetails = null;
 		try
 		{
-			userDetails = poetDao.getPoet( username );
+			userDetails = poetDao.getUser( username );
 			
 			logger.trace( "user info :{}", userDetails );
 			

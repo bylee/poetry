@@ -13,8 +13,8 @@
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="true">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://127.0.0.1/poetry"/>
-		<property name="username" value="root"/>
-		<property name="password" value=""/>
+		<property name="username" value="poet"/>
+		<property name="password" value="poet"/>
 	</bean>
 	
 	<tx:annotation-driven/>
@@ -34,7 +34,6 @@
 	
 	<context:component-scan base-package="com.poetry.dao" />
 	
-	<bean name="todayService" class="com.poetry.service.TodayService"></bean>
 	<bean name="poetryService" class="com.poetry.service.PoetryService"></bean>
 	<bean name="replyService" class="com.poetry.service.ReplyService"></bean>
 	<bean name="binaryService" class="com.poetry.service.BinaryService"></bean>

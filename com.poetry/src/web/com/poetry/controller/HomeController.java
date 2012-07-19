@@ -21,14 +21,10 @@ import com.poetry.model.Reply;
 import com.poetry.service.BinaryService;
 import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
-import com.poetry.service.TodayService;
 
 @Controller
 public class HomeController
 {
-	@Autowired
-	protected TodayService todayService;
-	
 	@Autowired
 	protected PoetryService poetryService;
 	
@@ -81,7 +77,7 @@ public class HomeController
 		final String date
 	)
 	{
-		return todayService.getTodayPoetries( date );
+		return poetryService.getTodayPoetries( date );
 	}
 	
 	/**
@@ -183,7 +179,7 @@ public class HomeController
 		final Reply reply
 	)
 	{
-		replyService.add( reply );
+		replyService.addReply( reply );
 	}
 	
 	/**

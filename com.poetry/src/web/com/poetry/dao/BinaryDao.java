@@ -10,7 +10,7 @@ BinaryDao
 extends AbstractDao
 {
 	public String
-	insert(
+	addBinary(
 		final Binary binary
 	)
 	{

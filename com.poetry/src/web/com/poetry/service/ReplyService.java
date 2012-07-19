@@ -11,10 +11,13 @@ public class
 ReplyService
 {
 	@Autowired
+	protected PoetService poetService;
+	
+	@Autowired
 	protected ReplyDao replyDao;
 	
 	public
-	void add(
+	void addReply(
 		final Reply reply
 	)
 	{

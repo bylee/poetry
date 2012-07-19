@@ -5,7 +5,7 @@ INSERT INTO Poet ( username, password, pen_name ) VALUES
 ( 'anjong', 'anjong', 'anjong1');
 
 INSERT INTO Poet ( username, password, pen_name ) VALUES
-( 'csoonoosc', 'csoonoosc', 'chungsoon');
+( 'csoonoosc', 'csoonoosc', 'choongsun');
 
 INSERT INTO Poet ( username, password, pen_name ) VALUES
 ( 'hellojintae', 'hellojintae', 'jintae');

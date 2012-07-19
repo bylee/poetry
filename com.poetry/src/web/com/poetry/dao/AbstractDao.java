@@ -111,7 +111,6 @@ AbstractDao
 		query.setMaxResults( LIMIT );
 		
 		return query.list();
-
 	}
 
 }

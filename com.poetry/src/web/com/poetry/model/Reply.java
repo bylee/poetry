@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Reply
@@ -13,21 +15,28 @@ public class Reply
 	
 	protected String targetId;
 	
-	protected String user;
+	@ManyToOne
+	@JoinColumn( name = "writer" )
+	protected Poet writer;
 	
 	protected String contents;
 	
-	protected Date createDate;
+	protected Date createdDate;
 	
-	public Reply()
-	{
-	}
+	public Reply() {}
 	
 	public Reply( final String id )
 	{
 		this.id = id;
 	}
-
+	
+	public Reply( final String targetId, final Poet writer, final String contents )
+	{
+		this.targetId = targetId;
+		this.writer= writer;
+		this.contents = contents;
+	}
+	
 	/**
 	 * @return the id
 	 */
@@ -63,17 +72,17 @@ public class Reply
 	/**
 	 * @return the user
 	 */
-	public String getUser()
+	public Poet getWriter()
 	{
-		return user;
+		return writer;
 	}
 
 	/**
-	 * @param user the user to set
+	 * @param writer the user to set
 	 */
-	public void setUser( String user )
+	public void setWriter( Poet writer )
 	{
-		this.user = user;
+		this.writer = writer;
 	}
 
 	/**
@@ -97,7 +106,7 @@ public class Reply
 	 */
 	public Date getCreateDate()
 	{
-		return createDate;
+		return createdDate;
 	}
 
 	/**
@@ -105,7 +114,7 @@ public class Reply
 	 */
 	public void setCreateDate( Date createDate )
 	{
-		this.createDate = createDate;
+		this.createdDate = createDate;
 	}
 
 	
