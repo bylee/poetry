@@ -45,7 +45,7 @@
 	<bean class="com.poetry.controller.HomeController" />
 	
 	<bean class="com.poetry.util.IdGenerator"></bean>
-	<bean class="com.poetry.service.TodayServiceMock"></bean>
+	<bean class="com.poetry.service.PoetServiceMock"></bean>
 	<bean class="com.poetry.service.PoetryServiceMock"></bean>
 	<bean class="com.poetry.service.ReplyServiceMock"></bean>
 	<bean class="com.poetry.service.BinaryServiceMock"></bean>
