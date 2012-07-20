@@ -34,27 +34,6 @@ public class HomeController
 	@Autowired
 	protected ReplyService replyService;
 	
-	@RequestMapping( value = "/signin" )
-	public String
-	formSignin()
-	{
-		return "signin";
-	}
-	
-	
-	@RequestMapping(
-		value = "/user/{userid}",
-		method = RequestMethod.GET
-	)
-	public
-	String
-	login(
-		@PathVariable( "userid" ) final String userId
-	)
-	{
-		return null;
-	}
-	
 	/**
 	 * 오늘의 시들을 반환한다.
 	 * 
@@ -152,7 +131,8 @@ public class HomeController
 		value = "/reply/{targetid}",
 		method = RequestMethod.GET
 	)
-	public @ResponseBody
+	public
+	@ResponseBody
 	List<Reply>
 	getReply(
 		@PathVariable( "targetid" )

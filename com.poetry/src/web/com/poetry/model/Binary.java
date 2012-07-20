@@ -17,6 +17,8 @@ Binary
 	
 	protected String name;
 	
+	protected String owner;
+	
 	protected String mime;
 	
 	protected byte[] contents;
@@ -51,6 +53,20 @@ Binary
 	public void setName( String name )
 	{
 		this.name = name;
+	}
+	
+	public String getOwner()
+	{
+		return this.owner;
+	}
+	
+	public
+	void
+	setOwner(
+		final String owner
+	)
+	{
+		this.owner = owner;
 	}
 
 	/**

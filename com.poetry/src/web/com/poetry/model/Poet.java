@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,11 +15,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import escode.util.CollectionUtils;
 
 @Entity
-@Table( name = "Poet" )
-public class Poet
+public class
+Poet
 implements UserDetails
 {
 	private static final long serialVersionUID = 7403546217867181618L;
+	
+	protected static String DEFAULT_AUTHORITY = "ROLE_USER";
 	
 	@Id
 	protected String username;
@@ -31,7 +33,18 @@ implements UserDetails
 	
 	protected String authority = DEFAULT_AUTHORITY;
 	
-	protected static String DEFAULT_AUTHORITY = "ROLE_USER";
+	@Transient
+	protected int nPoetries;
+	
+	@Transient
+	protected int nClips;
+	
+	@Transient
+	protected int nFollowings;
+	
+	@Transient
+	protected int nFollowers;
+	
 	
 	public Poet()
 	{}
@@ -173,6 +186,49 @@ implements UserDetails
 	{
 		return true;
 	}
+
+	public int getTheNumberOfPoetries()
+	{
+		return this.nPoetries;
+	}
+	
+	public void setTheNumberOfPoetries( final int nPoetries )
+	{
+		this.nPoetries = nPoetries;
+	}
+
+	public int getTheNumberOfClips()
+	{
+		return this.nClips;
+	}
+	
+	public void setTheNumberOfClips( final int nClips )
+	{
+		this.nClips = nClips;
+	}
+
+
+	public int getTheNumberOfFollowings()
+	{
+		return this.nFollowings;
+	}
+	
+	public void setTheNumberOfFollowings( final int nFollowings )
+	{
+		this.nFollowings = nFollowings;
+	}
+
+
+	public int getTheNumberOfFollowers()
+	{
+		return this.nFollowers;
+	}
+	
+	public void setTheNumberOfFollowers( final int nFollowers )
+	{
+		this.nFollowers = nFollowers;
+	}
+
 
 	public String toString()
 	{

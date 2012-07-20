@@ -14,3 +14,5 @@ INSERT INTO Poetry( id, title, author, image, contents ) VALUES
 ( 'first', 'My First Poetry', 'bylee', 'aaaa', 'Hello, world' );
 
 select * from Poet;
+
+select * from Following;

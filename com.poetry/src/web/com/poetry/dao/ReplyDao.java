@@ -47,7 +47,7 @@ extends AbstractDao
 	}
 
 	public
-	long
+	int
 	getNumberOfReply(
 		final String targetId
 	)
@@ -55,6 +55,6 @@ extends AbstractDao
 		getSession().flush();
 		final String query = 
 			MessageFormat.format( "select count(reply.id) from Reply reply where reply.targetId = ''{0}''" , targetId );
-		return (Long) getSession().createQuery( query ).uniqueResult();
+		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
 	}
 }

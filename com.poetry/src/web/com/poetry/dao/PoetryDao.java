@@ -50,5 +50,16 @@ extends AbstractDao
 		
 		return strip( poetry )[0];
 	}
+	
+	public
+	int
+	getTheNumberOfPoetries(
+		final String username
+	)
+	{
+		final String query = 
+			MessageFormat.format( "select count(poetry.author) from Poetry poetry where poetry.author = ''{0}''" , username );
+		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+	}
 
 }

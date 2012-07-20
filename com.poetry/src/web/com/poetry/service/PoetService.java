@@ -3,21 +3,34 @@ package com.poetry.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.stereotype.Service;
 
-import com.poetry.dao.UserDao;
+import com.poetry.dao.BinaryDao;
+import com.poetry.dao.PoetryDao;
+import com.poetry.dao.PoetDao;
+import com.poetry.model.Poet;
 
+@Service
 public class
 PoetService
-implements UserDetailsManager
+implements UserDetailsService
 {
 	
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired
-	protected UserDao poetDao;
+	protected PoetDao poetDao;
+	
+	@Autowired
+	protected BinaryDao binaryDao;
+	
+	@Autowired
+	protected PoetryDao poetryDao;
 
 	public
 	UserDetails
@@ -48,29 +61,17 @@ implements UserDetailsManager
 		return userDetails;
 	}
 
-	public void createUser( UserDetails userDetails )
+	public
+	Poet
+	getPoetDetail( final String username )
 	{
-	}
-
-	public void updateUser( UserDetails userDetails )
-	{
-	}
-
-	public void deleteUser( String username )
-	{
-		// TODO Auto-generated method stub
+		final Poet poet = poetDao.getPoet( username );
+		poet.setTheNumberOfPoetries( poetryDao.getTheNumberOfPoetries( username ) );
+		poet.setTheNumberOfFollowers( poetDao.getTheNumberOfFollowers( username ) );
+		poet.setTheNumberOfFollowings( poetDao.getTheNumberOfFollowings( username ) );
+		poet.setTheNumberOfClips( binaryDao.getTheNumberOfClips( username ) );
 		
-	}
-
-	public void changePassword( String username, String password )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean userExists( String username )
-	{
-		return false;
+		return poet;
 	}
 
 }

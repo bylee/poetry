@@ -17,8 +17,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
-import com.poetry.dao.UserDao;
+import com.poetry.dao.PoetDao;
 import com.poetry.model.Binary;
+import com.poetry.model.Following;
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
@@ -35,7 +36,7 @@ Install
 	protected SessionFactory sessionFactory;
 	
 	@Autowired
-	protected UserDao userDao;
+	protected PoetDao userDao;
 	
 	@Autowired
 	protected BinaryDao binaryDao;
@@ -83,6 +84,7 @@ Install
 			
 			final Binary binary = new Binary();
 			binary.setName( "test.jpg" );
+			binary.setOwner( bylee.getUsername() );
 			binary.setMime( "image/jpg" );
 			final InputStream in = getClass().getResourceAsStream( "/com/poetry/15585.jpg" );
 			try
@@ -103,6 +105,9 @@ Install
 			
 			replyDao.addReply( new Reply( poetry.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry.getId(), csoonoosc, "So so" ) );
+			
+			userDao.addFollowing( new Following( bylee.getUsername(), anjong.getUsername() ) );
+			userDao.addFollowing( new Following( bylee.getUsername(), csoonoosc.getUsername() ) );
 		}
 		finally
 		{

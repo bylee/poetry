@@ -11,6 +11,7 @@ create table File
 (
 	id varchar( 64 ),
 	name varchar( 256 ),
+	owner varchar( 32 ),
 	mime varchar( 64 ),
 	contents mediumblob
 );
@@ -35,3 +36,8 @@ create table Reply
 	createdDate date
 );
 
+create table Following
+(
+	following varchar( 32 ),
+	follower varchar( 32 )
+);
