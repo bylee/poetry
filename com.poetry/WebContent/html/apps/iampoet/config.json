@@ -9,9 +9,9 @@ config({
   loglevel	  : 1,
   
   tabs : [
-  	{title : '오늘의시', icon: './image/today.png', selectedIcon: '/image/home_selected.png'},
-    {title : '미션', icon: './image/mission.png', selectedIcon: '/image/entertainment_selected.png'},
-    {title : '뉴스피드', icon: './image/news.png', selectedIcon: '/image/star_selected.png'},
-    {title : 'ME', icon: './image/me.png', selectedIcon: '/image/shopping_selected.png'}
+  	{title : '오늘의시', icon: '/image/today.png', selectedIcon: '/image/home_selected.png'},
+    {title : '미션', icon: '/image/mission.png', selectedIcon: '/image/entertainment_selected.png'},
+    {title : '뉴스피드', icon: '/image/news.png', selectedIcon: '/image/star_selected.png'},
+    {title : 'ME', icon: '/image/me.png', selectedIcon: '/image/shopping_selected.png'}
   ],
 });

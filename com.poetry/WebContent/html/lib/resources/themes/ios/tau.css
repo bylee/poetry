@@ -546,7 +546,7 @@
 	overflow: hidden;
 	text-align: center;
 	border: 0px #000 solid;
-	border-top: 2px #0D0D0D solid;
+	border-top: 1px #0D0D0D solid;
 	background-color: #2d2d2d;
 	background-color: #000;
 	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, RGB(251,251,251)),
@@ -609,8 +609,7 @@
 }
 
 .tau-tab-selected {
-	background-color: #484848;
-	background-color: #232323;
+	background-color: RGB(199,199,199);
 	background-image: -webkit-gradient(linear, 5% 0%, 6% 100%, color-stop(0%, RGB(150,150,146)),
 		color-stop(2%, RGB(189,189,189)), color-stop(3%, RGB(199,199,199)),
 		color-stop(100%, RGB(199,199,199)) );
@@ -623,6 +622,11 @@
 
 .tau-tab:active {
 	background-color: #555;
+	background-image: -webkit-gradient(linear, 5% 0%, 6% 100%, color-stop(0%, RGB(150,150,146)),
+		color-stop(2%, RGB(189,189,189)), color-stop(3%, RGB(199,199,199)),
+		color-stop(100%, RGB(199,199,199)) );
+	background-image: -webkit-linear-gradient(RGB(150,150,146), RGB(189,189,189) 5%, RGB(199,199,199) 6%, RGB(199,199,199));
+	background-image: linear-gradient(RGB(150,150,146), RGB(189,189,189) 5%, RGB(199,199,199) 6%, RGB(199,199,199));
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	color: #fff

@@ -36,7 +36,8 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
       tabcomp.setBackgroundImage(backImage);
       tabcomp.setStyles({
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'top center'
+        backgroundPosition: '50% 70%',
+        backgroundSize: '80px 55px'
       });
     }
 		
