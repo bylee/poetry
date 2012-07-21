@@ -84,21 +84,21 @@ Install
 			userDao.addNewPoet( hanseoung82 );
 			
 			final Binary image1 = new Binary();
-			image1.setName( "mainimage.jpg" );
+			image1.setName( "mainimage.jpeg" );
 			image1.setOwner( bylee.getUsername() );
 			image1.setMime( "image/jpg" );
 			image1.setContents( load( image1.getName() ) );
 			binaryDao.addBinary( image1 );
 			
 			final Binary image2_1 = new Binary();
-			image2_1.setName( "image2-1.jpg" );
+			image2_1.setName( "image2-1.jpeg" );
 			image2_1.setOwner( bylee.getUsername() );
 			image2_1.setMime( "image/jpg" );
 			image2_1.setContents( load( image2_1.getName() ) );
 			binaryDao.addBinary( image2_1 );
 			
 			final Binary image2_2 = new Binary();
-			image2_2.setName( "image2-2.jpg" );
+			image2_2.setName( "image2-2.jpeg" );
 			image2_2.setOwner( bylee.getUsername() );
 			image2_2.setMime( "image/jpg" );
 			image2_2.setContents( load( image2_2.getName() ) );
@@ -113,7 +113,7 @@ Install
 			binaryDao.addBinary( image3_1 );
 			
 			final Binary image3_2 = new Binary();
-			image3_2.setName( "image3_2.jpg" );
+			image3_2.setName( "image3_2.jpeg" );
 			image3_2.setOwner( bylee.getUsername() );
 			image3_2.setMime( "image/jpg" );
 			image3_2.setContents( load( image3_2.getName() ) );
