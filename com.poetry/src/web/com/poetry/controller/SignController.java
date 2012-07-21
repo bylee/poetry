@@ -1,5 +1,8 @@
 package com.poetry.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +49,8 @@ SignController
 	SignStatus
 	login(
 		@RequestParam("j_username") String username,
-		@RequestParam("j_password") String password
+		@RequestParam("j_password") String password,
+		HttpServletResponse response
 	)
 	{
 
@@ -59,6 +63,7 @@ SignController
 		try {
 			final Authentication auth = authenticationManager.authenticate( token );
 			SecurityContextHolder.getContext().setAuthentication( auth );
+			response.addCookie( new Cookie( "username", username ) );
 			return new SignStatus( auth.getName(), "success" );
 		} catch (BadCredentialsException e) {
 			return new SignStatus( null, "fail" );
