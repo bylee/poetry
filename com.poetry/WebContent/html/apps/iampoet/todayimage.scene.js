@@ -21,7 +21,7 @@ function initScene() {
   scrollPanel1.add(imageView1);
   imageView1.onEvent('tap', this.handleMainImage, this);
   var imageView2 = new tau.ui.ImageView({
-    id : 'image2-1',
+    id : 'sub1Image',
     src : '/image/image2-1.jpeg',
     styles : {
       WebkitBorderRadius : '7px',
@@ -35,7 +35,7 @@ function initScene() {
   scrollPanel1.add(imageView2);
   imageView2.onEvent('tap', this.handleImage2_1, this);
   var imageView3 = new tau.ui.ImageView({
-    id : 'image2-2',
+    id : 'sub2Image',
     src : '/image/image2-2.jpeg',
     styles : {
       WebkitBorderRadius : '7px',
@@ -48,7 +48,7 @@ function initScene() {
   });
   scrollPanel1.add(imageView3);
   var imageView4 = new tau.ui.ImageView({
-    id : 'image3-1',
+    id : 'sub3Image',
     src : '/image/image3-1.jpeg',
     styles : {
       WebkitBorderRadius : '7px',
@@ -61,7 +61,7 @@ function initScene() {
   });
   scrollPanel1.add(imageView4);
   var imageView5 = new tau.ui.ImageView({
-    id : 'image3-3',
+    id : 'sub4Image',
     src : '/image/image3-2.jpeg',
     styles : {
       WebkitBorderRadius : '7px',

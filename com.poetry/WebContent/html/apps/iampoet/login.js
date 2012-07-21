@@ -62,6 +62,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 	handleMain: function (resp) {
 	  this.fireEvent('dismiss');
 	  var resJson = resp.responseJSON;
+	  this.fireEvent('todayData', resJson);
 	  tau.alert('login success and today data!!');
 	  tau.log(resJson);
 	}

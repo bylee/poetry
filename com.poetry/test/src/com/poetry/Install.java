@@ -105,15 +105,14 @@ Install
 			binaryDao.addBinary( image2_2 );
 			
 			final Binary image3_1 = new Binary();
-			image3_1.setName( "image3_1" +
-					".jpg" );
+			image3_1.setName( "image3-1.jpeg" );
 			image3_1.setOwner( bylee.getUsername() );
 			image3_1.setMime( "image/jpg" );
 			image3_1.setContents( load( image3_1.getName() ) );
 			binaryDao.addBinary( image3_1 );
 			
 			final Binary image3_2 = new Binary();
-			image3_2.setName( "image3_2.jpeg" );
+			image3_2.setName( "image3-2.jpeg" );
 			image3_2.setOwner( bylee.getUsername() );
 			image3_2.setMime( "image/jpg" );
 			image3_2.setContents( load( image3_2.getName() ) );
@@ -140,7 +139,6 @@ Install
 			poetry3.setStar( 4 );
 			poetryDao.addPoetry( poetry3 );
 			
-			replyDao.addReply( new Reply( poetry3.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
 
 			final Poetry poetry4 = new Poetry( "4", csoonoosc, image3_1.getId() );
@@ -175,6 +173,10 @@ Install
 		final InputStream in = getClass().getResourceAsStream( "/com/poetry/" + name );
 		try
 		{
+			if ( null == in )
+			{
+				throw new NullPointerException();
+			}
 			return StreamUtils.getBytes( in );
 		}
 		finally

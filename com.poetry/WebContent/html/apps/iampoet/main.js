@@ -28,7 +28,8 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
       var tabcomp = tabcomps[i];
       var backImage = {
         normal: tabs[i].icon,
-        selected: tabs[i].selectedIcon,
+        //selected: tabs[i].selectedIcon,
+        selected: tabs[i].icon,
         disabled: tabs[i].icon,
         highlighted: tabs[i].icon,
       };

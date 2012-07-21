@@ -36,7 +36,41 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		this.dismissModal(true);
 	},
 	
-	handleToday: function (){
+	handleToday: function (event, param){
+	  var scene = this.getScene();
+	  var resJson = param;
+	  var poetryIndex = [{
+	    imageId : 'mainImage',
+	    titleId : 'mainTitle',
+	    authorId : 'mainAuthor'
+	  },{
+	    imageId : 'sub1Image',
+	    titleId : 'sub1Title',
+	    authorId : 'sub1Author'
+	  },{
+      imageId : 'sub2Image',
+      titleId : 'sub2Title',
+      authorId : 'sub2Author'
+    },{
+      imageId : 'sub3Image',
+      titleId : 'sub3Title',
+      authorId : 'sub3Author'
+    },{
+      imageId : 'sub4Image',
+      titleId : 'sub4Title',
+      authorId : 'sub4Author'
+    }];
+	  var index = 0;
+	  for(var poetry in resJson) {
+	    var imagePanel = scene.getComponent(poetryIndex[index].imageId);
+	    var titleLabel = scene.getComponent(poetryIndex[index].titleId);
+	    var authorLabel = scene.getComponent(poetryIndex[index].authorId);
+	    imagePanel.setSrc("/../../../binary/"+resJson[poetry].image);
+	    titleLabel.setText(resJson[poetry].title);
+	    authorLabel.setText(resJson[poetry].author.penName);
+	    index++;
+	  }
+	  
 	  
 	}
 });
