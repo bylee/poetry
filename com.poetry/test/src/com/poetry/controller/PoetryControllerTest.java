@@ -33,7 +33,7 @@ import com.poetry.servlet.MockWebApplicationContextLoader;
 )
 @MockWebApplication( name="sample" )
 public class
-HomeControllerTest
+PoetryControllerTest
 {
 	protected Logger logger = LoggerFactory.getLogger( getClass() );
 	
@@ -61,8 +61,11 @@ HomeControllerTest
 	public void test_create() throws Exception
 	{
 		final Object[][] TEST_CASES = new Object[][] {
-			new Object[] { "/today/20120718", "GET", null, "\"title\":" },
-			new Object[] { "/binary/image1", "GET", "image/jpeg", null },
+			new Object[] { "/poetry/poetry1", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry2", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry3", "GET", null, "\"title\":" },
+			new Object[] { "/poetry/poetry4", "GET", null, "\"title\":" },
+			new Object[] { "/reply/poetry1", "GET", null, "wonderful" },
 		};
 		
 		for ( final Object[] TEST_CASE : TEST_CASES )

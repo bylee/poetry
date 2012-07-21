@@ -27,6 +27,7 @@ Poetry
 	
 	protected Date createdDate;
 	
+	@Transient
 	protected int star;
 	
 	@Transient

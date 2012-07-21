@@ -48,7 +48,7 @@ extends AbstractDao
 
 	public
 	int
-	getNumberOfReply(
+	getTheNumberOfReply(
 		final String targetId
 	)
 	{

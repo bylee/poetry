@@ -8,7 +8,8 @@ import com.poetry.dao.ReplyDao;
 import com.poetry.model.Reply;
 
 public class
-ReplyService
+ReplyServiceImpl
+implements ReplyService
 {
 	@Autowired
 	protected PoetService poetService;
@@ -16,14 +17,17 @@ ReplyService
 	@Autowired
 	protected ReplyDao replyDao;
 	
+	@Override
 	public
-	void addReply(
+	void
+	addReply(
 		final Reply reply
 	)
 	{
 		replyDao.insert( reply );
 	}
 
+	@Override
 	public
 	Reply
 	get(
@@ -33,6 +37,7 @@ ReplyService
 		return replyDao.get( id );
 	}
 
+	@Override
 	public
 	List<Reply>
 	list(

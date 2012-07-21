@@ -6,18 +6,29 @@ import com.poetry.dao.BinaryDao;
 import com.poetry.model.Binary;
 
 public class
-BinaryService
+BinaryServiceImpl
+implements BinaryService
 {
 	
 	@Autowired
 	protected BinaryDao binaryDao;
 	
-	public Binary getBinary( final String id )
+	@Override
+	public
+	Binary
+	getBinary(
+		final String id
+	)
 	{
 		return binaryDao.get( id );
 	}
 
-	public String upload( final Binary binary )
+	@Override
+	public
+	String
+	upload(
+		final Binary binary
+	)
 	{
 		return binaryDao.addBinary( binary );
 		

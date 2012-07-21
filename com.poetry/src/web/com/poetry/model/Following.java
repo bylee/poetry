@@ -32,7 +32,9 @@ implements Serializable
 	/**
 	 * @return the following
 	 */
-	public String getFollowing()
+	public
+	String
+	getFollowing()
 	{
 		return following;
 	}
@@ -40,7 +42,11 @@ implements Serializable
 	/**
 	 * @param following the following to set
 	 */
-	public void setFollowing( String following )
+	public
+	void
+	setFollowing(
+		final String following
+	)
 	{
 		this.following = following;
 	}
@@ -48,7 +54,9 @@ implements Serializable
 	/**
 	 * @return the follower
 	 */
-	public String getFollower()
+	public
+	String
+	getFollower()
 	{
 		return follower;
 	}
@@ -56,7 +64,11 @@ implements Serializable
 	/**
 	 * @param follower the follower to set
 	 */
-	public void setFollower( String follower )
+	public
+	void
+	setFollower(
+		final String follower
+	)
 	{
 		this.follower = follower;
 	}

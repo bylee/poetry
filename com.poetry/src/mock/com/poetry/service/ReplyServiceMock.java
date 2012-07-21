@@ -7,9 +7,11 @@ import com.poetry.model.Reply;
 
 public class
 ReplyServiceMock
-extends ReplyService
+implements ReplyService
 {
-	public List<Reply>
+	@Override
+	public
+	List<Reply>
 	list(
 		final String targetId,
 		final String start
@@ -27,6 +29,18 @@ extends ReplyService
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public void addReply( Reply reply )
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Reply get( String id )
+	{
+		throw new UnsupportedOperationException();
 	}
 
 }

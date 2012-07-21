@@ -5,6 +5,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/mock"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/web"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/service"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/interface"/>
         <property name="java-output-path" value="/poetry/build/classes"/>
         <property name="context-root" value="ROOT"/>
     </wb-module>

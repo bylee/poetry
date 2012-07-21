@@ -8,7 +8,7 @@ import com.poetry.model.Poetry;
 
 public class
 PoetryServiceMock
-extends PoetryService
+implements PoetryService
 {
 	@Override
 	public
@@ -64,12 +64,11 @@ extends PoetryService
 			poetry4.setImage( "image4" );
 			return poetry4;
 		}
-		return poetryDao.getPoetry( id );
+		throw new IllegalArgumentException();
 	}
 	@Override
 	public List<Poetry> getTodayPoetries( String startId )
 	{
-		logger.trace( "Start ID :{}", startId );
 		ArrayList<Poetry> ret = new ArrayList<Poetry>();
 		if ( null == startId )
 		{
@@ -111,6 +110,24 @@ extends PoetryService
 		}
 		
 		return ret;
+	}
+	
+	@Override
+	public Poetry add( Poetry poetry )
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void addStar( String poetryId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void removeStar( String poetryId )
+	{
+		throw new UnsupportedOperationException();
 	}
 
 }

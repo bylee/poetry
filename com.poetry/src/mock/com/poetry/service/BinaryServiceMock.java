@@ -8,7 +8,7 @@ import com.poetry.model.Binary;
 
 public class
 BinaryServiceMock
-extends BinaryService
+implements BinaryService
 {
 	@Override
 	public
@@ -34,6 +34,12 @@ extends BinaryService
 			return bin;
 		}
 		return null;
+	}
+
+	@Override
+	public String upload( Binary binary )
+	{
+		throw new UnsupportedOperationException();
 	}
 	
 
