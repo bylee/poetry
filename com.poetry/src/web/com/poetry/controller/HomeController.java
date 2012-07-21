@@ -177,7 +177,6 @@ public class HomeController
 	public void
 	write(
 		final Poetry poetry,
-		@RequestParam( "action" )
 		final String action
 	)
 	{

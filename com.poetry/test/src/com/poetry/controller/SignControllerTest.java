@@ -2,7 +2,12 @@ package com.poetry.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,22 +27,27 @@ public class SignControllerTest
 {
 
 	protected SignController loginService;
+	
 	protected AuthenticationManager authenticationManager;
+	
+	protected HttpServletResponse response;
 
 	@Before
 	public
 	void
-	before()
+	setUp()
 	{
 		loginService = new SignController();
 		authenticationManager = mock( AuthenticationManager.class );
+		response = mock( HttpServletResponse.class );
+		
 		loginService.authenticationManager = authenticationManager;
 	}
 
 	@After
 	public
 	void
-	after()
+	tearDown()
 	{
 		SecurityContextHolder.clearContext();
 	}
@@ -73,8 +83,9 @@ public class SignControllerTest
 	{
 		final Authentication auth = new TestingAuthenticationToken( "foo", "bar" );
 		auth.setAuthenticated( true );
-		when(authenticationManager.authenticate( Matchers.<Authentication>anyObject() ) ).thenReturn( auth );
-		final SignStatus status = loginService.login( "foo", "bar" );
+		when( authenticationManager.authenticate( Matchers.<Authentication>anyObject() ) ).thenReturn( auth );
+		final SignStatus status = loginService.login( "foo", "bar", response );
+		verify( response ).addCookie( Matchers.<Cookie>any() );
 		assertEquals( "success", status.getStatus() );
 		assertEquals( "foo", status.getUsername() );
 	}
@@ -88,7 +99,8 @@ public class SignControllerTest
 		auth.setAuthenticated( false );
 		when( authenticationManager.authenticate( Matchers.<Authentication>anyObject() ) )
 			.thenThrow( new BadCredentialsException( "Bad Credentials" ) );
-		final SignStatus status = loginService.login( "foo", "bar" );
+		verify( response, never() ).addCookie( Matchers.<Cookie>any() );
+		final SignStatus status = loginService.login( "foo", "bar", response );
 		assertEquals( "fail", status.getStatus() );
 		assertEquals( null, status.getUsername() );
 	}

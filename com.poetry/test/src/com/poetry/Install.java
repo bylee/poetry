@@ -1,5 +1,6 @@
 package com.poetry;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -82,32 +83,80 @@ Install
 			userDao.addNewPoet( hellojintae );
 			userDao.addNewPoet( hanseoung82 );
 			
-			final Binary binary = new Binary();
-			binary.setName( "test.jpg" );
-			binary.setOwner( bylee.getUsername() );
-			binary.setMime( "image/jpg" );
-			final InputStream in = getClass().getResourceAsStream( "/com/poetry/15585.jpg" );
-			try
-			{
-				binary.setContents( StreamUtils.getBytes( in ) );
-			}
-			finally
-			{
-				StreamUtils.tryClose( in );
-			}
+			final Binary image1 = new Binary();
+			image1.setName( "mainimage.jpg" );
+			image1.setOwner( bylee.getUsername() );
+			image1.setMime( "image/jpg" );
+			image1.setContents( load( image1.getName() ) );
+			binaryDao.addBinary( image1 );
 			
-			binaryDao.addBinary( binary );
+			final Binary image2_1 = new Binary();
+			image2_1.setName( "image2-1.jpg" );
+			image2_1.setOwner( bylee.getUsername() );
+			image2_1.setMime( "image/jpg" );
+			image2_1.setContents( load( image2_1.getName() ) );
+			binaryDao.addBinary( image2_1 );
 			
-			final Poetry poetry = new Poetry( "My First Poem", bylee, binary.getId() );
-			poetry.setStar( 11 );
+			final Binary image2_2 = new Binary();
+			image2_2.setName( "image2-2.jpg" );
+			image2_2.setOwner( bylee.getUsername() );
+			image2_2.setMime( "image/jpg" );
+			image2_2.setContents( load( image2_2.getName() ) );
+			binaryDao.addBinary( image2_2 );
 			
-			poetryDao.addPoetry( poetry );
+			final Binary image3_1 = new Binary();
+			image3_1.setName( "image3_1" +
+					".jpg" );
+			image3_1.setOwner( bylee.getUsername() );
+			image3_1.setMime( "image/jpg" );
+			image3_1.setContents( load( image3_1.getName() ) );
+			binaryDao.addBinary( image3_1 );
 			
-			replyDao.addReply( new Reply( poetry.getId(), anjong, "Good~~" ) );
-			replyDao.addReply( new Reply( poetry.getId(), csoonoosc, "So so" ) );
+			final Binary image3_2 = new Binary();
+			image3_2.setName( "image3_2.jpg" );
+			image3_2.setOwner( bylee.getUsername() );
+			image3_2.setMime( "image/jpg" );
+			image3_2.setContents( load( image3_2.getName() ) );
+			binaryDao.addBinary( image3_2 );
+			
+			final Poetry poetry1 = new Poetry( "My First Poem", bylee, image1.getId() );
+			poetry1.setStar( 11 );
+			poetryDao.addPoetry( poetry1 );
+			
+			replyDao.addReply( new Reply( poetry1.getId(), anjong, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry1.getId(), csoonoosc, "So so" ) );
 			
 			userDao.addFollowing( new Following( bylee.getUsername(), anjong.getUsername() ) );
 			userDao.addFollowing( new Following( bylee.getUsername(), csoonoosc.getUsername() ) );
+			
+			final Poetry poetry2 = new Poetry( "Second", bylee, image2_1.getId() );
+			poetry2.setStar( 4 );
+			poetryDao.addPoetry( poetry2 );
+			
+			replyDao.addReply( new Reply( poetry2.getId(), anjong, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry2.getId(), csoonoosc, "So so" ) );
+
+			final Poetry poetry3 = new Poetry( "3", bylee, image2_1.getId() );
+			poetry3.setStar( 4 );
+			poetryDao.addPoetry( poetry3 );
+			
+			replyDao.addReply( new Reply( poetry3.getId(), anjong, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
+
+			final Poetry poetry4 = new Poetry( "4", csoonoosc, image2_1.getId() );
+			poetry4.setStar( 4 );
+			poetryDao.addPoetry( poetry4 );
+			
+			replyDao.addReply( new Reply( poetry4.getId(), anjong, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry4.getId(), hellojintae, "So so" ) );
+
+			final Poetry poetry5 = new Poetry( "Last", anjong, image2_1.getId() );
+			poetry5.setStar( 4 );
+			poetryDao.addPoetry( poetry5 );
+			
+			replyDao.addReply( new Reply( poetry5.getId(), bylee, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry5.getId(), csoonoosc, "So so" ) );
+
 		}
 		finally
 		{
@@ -115,6 +164,25 @@ Install
 			session.flush();
 			SessionFactoryUtils.closeSession( session );
 		}
+	}
+	
+	public
+	byte[] load(
+		final String name
+	)
+	throws IOException
+	{
+		final InputStream in = getClass().getResourceAsStream( "/com/poetry/" + name );
+		try
+		{
+			return StreamUtils.getBytes( in );
+		}
+		finally
+		{
+			StreamUtils.tryClose( in );
+		}
+		
+		
 	}
 
 }
