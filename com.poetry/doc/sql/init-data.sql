@@ -16,3 +16,5 @@ INSERT INTO Poetry( id, title, author, image, contents ) VALUES
 select * from Poet;
 
 select * from Following;
+
+select * from File;

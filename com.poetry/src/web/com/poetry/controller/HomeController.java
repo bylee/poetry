@@ -23,7 +23,8 @@ import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
 
 @Controller
-public class HomeController
+public class
+HomeController
 {
 	@Autowired
 	protected PoetryService poetryService;

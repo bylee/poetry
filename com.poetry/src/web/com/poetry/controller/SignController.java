@@ -28,7 +28,10 @@ SignController
 	@Qualifier( "authenticationManager" )
 	protected AuthenticationManager authenticationManager;
 
-	@RequestMapping( value = "/service/signstatus", method = RequestMethod.GET )
+	@RequestMapping(
+		value = "/service/signstatus",
+		method = RequestMethod.GET
+	)
 	@ResponseBody
 	public
 	SignStatus
@@ -43,7 +46,10 @@ SignController
 		}
 	}
 
-	@RequestMapping( value = "/service/signin", method = RequestMethod.POST )
+	@RequestMapping(
+		value = "/service/signin",
+		method = RequestMethod.POST
+	)
 	@ResponseBody
 	public
 	SignStatus
@@ -63,11 +69,28 @@ SignController
 		try {
 			final Authentication auth = authenticationManager.authenticate( token );
 			SecurityContextHolder.getContext().setAuthentication( auth );
-			response.addCookie( new Cookie( "username", username ) );
+			final Cookie cookie = new Cookie( "username", username );
+			cookie.setMaxAge( 0 );
+			response.addCookie( cookie );
 			return new SignStatus( auth.getName(), "success" );
 		} catch (BadCredentialsException e) {
 			return new SignStatus( null, "fail" );
 		}
 	}
 
+	@RequestMapping(
+		value = "/service/signout",
+		method = RequestMethod.POST
+	)
+	public
+	void
+	logout(
+		final HttpServletResponse response
+	)
+	{
+		final Cookie cookie = new Cookie( "username", null );
+		cookie.setMaxAge( 0 );
+
+		response.addCookie( cookie );
+	}
 }

@@ -136,21 +136,21 @@ Install
 			replyDao.addReply( new Reply( poetry2.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry2.getId(), csoonoosc, "So so" ) );
 
-			final Poetry poetry3 = new Poetry( "3", bylee, image2_1.getId() );
+			final Poetry poetry3 = new Poetry( "3", bylee, image2_2.getId() );
 			poetry3.setStar( 4 );
 			poetryDao.addPoetry( poetry3 );
 			
 			replyDao.addReply( new Reply( poetry3.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
 
-			final Poetry poetry4 = new Poetry( "4", csoonoosc, image2_1.getId() );
+			final Poetry poetry4 = new Poetry( "4", csoonoosc, image3_1.getId() );
 			poetry4.setStar( 4 );
 			poetryDao.addPoetry( poetry4 );
 			
 			replyDao.addReply( new Reply( poetry4.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry4.getId(), hellojintae, "So so" ) );
 
-			final Poetry poetry5 = new Poetry( "Last", anjong, image2_1.getId() );
+			final Poetry poetry5 = new Poetry( "Last", anjong, image3_2.getId() );
 			poetry5.setStar( 4 );
 			poetryDao.addPoetry( poetry5 );
 			
