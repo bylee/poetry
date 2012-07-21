@@ -38,6 +38,7 @@ extends AbstractDao
 		
 		return strip( (List<Poetry>) find( query ) ); 
 	}
+	
 
 	public Poetry getPoetry( final String id )
 	{

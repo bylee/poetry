@@ -10,7 +10,8 @@ import com.poetry.model.Poet;
 import com.poetry.service.PoetService;
 
 @Controller
-public class MyPageController
+public class
+MyPageController
 {
 	@Autowired
 	protected PoetService poetService;

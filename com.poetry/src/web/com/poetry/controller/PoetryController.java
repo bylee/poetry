@@ -16,7 +16,8 @@ import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
 
 @Controller
-public class PoetryController
+public class
+PoetryController
 {
 	@Autowired
 	protected PoetryService poetryService;
