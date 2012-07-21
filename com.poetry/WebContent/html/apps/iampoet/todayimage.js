@@ -8,6 +8,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	init: function (){
 		this.modalCtrl = new iampoet.LoginController();
 		this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
+		this.modalCtrl.onEvent('todayData', this.handleToday, this);
 		this.presentModal(this.modalCtrl, {
 			layout: 'FULL',
 			animate: 'vertical'
@@ -16,6 +17,10 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	
 	destroy: function (){
 		
+	},
+	
+	sceneLoaded: function (){
+	  
 	},
 	
 	handleMainImage: function (){
@@ -29,5 +34,9 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	
 	handleDismiss: function (){
 		this.dismissModal(true);
+	},
+	
+	handleToday: function (){
+	  
 	}
 });
