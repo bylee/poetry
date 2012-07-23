@@ -19,11 +19,13 @@ import com.poetry.dao.BinaryDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.PoetDao;
+import com.poetry.dao.StarDao;
 import com.poetry.model.Binary;
 import com.poetry.model.Following;
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
+import com.poetry.model.Star;
 
 import escode.util.StreamUtils;
 
@@ -47,6 +49,9 @@ Install
 	
 	@Autowired
 	protected ReplyDao replyDao;
+	
+	@Autowired
+	protected StarDao starDao;
 
 	public static
 	void
@@ -119,7 +124,6 @@ Install
 			binaryDao.addBinary( image3_2 );
 			
 			final Poetry poetry1 = new Poetry( "My First Poem", bylee, image1.getId() );
-			poetry1.setStar( 11 );
 			poetryDao.addPoetry( poetry1 );
 			
 			replyDao.addReply( new Reply( poetry1.getId(), anjong, "Good~~" ) );
@@ -129,31 +133,30 @@ Install
 			userDao.addFollowing( new Following( bylee.getUsername(), csoonoosc.getUsername() ) );
 			
 			final Poetry poetry2 = new Poetry( "Second", bylee, image2_1.getId() );
-			poetry2.setStar( 4 );
 			poetryDao.addPoetry( poetry2 );
 			
 			replyDao.addReply( new Reply( poetry2.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry2.getId(), csoonoosc, "So so" ) );
 
 			final Poetry poetry3 = new Poetry( "3", bylee, image2_2.getId() );
-			poetry3.setStar( 4 );
 			poetryDao.addPoetry( poetry3 );
 			
 			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
 
 			final Poetry poetry4 = new Poetry( "4", csoonoosc, image3_1.getId() );
-			poetry4.setStar( 4 );
 			poetryDao.addPoetry( poetry4 );
 			
 			replyDao.addReply( new Reply( poetry4.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry4.getId(), hellojintae, "So so" ) );
 
 			final Poetry poetry5 = new Poetry( "Last", anjong, image3_2.getId() );
-			poetry5.setStar( 4 );
 			poetryDao.addPoetry( poetry5 );
 			
 			replyDao.addReply( new Reply( poetry5.getId(), bylee, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry5.getId(), csoonoosc, "So so" ) );
+			
+			starDao.addStar( new Star( poetry1.getId(), anjong.getUsername() ) );
+			starDao.addStar( new Star( poetry1.getId(), hanseoung82.getUsername() ) );
 
 		}
 		finally

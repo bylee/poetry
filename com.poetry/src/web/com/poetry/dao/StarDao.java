@@ -21,7 +21,7 @@ extends AbstractDao
 
 	public
 	void
-	addSatr(
+	addStar(
 		final Star star
 	)
 	{

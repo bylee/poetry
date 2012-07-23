@@ -78,6 +78,7 @@ implements PoetryService
 		
 		for ( final Poetry poetry : poetries )
 		{
+			addTheNumberOfStar( poetry );
 			addTheNumberOfReply( poetry );
 		}
 		
@@ -111,7 +112,7 @@ implements PoetryService
 		{
 			return ;
 		}
-		starDao.addSatr( new Star( poetryId, auth.getName() ) );
+		starDao.addStar( new Star( poetryId, auth.getName() ) );
 	}
 	
 	@Override
