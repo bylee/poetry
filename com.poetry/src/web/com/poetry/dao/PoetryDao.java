@@ -27,7 +27,7 @@ extends AbstractDao
 		final String query =
 			"from Poetry poetry order by poetry";
 		
-		return strip( (List<Poetry>) find( query ) ); 
+		return strip( getSession(), (List<Poetry>) find( query ) ); 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -36,7 +36,7 @@ extends AbstractDao
 		final String query =
 			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
 		
-		return strip( (List<Poetry>) find( query ) ); 
+		return strip( getSession(), (List<Poetry>) find( query ) ); 
 	}
 	
 
@@ -49,7 +49,7 @@ extends AbstractDao
 			return null;
 		}
 		
-		return strip( poetry )[0];
+		return strip( getSession(), poetry )[0];
 	}
 	
 	public
