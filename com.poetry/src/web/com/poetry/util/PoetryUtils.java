@@ -3,11 +3,14 @@ package com.poetry.util;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 
 public class PoetryUtils {
 	public static Poetry[] strip(
+		final Session session,
 		final Poetry... poetries
 	)
 	{
@@ -18,6 +21,7 @@ public class PoetryUtils {
 			{
 				continue;
 			}
+			session.evict( poet );
 			poet.setPassword( null );
 			poet.setAuthority( null );
 		}
@@ -26,9 +30,10 @@ public class PoetryUtils {
 	}
 	
 	public static List<Poetry> strip(
+		final Session session,
 		final List<Poetry> poetries
 	)
 	{
-		return Arrays.asList( strip( poetries.toArray( new Poetry[0] ) ) );
+		return Arrays.asList( strip( session, poetries.toArray( new Poetry[0] ) ) );
 	}
 }
