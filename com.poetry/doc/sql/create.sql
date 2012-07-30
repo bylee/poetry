@@ -3,6 +3,7 @@ create table Poet
 	username varchar( 32 ),
 	pen_name varchar( 32 ),
 	password varchar( 64 ),
+	email varchar( 128 ),
 	authority varchar( 128 )
 	
 );
@@ -45,4 +46,13 @@ create table Star
 (
 	poetryId varchar( 32 ),
 	poetId varchar( 32 )
+);
+
+create table image
+(
+	id varchar( 32 ),
+	red numeric,
+	green numeric,
+	blue numeric,
+	intensity numeric,
 );

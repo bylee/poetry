@@ -1,7 +1,5 @@
 package com.poetry.dao;
 
-import static com.poetry.util.PoetryUtils.strip;
-
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -27,7 +25,7 @@ extends AbstractDao
 		final String query =
 			"from Poetry poetry order by poetry";
 		
-		return strip( getSession(), (List<Poetry>) find( query ) ); 
+		return (List<Poetry>) find( query ); 
 	}
 
 	@SuppressWarnings("unchecked")
@@ -36,7 +34,7 @@ extends AbstractDao
 		final String query =
 			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
 		
-		return strip( getSession(), (List<Poetry>) find( query ) ); 
+		return (List<Poetry>) find( query ); 
 	}
 	
 
@@ -49,7 +47,7 @@ extends AbstractDao
 			return null;
 		}
 		
-		return strip( getSession(), poetry )[0];
+		return poetry;
 	}
 	
 	public

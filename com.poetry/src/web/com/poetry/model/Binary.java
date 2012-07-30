@@ -3,9 +3,12 @@ package com.poetry.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table( name = "file" )
@@ -21,7 +24,15 @@ Binary
 	
 	protected String mime;
 	
+	@JsonIgnore
 	protected byte[] contents;
+	
+	@Transient
+	@JsonIgnore
+	protected CommonsMultipartFile uploadFile;
+	
+	@Transient
+	protected String tag;
 
 	/**
 	 * @return the id
@@ -99,6 +110,35 @@ Binary
 	public void setContents( byte[] contents )
 	{
 		this.contents = contents;
+	}
+	
+	public CommonsMultipartFile getUploadFile()
+	{
+		return this.uploadFile;
+	}
+	
+	public
+	void
+	setUploadFile(
+		final CommonsMultipartFile uploadFile
+	)
+	{
+		this.uploadFile = uploadFile;
+	}
+	
+	public
+	String
+	getTag()
+	{
+		return this.tag;
+	}
+	
+	public void
+	setTag(
+		final String tag
+	)
+	{
+		this.tag = tag;
 	}
 	
 

@@ -16,7 +16,10 @@
 	
 	<security:http auto-config="true" >
 		<security:intercept-url pattern="/service/signin" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/service/signup" access="ROLE_ANONYMOUS,ROLE_USER"/>
 		<security:intercept-url pattern="/html/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/js/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/css/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
 		<security:form-login login-page="/html/launcher.html?app=iampoet"/>
 	</security:http>

@@ -1,28 +1,34 @@
 package com.poetry.controller;
 
-import java.io.InputStream;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Poetry;
 import com.poetry.service.BinaryService;
 import com.poetry.service.PoetryService;
 
+import escode.util.CollectionUtils;
+
 @Controller
 public class
 HomeController
 {
+	protected Logger logger = LoggerFactory.getLogger( getClass() );
 	@Autowired
 	protected PoetryService poetryService;
 	
@@ -58,14 +64,35 @@ HomeController
 		value = "/binary",
 		method = RequestMethod.POST
 	)
+	@ResponseBody
 	public
-	void
+	Binary
 	uploadBinary(
-		InputStream in
+		Binary binary,
+		BindingResult result
 	)
 	{
-		final Binary binary = new Binary();
+		final CommonsMultipartFile file = binary.getUploadFile();
+		if ( null == file )
+		{
+			return null;
+		}
+		if ( file.isEmpty() )
+		{
+			logger.warn( "file is empty" );
+			return null;
+		}
+		binary.setName( file.getOriginalFilename() );
+		binary.setMime( file.getContentType() );
+		binary.setContents( file.getBytes() );
+		
+		logger.info(
+			"File uploaded :{}[{}]",
+			binary.getName(),
+			CollectionUtils.size( binary.getContents() )
+		);
 		binaryService.upload( binary );
+		return binary;
 	}
 	
 	

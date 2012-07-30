@@ -4972,7 +4972,7 @@ tau.ui.SequenceNavigator.prototype.renderer = tau.mixin({
       pushed.nav.setStyles({
         opacity: 0, // prevents nav bar flicker
         zIndex: 1,
-        webkitTransform: 'translateX(' +  pushedCtrlDOMWidth/2 + 'px)',
+        webkitTransform: 'translateX(' +  pushedCtrlDOMWidth/2 + 'px)'
       });
       pushed.nav.setVisible(true);      
       
@@ -4988,7 +4988,7 @@ tau.ui.SequenceNavigator.prototype.renderer = tau.mixin({
       if (pushed.nav) {
         
         pushed.nav.setStyles({
-          opacity: 1,
+          opacity: 1
         });
         pushed.nav.setVisible(true);      
       }
@@ -5230,7 +5230,7 @@ tau.ui.PopoverController.prototype.renderer = tau.mixin({
     default:
       return tau.ui.BaseRenderer.getParentElement.apply(this, arguments);
     }
-  },
+  }
 }, tau.ui.BaseRenderer);
 
 /**

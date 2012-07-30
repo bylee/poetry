@@ -1,7 +1,5 @@
 package com.poetry;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -16,9 +14,9 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.poetry.dao.BinaryDao;
+import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
-import com.poetry.dao.PoetDao;
 import com.poetry.dao.StarDao;
 import com.poetry.model.Binary;
 import com.poetry.model.Following;
@@ -27,10 +25,9 @@ import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
 import com.poetry.model.Star;
 
-import escode.util.StreamUtils;
-
 public class
 Install
+extends AbstractTestCase
 {
 	@Autowired
 	DataSource dataSource;
@@ -167,27 +164,5 @@ Install
 		}
 	}
 	
-	public
-	byte[] load(
-		final String name
-	)
-	throws IOException
-	{
-		final InputStream in = getClass().getResourceAsStream( "/com/poetry/" + name );
-		try
-		{
-			if ( null == in )
-			{
-				throw new NullPointerException();
-			}
-			return StreamUtils.getBytes( in );
-		}
-		finally
-		{
-			StreamUtils.tryClose( in );
-		}
-		
-		
-	}
 
 }

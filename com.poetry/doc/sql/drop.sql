@@ -13,3 +13,5 @@ drop table Poetry;
 drop table Reply;
 
 drop table Following;
+
+drop table star;

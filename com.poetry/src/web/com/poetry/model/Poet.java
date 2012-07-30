@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,8 +30,12 @@ implements UserDetails
 	@Column( name = "pen_name" )
 	protected String penName;
 	
+	protected String email;
+	
+	@JsonIgnore
 	protected String password;
 	
+	@JsonIgnore
 	protected String authority = DEFAULT_AUTHORITY;
 	
 	@Transient
@@ -150,6 +155,7 @@ implements UserDetails
 		this.authority = CollectionUtils.concatenate( authorities, "," );
 	}
 
+	@JsonIgnore 
 	public
 	Collection<GrantedAuthority>
 	getAuthorities()
