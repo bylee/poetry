@@ -9,7 +9,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	
 	destroy: function (){
 		
-	},
+	}
 	
 	
 });

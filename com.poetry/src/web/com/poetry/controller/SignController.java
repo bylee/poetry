@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poet;
 import com.poetry.model.SignStatus;
+import com.poetry.service.PoetService;
 
 @Controller
 public class
@@ -27,6 +28,9 @@ SignController
 	@Autowired
 	@Qualifier( "authenticationManager" )
 	protected AuthenticationManager authenticationManager;
+	
+	@Autowired
+	protected PoetService poetService;
 
 	@RequestMapping(
 		value = "/service/signstatus",
@@ -79,8 +83,7 @@ SignController
 	}
 
 	@RequestMapping(
-		value = "/service/signout",
-		method = RequestMethod.POST
+		value = "/service/signout"
 	)
 	public
 	void
@@ -92,5 +95,20 @@ SignController
 		cookie.setMaxAge( 0 );
 
 		response.addCookie( cookie );
+	}
+	
+	@RequestMapping(
+		value = "/service/signup"
+	)
+	@ResponseBody
+	public
+	SignStatus
+	signup(
+		final Poet poet,
+		final HttpServletResponse response
+	)
+	{
+		poetService.addNewPoet( poet );
+		return login( poet.getUsername(), poet.getPassword(), response );
 	}
 }

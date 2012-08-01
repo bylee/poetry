@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Admin page</title>
+<link rel="stylesheet" href="../../css/themes/base/jquery.ui.all.css" />
+<link rel="stylesheet" href="../../css/menu.css" />
+<link rel="stylesheet" href="../../css/bootstrap.css" />
+
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/underscore.js"></script>
+<script type="text/javascript" src="../../js/backbone.js"></script>
+<script type="text/javascript" src="../../js/jquery.form.js"></script>
+<script type="text/javascript" src="../../js/ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/mustache.js"></script>
+
+<script type="text/javascript" src="../../js/main.js"></script>
+
+</head>
+<body>
+	<div class="row offset1 span10" >
+		<div id="menu">
+		</div>
+		<div id="contents" class="row span10" ></div>
+	</div>
+	
+	
+	<script id="menu-template" type="template/jquery">
+		<ul class="nav nav-pills"></ul>
+	</script>
+	<script id="menu-item-template" type="template/jquery">
+		<a class="menu-anchor" id='{{id}}' >{{name}}</a>
+	</script>
+
+	<script type="text/javascript">
+	$( function () {
+		var menu = new Menu();
+		var menuView = new MenuView( { el: $("#menu"), collection: menu } );
+		menu.add( new MenuItem( { id:"mission", name:"오늘의 시 미션", url:"mission.html" } ) );
+		menu.add( new MenuItem( { id:"system", name:"System", url:"system.html" } ) );
+		menuView.render();
+	} );
+	</script>
+</body>
+</html>

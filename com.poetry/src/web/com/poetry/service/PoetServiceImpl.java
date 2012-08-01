@@ -29,6 +29,15 @@ implements UserDetailsService, PoetService
 	
 	@Autowired
 	protected PoetryDao poetryDao;
+	
+	@Override
+	public void
+	addNewPoet(
+		final Poet poet
+	)
+	{
+		poetDao.addNewPoet( poet );
+	}
 
 	@Override
 	public

@@ -13,4 +13,9 @@ implements PoetService
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void addNewPoet(Poet poet) {
+		
+	}
+
 }

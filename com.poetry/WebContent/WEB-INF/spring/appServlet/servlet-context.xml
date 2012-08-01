@@ -17,6 +17,7 @@
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/html/**" location="/html/" />
+	<resources mapping="/image/**" location="/image/" />
 
 	<beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
   		<beans:property name="mediaTypes">
@@ -40,6 +41,10 @@
       		</beans:bean>
     	</beans:list>
   		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="100000000" />
 	</beans:bean>
 	
 	<default-servlet-handler/>

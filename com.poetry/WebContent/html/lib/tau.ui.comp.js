@@ -4163,7 +4163,7 @@ $class('tau.ui.TextArea').extend(tau.ui.ScrollPanel).mixin(
         /** @overrides */
         pullDownFn: tau.emptyFn,
         /** @overrides */
-        pullUpFn: tau.emptyFn,
+        pullUpFn: tau.emptyFn
       }
     }, 'remix');
     
@@ -6242,7 +6242,7 @@ $class('tau.ui.TableCell').extend(tau.ui.Component).mixin(
     /** $dom의 right DOM에 해당하는 키 <p /> right 아이템  키 */
     RIGHT_KEY: 'right',
     /** cell selection 이벤트 */
-    EVENT_SELECTED: 'cellselected',
+    EVENT_SELECTED: 'cellselected'
   },
   
   /**
@@ -10898,7 +10898,7 @@ $class('tau.ui.Picker').extend(tau.ui.Component).mixin(tau.ui.Control).define({
     this._done = new tau.ui.Button({
       label:'Done',
       parent:this, 
-      bubble:this,
+      bubble:this
     });
     this._done.onEvent(tau.rt.Event.TAP, this._defaultDoneAction, this);
     tau.util.dom.addClass(this._done.getDOM(), 'tau-picker-done');
@@ -10906,7 +10906,7 @@ $class('tau.ui.Picker').extend(tau.ui.Component).mixin(tau.ui.Control).define({
     this._cancel = new tau.ui.Button({
       label: 'Cancel',
       parent:this, 
-      bubble:this,
+      bubble:this
     });
     this._cancel.onEvent(tau.rt.Event.TAP, this._defaultCancelAction, this);
 

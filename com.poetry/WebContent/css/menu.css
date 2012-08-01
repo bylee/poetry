@@ -1,0 +1,8 @@
+* {
+	margin 0;
+}
+
+.bar {
+    height: 18px;
+    background: green;
+}

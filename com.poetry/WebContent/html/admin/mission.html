@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+	<title>Admin page</title>
+	<link rel="stylesheet" href="../../css/datepicker.css" />
+	
+	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+</head>
+<body>
+<form id="fileupload" action="../../binary" method="post" enctype="multipart/form-data">
+	<input id="date" type="text">
+	
+    <div class="row fileupload-buttonbar">
+		<img id="image" alt="" src="" width="600" height="480">
+	</div>
+	<label id="imageId" class="offset2"></label>
+	<input type="file" id="uploadFile" name="uploadFile">
+	<input type="submit" id="send" disabled="disabled">
+</form>
+</body>
+
+<script type="text/javascript">
+$( function() {
+	window.prettyPrint && prettyPrint();
+	var now = new Date();
+	var d = now.getDate();
+	var m = now.getMonth() + 1;
+	var dd = ( d < 10 ? '0' : '') + d;
+	var mm = ( m < 10 ? '0' : '') + m;
+	
+	$( '#date' ).val( mm + "/" + dd + "/" + now.getFullYear() );
+	$( '#date' ).datepicker().on( "changeDate", function( ev ) {
+		if ( ev.date.valueOf() < new Date() ) {
+			alert( "수정할 수 없는 미션의 날짜입니다." );
+		}
+	} );
+	$("#fileupload").ajaxForm( {
+		dataType : "json",
+		success : function(json) {
+			console.log( "Request image :%s", json.id );
+			$( "#imageId" ).text( json.id );
+			$("#image").attr( "src", "../../binary/" + json.id );
+			$( "#send" ).attr( "disabled", "disabled" );
+			$( "#uploadFile" ).val( "" );
+		}
+	} );
+	$( "#uploadFile" ).change( function() {
+		$( "#send" ).removeAttr( "disabled" );
+		
+	} );
+	
+});
+</script>
+</html>
