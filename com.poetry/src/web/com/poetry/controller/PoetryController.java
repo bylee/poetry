@@ -1,16 +1,20 @@
 package com.poetry.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poetry;
+import com.poetry.model.PoetryStatus;
 import com.poetry.model.Reply;
 import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
@@ -35,7 +39,7 @@ PoetryController
 	 */
 	@RequestMapping(
 		value = "/poetry",
-		method = RequestMethod.POST
+		method = POST
 	)
 	public void
 	write(
@@ -49,23 +53,23 @@ PoetryController
 	/**
 	 * 지정한 시 정보를 반환한다.
 	 * 
-	 * @param id 가져올 시의 id
+	 * @param poetryId 가져올 시의 id
 	 * 
 	 * @return id가 <code>id</code>인 시
 	 */
 	@RequestMapping(
 		value = "/poetry/{id}",
-		method = RequestMethod.GET
+		method = GET
 	)
 	public
 	@ResponseBody
 	Poetry
 	getPoetry(
 		@PathVariable( "id" )
-		final String id
+		final String poetryId
 	)
 	{
-		return poetryService.getPoetry( id );
+		return poetryService.getPoetry( poetryId );
 	}
 
 	/**
@@ -78,7 +82,7 @@ PoetryController
 	 */
 	@RequestMapping(
 		value = "/reply/{targetId}",
-		method = RequestMethod.GET
+		method = GET
 	)
 	public
 	@ResponseBody
@@ -100,7 +104,7 @@ PoetryController
 	 */
 	@RequestMapping(
 		value = "/reply",
-		method = RequestMethod.POST
+		method = POST
 	)
 	public
 	void
@@ -111,12 +115,45 @@ PoetryController
 		replyService.addReply( reply );
 	}
 	
+	/**
+	 * 시의 상태를 반환한다.
+	 * 
+	 * 시의 상태는 다음의 정보를 갖는다.
+	 * <ul>
+	 * 	<li>사용자가 이 시를 좋아하는지</li>
+	 * 	<li>사용자가 이 시를 북마크( bookmark )했는지</li>
+	 * 	<li>사용자가 이 시의 작가를 follow했는지</li>
+	 * </ul>
+	 * 
+	 * @param poetryId 시의 아이디
+	 * 
+	 * @return 시의 상태 정보
+	 */
 	@RequestMapping(
-		value = "/star/{poetryId}",
-		method = RequestMethod.POST
+		value = "/poetrystatus/{id}",
+		method = GET
 	)
 	public
 	@ResponseBody
+	PoetryStatus
+	getPoetryStatus(
+		@PathVariable( "id" ) final String poetryId
+	)
+	{
+		// star, bookmark, follow
+		return poetryService.getPoetryStatus( poetryId );
+	}
+	
+	/**
+	 * 시에 좋아한다는 표시를 남긴다.
+	 * 
+	 * @param poetryId 시의 아이디
+	 */
+	@RequestMapping(
+		value = "/star/{poetryId}",
+		method = POST
+	)
+	public
 	void
 	addStar(
 		@PathVariable( "poetryId" )
@@ -126,12 +163,16 @@ PoetryController
 		poetryService.addStar( poetryId );
 	}
 	
+	/**
+	 * 시를 좋아한다는 마크를 지운다.
+	 * 
+	 * @param poetryId 시의 아이디
+	 */
 	@RequestMapping(
 		value = "/star/{poetryId}",
-		method = RequestMethod.DELETE
+		method = DELETE
 	)
 	public
-	@ResponseBody
 	void
 	deleteStar(
 		@PathVariable( "poetryId" )
@@ -139,6 +180,82 @@ PoetryController
 	)
 	{
 		poetryService.removeStar( poetryId );
+	}
+	
+	/**
+	 * 시에 바로가기 마크를 단다
+	 * 
+	 * @param poetryId 시의 아이디
+	 */
+	@RequestMapping(
+		value = "/bookmark/{poetryId}",
+		method = POST
+	)
+	public
+	void
+	addBookmark(
+		@PathVariable( "poetryId" )
+		final String poetryId
+	)
+	{
+		poetryService.addBookmark( poetryId );
+	}
+	
+	/**
+	 * 시에 바로가기 마클를 제거한다.
+	 * 
+	 * @param poetryId 시의 아이디
+	 */
+	@RequestMapping(
+		value = "/bookmark/{poetryId}",
+		method = DELETE
+	)
+	public
+	void
+	deleteBookmark(
+		@PathVariable( "poetryId" )
+		final String poetryId
+	)
+	{
+		poetryService.removeBookmark( poetryId );
+	}
+	
+	/**
+	 * 시인을 팔로우한다.
+	 * 
+	 * @param poetId 시인의 아이디
+	 */
+	@RequestMapping(
+		value = "/following/{poetId}",
+		method = POST
+	)
+	public
+	void
+	addFollowing(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetryService.addFollowing( poetId );
+	}
+	
+	/**
+	 * 시인을 팔로우하지 않는다.
+	 * 
+	 * @param poetId 시인 아이디
+	 */
+	@RequestMapping(
+		value = "/following/{poetryId}",
+		method = DELETE
+	)
+	public
+	void
+	deleteFollowing(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetryService.removeFollowing( poetId );
 	}
 	
 	

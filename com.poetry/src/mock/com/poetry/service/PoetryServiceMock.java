@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
+import com.poetry.model.PoetryStatus;
 
 public class
 PoetryServiceMock
@@ -25,8 +26,6 @@ implements PoetryService
 			poetry1.setAuthor( new Poet( "AJ", "안종현" ) );
 			poetry1.setContents( "dive into the sky. blah blah" );
 			poetry1.setImage( "image1" );
-			poetry1.setStar( 4 );
-			poetry1.setReply( 3 );
 			
 			return poetry1;
 		}
@@ -126,6 +125,26 @@ implements PoetryService
 	
 	@Override
 	public void removeStar( String poetryId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public PoetryStatus getPoetryStatus( String poetryId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public void addBookmark( String poetryId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public void removeBookmark( String poetryId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public void addFollowing( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public void removeFollowing( String poetId )
 	{
 		throw new UnsupportedOperationException();
 	}

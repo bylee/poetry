@@ -3,6 +3,7 @@ DISCONNECT
 /*C5*/SET SCHEMA PUBLIC
 alter table Poetry drop constraint FK8ECF8DD5D800EAEA
 alter table Reply drop constraint FK4B322CAFD5C6DD2
+drop table Bookmark if exists
 drop table DailySubject if exists
 drop table Following if exists
 drop table Poet if exists
@@ -11,6 +12,7 @@ drop table Reply if exists
 drop table Star if exists
 drop table file if exists
 drop table image if exists
+create table Bookmark (poetryId varchar(255) not null, poetId varchar(255) not null, primary key (poetryId, poetId))
 create table DailySubject (id varchar(255) not null, date timestamp, imageId varchar(255), primary key (id))
 create table Following (following varchar(255) not null, follower varchar(255) not null, primary key (following, follower))
 create table Poet (username varchar(255) not null, authority varchar(255), email varchar(255), password varchar(255), pen_name varchar(255), primary key (username))

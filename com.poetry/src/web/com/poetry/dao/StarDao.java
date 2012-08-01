@@ -18,6 +18,25 @@ extends AbstractDao
 			MessageFormat.format( "select count(star.poetId) from Star star where star.poetId = ''{0}''" , poetId );
 		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
 	}
+	
+	public
+	boolean
+	exists(
+		final String poetryId,
+		final String poetId
+	)
+	{
+		return exists( new Star( poetryId, poetId ) );
+	}
+	
+	public
+	boolean
+	exists(
+		final Star star
+	)
+	{
+		return exists( Star.class, star );
+	}
 
 	public
 	void

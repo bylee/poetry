@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 @Entity
 public class
@@ -26,12 +25,6 @@ Poetry
 	protected String image;
 	
 	protected Date createdDate;
-	
-	@Transient
-	protected int star;
-	
-	@Transient
-	protected int reply;
 	
 	public Poetry()
 	{
@@ -132,26 +125,6 @@ Poetry
 		this.createdDate = createdDate;
 	}
 
-	public int getStar()
-	{
-		return this.star;
-	}
-	
-	public void setStar( final int star )
-	{
-		this.star = star;
-	}
-	
-	public int getReply()
-	{
-		return this.reply;
-	}
-	
-	public void setReply( final int reply )
-	{
-		this.reply = reply;
-	}
-	
 	@Override
 	public
 	String

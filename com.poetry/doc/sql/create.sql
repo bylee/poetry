@@ -48,6 +48,12 @@ create table Star
 	poetId varchar( 32 )
 );
 
+create table Bookmark
+(
+	poetryId varchar( 32 ),
+	poetId varchar( 32 )
+);
+
 create table image
 (
 	id varchar( 32 ),

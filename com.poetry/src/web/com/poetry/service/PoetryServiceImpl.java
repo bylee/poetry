@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.poetry.dao.BookmarkDao;
+import com.poetry.dao.FollowingDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
+import com.poetry.model.Bookmark;
+import com.poetry.model.Following;
 import com.poetry.model.Poetry;
+import com.poetry.model.PoetryStatus;
 import com.poetry.model.Star;
 
 public class
@@ -29,29 +34,12 @@ implements PoetryService
 	@Autowired
 	protected StarDao starDao;
 	
-	protected
-	void
-	addTheNumberOfReply(
-		final Poetry poetry
-	)
-	{
-		logger.trace( "add the number of reply :{}", poetry );
-		final int nReply = replyDao.getTheNumberOfReply( poetry.getId() );
-		poetry.setReply( nReply );
-	}
+	@Autowired
+	protected BookmarkDao bookmarkDao;
 	
-	protected
-	void
-	addTheNumberOfStar(
-		final Poetry poetry
-	)
-	{
-		logger.trace( "Add the number of star :{}", poetry );
-		final int nStar = starDao.getTheNumberOfStar( poetry.getId() );
-		poetry.setStar( nStar );
-	}
+	@Autowired
+	protected FollowingDao followingDao;
 	
-
 	@Override
 	public Poetry add( final Poetry poetry )
 	{
@@ -76,12 +64,6 @@ implements PoetryService
 			poetries = poetryDao.listPoetryAfter( date );
 		}
 		
-		for ( final Poetry poetry : poetries )
-		{
-			addTheNumberOfStar( poetry );
-			addTheNumberOfReply( poetry );
-		}
-		
 		return poetries;
 	}
 	
@@ -89,14 +71,42 @@ implements PoetryService
 	public
 	Poetry
 	getPoetry(
-		final String poetId
+		final String poetryId
 	)
 	{
-		final Poetry poetry = poetryDao.getPoetry( poetId );
-		addTheNumberOfReply( poetry );
-		addTheNumberOfStar( poetry );
-		
+		final Poetry poetry = poetryDao.getPoetry( poetryId );
 		return poetry;
+	}
+	
+	@Override
+	public
+	PoetryStatus
+	getPoetryStatus(
+		final String poetryId
+	)
+	{
+		final PoetryStatus status = new PoetryStatus();
+		
+		final Authentication auth =
+			SecurityContextHolder.getContext().getAuthentication();
+		if ( null == auth || !auth.isAuthenticated() )
+		{
+			return status;
+		}
+		final String userId = auth.getName();
+
+		final int nReply = replyDao.getTheNumberOfReply( poetryId );
+		status.setReply( nReply );
+		final int nStar = starDao.getTheNumberOfStar( poetryId );
+		status.setStar( nStar );
+
+
+		status.setStar( starDao.exists( poetryId, userId ) );
+		status.setBookmark( bookmarkDao.exists( poetryId, userId ) );
+		Poetry poetry = poetryDao.getPoetry( poetryId );
+		status.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), userId ) );
+		
+		return status;
 	}
 
 	@Override
@@ -108,7 +118,7 @@ implements PoetryService
 	{
 		final Authentication auth =
 			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || "anonymousUser".equals( auth.getName() ) || auth.isAuthenticated() )
+		if ( null == auth || !auth.isAuthenticated() )
 		{
 			return ;
 		}
@@ -124,12 +134,59 @@ implements PoetryService
 	{
 		final Authentication auth =
 			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || "anonymousUser".equals( auth.getName() ) || auth.isAuthenticated() )
+		if ( null == auth || !auth.isAuthenticated() )
 		{
 			return ;
 		}
 		starDao.removeStar( new Star( poetryId, auth.getName() ) );
 	}
+
+	public void addBookmark( String poetryId )
+	{
+		final Authentication auth =
+			SecurityContextHolder.getContext().getAuthentication();
+		if ( null == auth || !auth.isAuthenticated() )
+		{
+			return ;
+		}
+		bookmarkDao.addBookmark( new Bookmark( poetryId, auth.getName() ) );
+	}
+
+	public void removeBookmark( String poetryId )
+	{
+		final Authentication auth =
+			SecurityContextHolder.getContext().getAuthentication();
+		if ( null == auth || !auth.isAuthenticated() )
+		{
+			return ;
+		}
+		bookmarkDao.removeBookmark( new Bookmark( poetryId, auth.getName() ) );
+	}
+
+	public void addFollowing( String poetId )
+	{
+		final Authentication auth =
+			SecurityContextHolder.getContext().getAuthentication();
+		if ( null == auth || !auth.isAuthenticated() )
+		{
+			return ;
+		}
+		followingDao.addFollowing( new Following( poetId, auth.getName() ) );
+		
+	}
+
+	public void removeFollowing( String poetId )
+	{
+		final Authentication auth =
+			SecurityContextHolder.getContext().getAuthentication();
+		if ( null == auth || !auth.isAuthenticated() )
+		{
+			return ;
+		}
+		followingDao.addFollowing( new Following( poetId, auth.getName() ) );
+		
+	}
+	
 
 
 }

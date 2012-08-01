@@ -87,7 +87,6 @@ AbstractDao
 		getSession().flush();
 		T ret = (T) getSession().get( clazz, id );
 		logger.debug( "Result for {} :{}", id, ret );
-		
 		return ret;
 	}
 	
@@ -109,7 +108,6 @@ AbstractDao
 		getSession().flush();
 		final Query query = getSession().createQuery( queryStr );
 		query.setMaxResults( LIMIT );
-		
 		return query.list();
 	}
 
