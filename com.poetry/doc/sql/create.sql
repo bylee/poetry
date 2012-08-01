@@ -54,5 +54,5 @@ create table image
 	red numeric,
 	green numeric,
 	blue numeric,
-	intensity numeric,
+	intensity numeric
 );
