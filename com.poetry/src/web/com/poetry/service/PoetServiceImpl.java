@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BinaryDao;
+import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.model.Poet;
@@ -29,6 +30,9 @@ implements UserDetailsService, PoetService
 	
 	@Autowired
 	protected PoetryDao poetryDao;
+	
+	@Autowired
+	protected BookmarkDao bookmarkDao;
 	
 	@Override
 	public void
@@ -78,7 +82,7 @@ implements UserDetailsService, PoetService
 		poet.setTheNumberOfPoetries( poetryDao.getTheNumberOfPoetries( username ) );
 		poet.setTheNumberOfFollowers( poetDao.getTheNumberOfFollowers( username ) );
 		poet.setTheNumberOfFollowings( poetDao.getTheNumberOfFollowings( username ) );
-		poet.setTheNumberOfClips( binaryDao.getTheNumberOfClips( username ) );
+		poet.setTheNumberOfBookmarks( bookmarkDao.getTheNumberOfBookmarks( username ) );
 		
 		return poet;
 	}

@@ -1,3 +1,6 @@
+SET GLOBAL max_allowed_packet = 1024 * 1024 * 32;
+SET SESSION max_allowed_packet = 1024 * 1024 * 32;
+
 create table Poet
 (
 	username varchar( 32 ),
@@ -54,7 +57,7 @@ create table Bookmark
 	poetId varchar( 32 )
 );
 
-create table image
+create table Image
 (
 	id varchar( 32 ),
 	red numeric,

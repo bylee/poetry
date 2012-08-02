@@ -1,5 +1,7 @@
 package com.poetry.dao;
 
+import java.text.MessageFormat;
+
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Bookmark;
@@ -46,4 +48,15 @@ extends AbstractDao
 	{
 		delete( bookmark );
 	}
+	
+	public
+	int
+	getTheNumberOfBookmarks( final String username )
+	{
+		final String query = 
+			MessageFormat.format( "select count(bookmark.owner) from Bookmark bookmark where bookmark.poetId = ''{0}''" , username );
+		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+
+	}
+	
 }

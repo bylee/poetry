@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import escode.util.CollectionUtils;
 
@@ -42,7 +43,7 @@ implements UserDetails
 	protected int nPoetries;
 	
 	@Transient
-	protected int nClips;
+	protected int nBookmark;
 	
 	@Transient
 	protected int nFollowings;
@@ -173,21 +174,25 @@ implements UserDetails
 	}
 	
 
+	@JsonIgnore
 	public boolean isAccountNonExpired()
 	{
 		return true;
 	}
 
+	@JsonIgnore
 	public boolean isAccountNonLocked()
 	{
 		return true;
 	}
 
+	@JsonIgnore
 	public boolean isCredentialsNonExpired()
 	{
 		return true;
 	}
 
+	@JsonIgnore
 	public boolean isEnabled()
 	{
 		return true;
@@ -203,14 +208,14 @@ implements UserDetails
 		this.nPoetries = nPoetries;
 	}
 
-	public int getTheNumberOfClips()
+	public int getTheNumberOfBookmarks()
 	{
-		return this.nClips;
+		return this.nBookmark;
 	}
 	
-	public void setTheNumberOfClips( final int nClips )
+	public void setTheNumberOfBookmarks( final int nClips )
 	{
-		this.nClips = nClips;
+		this.nBookmark = nClips;
 	}
 
 

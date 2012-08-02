@@ -33,11 +33,13 @@ Poetry
 	public Poetry(
 		final String title,
 		final Poet author,
+		final String contents,
 		final String image
 	)
 	{
 		this.title = title;
 		this.author = author;
+		this.contents = contents;
 		this.image = image;
 	}
 

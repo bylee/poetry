@@ -22,9 +22,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.poetry.SessionInViewFilter;
 import com.poetry.servlet.MockWebApplication;
 import com.poetry.servlet.MockWebApplicationContextLoader;
+import com.poetry.web.SessionInViewFilter;
 
 @RunWith( SpringJUnit4ClassRunner.class )
 @ContextConfiguration(

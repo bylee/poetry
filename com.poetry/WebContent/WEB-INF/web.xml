@@ -9,7 +9,7 @@
   </listener>
   <filter>
     <filter-name>hibernateFilter</filter-name>
-    <filter-class>com.poetry.SessionInViewFilter</filter-class>
+    <filter-class>com.poetry.web.SessionInViewFilter</filter-class>
     <init-param>
       <param-name>flushMode</param-name>
       <param-value>always</param-value>
