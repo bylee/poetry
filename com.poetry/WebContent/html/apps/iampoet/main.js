@@ -31,7 +31,7 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
         //selected: tabs[i].selectedIcon,
         selected: tabs[i].icon,
         disabled: tabs[i].icon,
-        highlighted: tabs[i].icon
+        highlighted: tabs[i].icon,
       };
       tabcomp.setBackgroundImage(backImage);
       tabcomp.setStyles({
@@ -39,6 +39,7 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
         backgroundPosition: '50% 70%',
         backgroundSize: '80px 55px'
       });
+      tabcomp.setLabel(tabs[i].title);
     }
 		
 		
@@ -56,7 +57,8 @@ $class('iampoet.TodayNavigator').extend(tau.ui.SequenceNavigator).define({
 	},
 	
 	init: function () {
-		this.setRootController(new iampoet.TodayImageController());
+		this.setRootController(new iampoet.TodayImageController(),{hideNavigationBar : true});
+		
 	},
 	
 	destroy: function () {

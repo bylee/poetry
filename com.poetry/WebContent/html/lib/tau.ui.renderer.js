@@ -4928,7 +4928,7 @@ tau.ui.SequenceNavigator.prototype.renderer = tau.mixin({
     if (pushed.opts.hideNavigationBar) {
       $dom[tau.ui.SequenceNavigator.NAVBAR_KEY].style.display = 'none';
       tau.util.dom.removeClass($dom[tau.ui.ROOT_KEY], this.$styleClass.hasnavigationbar);
-    } else if (active && !active.opts.hideNavigationBar) {
+    } else if (active && !pushed.opts.hideNavigationBar) {
       $dom[tau.ui.SequenceNavigator.NAVBAR_KEY].style.display = '';
       tau.util.dom.addClass($dom[tau.ui.ROOT_KEY], this.$styleClass.hasnavigationbar);
     }

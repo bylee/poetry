@@ -27,7 +27,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		var pw = scene.getComponent('pw').getText();
 		var remember = scene.getComponent('remember').getValue();
 		
-		
+		/*
 		var req = tau.req({
 			type: 'POST',
 			//url: tau.resolveURL('../login'),
@@ -41,29 +41,46 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		});
 		
 		req.send();
+		*/
+		
+		tau.wreq({
+			type: 'POST',
+			url: '/service/signin',
+			params: { 
+		    	j_username: id,
+		    	j_password: pw 
+	    	},
+	    	callbackFn: this.handleLoginCallBack,
+	    	callbackCtx : this
+			
+		});
+		
 	},
 	
 	handleLoginCallBack: function (resp) {
-	  var resJson = resp.responseJSON;
-	  if (resJson.status === 'success') {
-	    var req = tau.req({
-	      type: 'GET',
-	      url: '../today/20120712',
-	      callbackFn: tau.ctxAware(this.handleMain, this)
-	    });
-	    
-	    req.send();
-	    
-	  } else {
-	    tau.alert("Login fail");
-	  }
+		if (resp.status === 200) {
+			if (resp.data.status === 'success'){
+				tau.wreq({
+					type: 'GET',
+					url : '/today/20120712',
+					callbackFn : this.handleMain,
+					callbackCtx : this
+				});  
+			} else { tau.alert('로그인 실패');}
+		}else {tau.alert('로그인 실패 \n [Error] error code' + resp.status);}
 	},
 	
 	handleMain: function (resp) {
-	  this.fireEvent('dismiss');
-	  var resJson = resp.responseJSON;
-	  this.fireEvent('todayData', resJson);
-	  tau.alert('login success and today data!!');
-	  tau.log(resJson);
+	  if (resp.status === 200) {
+		  //TOOD 서버쪽 수정요청 했음!
+		  //if (data.status === 'success') {
+			  this.fireEvent('dismiss');
+			  this.fireEvent('todayData', resp.data);
+			  tau.alert('login success and today data!!');  
+		  //} else {tau.alert('초기 데이타 로딩 실패');}
+		  
+	  } else {
+		  tau.alert('초기 데이타 로딩 실패 : error code' + resp.status);
+	  }
 	}
 });

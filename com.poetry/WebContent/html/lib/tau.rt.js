@@ -116,7 +116,10 @@
      */
     getRuntime: function () {
       if (!_RT) {
-        _RTCONFIG.singleApp = tau.getLauncherParam('app');
+    	 /**
+    	  * single App
+    	  */ 
+        _RTCONFIG.singleApp = 'iampoet';//tau.getLauncherParam('app');
         _RTCONFIG.dev = ('true' === tau.getLauncherParam('dev'));
         _RT = new tau.rt.Runtime(_RTCONFIG);
       }

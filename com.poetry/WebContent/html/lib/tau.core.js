@@ -1024,6 +1024,57 @@
       },
       
       /**
+       * warpper request for appspresso, mobello
+       * opts {
+       * 	type: 'POST' //'GET'
+       *    url: '/~~/~~',
+       *    contentType: 'application/x-www-form-urlencoded',
+       *    callbackFn: handleResponse,
+       *    params : { id : 'aaa', pw : 'fff'},
+       *    callbackCtx : this,
+       * }
+       */
+      wreq: function (opts) {
+    	  var config = tau.getConfig();
+    	  var reqType = config.reqType;
+    	  var rootURL = config.rootURL;
+    	  
+    	  var convertingOpts = {};
+    	  
+    	  switch (reqType){
+    	  case "appspresso":
+    		  if (rootURL == undefined) { tau.alert("rootURL 설정이 안되었습니다."); return;}
+    		  convertingOpts.method = opts.type;
+    		  convertingOpts.url = rootURL + opts.url;
+    		  convertingOpts.headers = { 'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded'};
+    		  if (opts.params) convertingOpts.params = opts.params;
+    		  convertingOpts.success = function (resp) {
+    			  var response = {};
+    	  		  response.status = resp.status;
+    	  		  response.data = tau.parse(resp.data);
+    	  		  opts.callbackFn.call(opts.callbackCtx, response);
+    		  }; 
+    		  convertingOpts.error = function (e) { tau.alert('['+e.code+']' + e.message);};
+    		  if (ax) {
+    			  ax.ext.net.curl(convertingOpts);
+    		  } else { tau.alert('appspresso library가 없습니다.');};
+    		  break;
+    	  default:
+    		  opts.url = ".." + opts.url; //TODO poem을 위해서 작성된 코드 수정해야 함.
+    	      var callback = opts.callbackFn;
+    	  	  opts.callbackFn = function (resp) {
+    	  		  var response = {};
+    	  		  response.status = resp.status;
+    	  		  response.data = resp.responseJSON;
+    	  		  callback.call(opts.callbackCtx, response);
+    	  	  };
+    		  var req = tau.req(opts);
+    		  var id = req.send();
+    		  return { req : req , reqid : id};
+    	  }
+      },
+      
+      /**
        * @param {String} msg
        * @param {Object} [opts]
        * @param {String} [opts.title] 다이얼로그 제목

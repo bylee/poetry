@@ -19,7 +19,7 @@ function initScene() {
     }
   });
   scrollPanel1.add(imageView1);
-  imageView1.onEvent('tap', this.handleMainImage, this);
+  imageView1.onEvent('tap', this.handleImage, this);
   var imageView2 = new tau.ui.ImageView({
     id : 'sub1Image',
     src : '/image/image2-1.jpeg',
@@ -33,7 +33,7 @@ function initScene() {
     }
   });
   scrollPanel1.add(imageView2);
-  imageView2.onEvent('tap', this.handleImage2_1, this);
+  imageView2.onEvent('tap', this.handleImage, this);
   var imageView3 = new tau.ui.ImageView({
     id : 'sub2Image',
     src : '/image/image2-2.jpeg',
@@ -47,6 +47,7 @@ function initScene() {
     }
   });
   scrollPanel1.add(imageView3);
+  imageView3.onEvent('tap', this.handleImage, this);
   var imageView4 = new tau.ui.ImageView({
     id : 'sub3Image',
     src : '/image/image3-1.jpeg',
@@ -60,6 +61,7 @@ function initScene() {
     }
   });
   scrollPanel1.add(imageView4);
+  imageView4.onEvent('tap', this.handleImage, this);
   var imageView5 = new tau.ui.ImageView({
     id : 'sub4Image',
     src : '/image/image3-2.jpeg',
@@ -73,6 +75,7 @@ function initScene() {
     }
   });
   scrollPanel1.add(imageView5);
+  imageView5.onEvent('tap', this.handleImage, this);
   var label1 = new tau.ui.Label({
     id : 'sub1Title',
     style : 'position: static',

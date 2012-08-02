@@ -23,13 +23,40 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	  
 	},
 	
-	handleMainImage: function (){
+	handleImage: function (event){
+		var comp = event.getSource();
+		var compId = comp.getId();
+		var targetpoem ;
+		switch (compId){
+		case "mainImage":
+			targetpoem  = this.mainpoem[0];
+			break;
+		case "sub1Image":
+			targetpoem  = this.mainpoem[1];
+			break;
+		case "sub2Image":
+			targetpoem  = this.mainpoem[2];
+			break;
+		case "sub3Image":
+			targetpoem  = this.mainpoem[3];
+			break;
+		case "sub4Image":
+			targetpoem  = this.mainpoem[4];
+			break;
+		default:
+			return;
+		}
+		
 		var seqCtrl = this.getParent();
-		seqCtrl.pushController(new iampoet.PoemController());
-	},
-	
-	handleImage2_1: function (){
-		console.log('bbb');
+		seqCtrl.pushController(
+				new iampoet.PoemController(
+						{
+							poem :targetpoem,
+							seqCtrl : seqCtrl 
+						}
+				) 
+				,{ hideNavigationBar: false}
+		);
 	},
 	
 	handleDismiss: function (){
@@ -38,7 +65,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	
 	handleToday: function (event, param){
 	  var scene = this.getScene();
-	  var resJson = param;
+	  this.mainpoem = param;
 	  var poetryIndex = [{
 	    imageId : 'mainImage',
 	    titleId : 'mainTitle',
@@ -61,13 +88,14 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
       authorId : 'sub4Author'
     }];
 	  var index = 0;
-	  for(var poetry in resJson) {
+	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
+	  for(var poetry in this.mainpoem) {
 	    var imagePanel = scene.getComponent(poetryIndex[index].imageId);
 	    var titleLabel = scene.getComponent(poetryIndex[index].titleId);
 	    var authorLabel = scene.getComponent(poetryIndex[index].authorId);
-	    imagePanel.setSrc("/../../../binary/"+resJson[poetry].image);
-	    titleLabel.setText(resJson[poetry].title);
-	    authorLabel.setText(resJson[poetry].author.penName);
+	    imagePanel.setSrc(rootURL+"/binary/"+this.mainpoem[poetry].image);
+	    titleLabel.setText(this.mainpoem[poetry].title);
+	    authorLabel.setText(this.mainpoem[poetry].author.penName);
 	    index++;
 	  }
 	  

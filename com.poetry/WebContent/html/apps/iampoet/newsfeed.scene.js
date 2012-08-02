@@ -1,6 +1,6 @@
 function initScene() {
 	var scene = this.getScene();
-scene.setStyles({backgroundColor:'transparent',backgroundImage:'none'});
+scene.setStyles({backgroundColor:'transparent',backgroundImage:'none',});
 	var scrollPanel1 = new tau.ui.ScrollPanel({id : 'panel1'});
 	scene.add(scrollPanel1);
 	var imageView1 = new tau.ui.ImageView({id : 'imagePanel' , src : '/image/image2-1.jpeg' , styles : {height: '403px', width: '320px'}});
