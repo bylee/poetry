@@ -12,6 +12,7 @@ import com.poetry.service.PoetService;
 @Controller
 public class
 MyPageController
+extends AbstractController
 {
 	@Autowired
 	protected PoetService poetService;

@@ -1,9 +1,5 @@
 package com.poetry.controller;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,47 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.poetry.model.Binary;
-import com.poetry.model.Poetry;
 import com.poetry.service.BinaryService;
-import com.poetry.service.PoetryService;
 
 import escode.util.CollectionUtils;
 
 @Controller
 public class
 HomeController
+extends AbstractController
 {
-	protected Logger logger = LoggerFactory.getLogger( getClass() );
-	@Autowired
-	protected PoetryService poetryService;
-	
 	@Autowired
 	protected BinaryService binaryService;
-	
-	/**
-	 * 오늘의 시들을 반환한다.
-	 * 
-	 * 오늘의 시를 모두 반환하는 것이 아니라 나누어 전송한다.
-	 * 
-	 * <code>startId</code>가 <code>null</code>이면, 첫번째를 전송한다.
-	 * 
-	 * @param date 시작할 시의 id
-	 * 
-	 * @return 시 {@link List}
-	 */
-	@RequestMapping(
-		value = "/today/{date}",
-		method = RequestMethod.GET
-	)
-	public
-	@ResponseBody
-	List<Poetry>
-	getTodayPoetry(
-		final String date
-	)
-	{
-		return poetryService.getTodayPoetries( date );
-	}
 	
 	@RequestMapping(
 		value = "/binary",
@@ -114,10 +80,14 @@ HomeController
 	)
 	{
 		final Binary binary = binaryService.getBinary( id );
-		
 		final HttpHeaders headers = new HttpHeaders();
+		if ( null == binary )
+		{
+			return new ResponseEntity<byte[]>( new byte[] {}, headers, HttpStatus.OK );
+		}
+		
 		headers.setContentType( MediaType.parseMediaType( binary.getMime() ) );
-		return new ResponseEntity<byte[]>( binary.getContents(), headers, HttpStatus.CREATED );
+		return new ResponseEntity<byte[]>( binary.getContents(), headers, HttpStatus.OK );
 	}
 	
 }

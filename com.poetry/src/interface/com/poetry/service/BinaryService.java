@@ -1,11 +1,21 @@
 package com.poetry.service;
 
-import com.poetry.model.Binary;
+import java.util.Date;
 
-public interface BinaryService
+import com.poetry.model.Binary;
+import com.poetry.model.Mission;
+
+public interface
+BinaryService
 {
+	Mission getMission();
+	
+	Mission getMission( Date date );
+	
 	Binary getBinary( final String id );
 
 	String upload( final Binary binary );
+	
+	String upload( final Mission mission );
 
 }

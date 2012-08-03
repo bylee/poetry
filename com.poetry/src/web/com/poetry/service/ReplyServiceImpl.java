@@ -24,7 +24,7 @@ implements ReplyService
 		final Reply reply
 	)
 	{
-		replyDao.insert( reply );
+		replyDao.addReply( reply );
 	}
 
 	@Override

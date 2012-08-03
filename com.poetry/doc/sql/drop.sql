@@ -3,6 +3,9 @@ delete from File;
 delete from Poetry;
 delete from Reply;
 delete from Following;
+delete from Star;
+delete from Bookmark;
+delete from Mission;
 
 drop table Poet;
 
@@ -17,3 +20,6 @@ drop table Following;
 drop table Star;
 
 drop table Bookmark;
+
+drop table Mission;
+drop table Image;

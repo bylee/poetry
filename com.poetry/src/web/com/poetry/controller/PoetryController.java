@@ -22,6 +22,7 @@ import com.poetry.service.ReplyService;
 @Controller
 public class
 PoetryController
+extends AbstractController
 {
 	@Autowired
 	protected PoetryService poetryService;

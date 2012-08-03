@@ -1,6 +1,8 @@
 package com.poetry;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -14,12 +16,14 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.poetry.dao.BinaryDao;
+import com.poetry.dao.MissionDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
 import com.poetry.model.Binary;
 import com.poetry.model.Following;
+import com.poetry.model.Mission;
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
@@ -154,6 +158,10 @@ extends AbstractTestCase
 			
 			starDao.addStar( new Star( poetry1.getId(), anjong.getUsername() ) );
 			starDao.addStar( new Star( poetry1.getId(), hanseoung82.getUsername() ) );
+			
+			starDao.addStar( new Star( poetry2.getId(), hanseoung82.getUsername() ) );
+			starDao.addStar( new Star( poetry2.getId(), bylee.getUsername() ) );
+			starDao.addStar( new Star( poetry2.getId(), hellojintae.getUsername() ) );
 
 		}
 		finally
@@ -162,6 +170,24 @@ extends AbstractTestCase
 			session.flush();
 			SessionFactoryUtils.closeSession( session );
 		}
+	}
+
+	@Autowired
+	protected MissionDao missionDao;
+	
+	protected
+	void
+	installMission()
+	throws IOException
+	{
+		final Binary binary = new Binary();
+		binary.setName( "fallroad.jpeg" );
+		binary.setOwner( "bylee" );
+		binary.setMime( "image/jpg" );
+		binary.setContents( load( binary.getName() ) );
+		binaryDao.addBinary( binary );
+		final Mission mission = new Mission( new Date(), binary.getId(), "이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다." );
+		missionDao.addNewMission( mission );
 	}
 	
 

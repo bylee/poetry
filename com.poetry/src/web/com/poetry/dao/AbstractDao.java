@@ -1,6 +1,7 @@
 package com.poetry.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -35,12 +36,16 @@ AbstractDao
 		this.sessionFactory = sessionFactory;
 	}
 	
-	protected Session getSession()
+	protected
+	Session
+	getSession()
 	{
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public KeyedFactory<Object, String> getIdGenerator()
+	public
+	KeyedFactory<Object, String>
+	getIdGenerator()
 	{
 		return idGenerator;
 	}
@@ -56,32 +61,65 @@ AbstractDao
 	
 	protected
 	String
-	generateId( Object obj )
+	generateId(
+		final Object obj
+	)
 	{
 		return idGenerator.create( obj );
 	}
 	
-	public void insert( Object obj )
+	public
+	void
+	insert(
+		final Object obj
+	)
 	{
 		logger.trace( "Insert {}", obj );
 		getSession().persist( obj );
 		getSession().save( obj );
 	}
 	
-	public void update( Object obj )
+	public
+	void
+	update(
+		final Object obj
+	)
 	{
 		getSession().update( obj );
 		getSession().save( obj );
 	}
 	
-	public void delete( Object obj )
+	public
+	void
+	delete(
+		final Object obj
+	)
 	{
 		getSession().delete( obj );
 		getSession().save( obj );
 	}
 	
+	public
+	int
+	delete(
+		final String queryStr,
+		final Object... args
+	)
+	{
+		Session session = getSession();
+		session.flush();
+		final Query query = session.createQuery( queryStr );
+		bind( query, args );
+		return query.executeUpdate();
+	}
+	
 	@SuppressWarnings("unchecked")
-	public <T> T get( Class<T> clazz, Serializable id )
+	public <T>
+	T
+	get(
+		final Class<T> clazz,
+		final Serializable id
+	)
 	{
 		logger.trace( "Get {} from {}", id, clazz );
 		getSession().flush();
@@ -90,9 +128,14 @@ AbstractDao
 		return ret;
 	}
 	
-	public <T> boolean exists( Class<T> clazz, Serializable id )
+	public <T>
+	boolean
+	exists(
+		final Class<T> clazz,
+		final Serializable id
+	)
 	{
-		T t = get( clazz, id );
+		final T t = get( clazz, id );
 		if ( null != t )
 		{
 			return false;
@@ -101,14 +144,59 @@ AbstractDao
 		return true;
 	}
 	
-	protected List<?> find(
-		final String queryStr
+	protected
+	List<?>
+	find(
+		final String queryStr,
+		final Object... args
+	)
+	{
+		Session session = getSession();
+		session.flush();
+		final Query query = session.createQuery( queryStr );
+		bind( query, args );
+		query.setMaxResults( LIMIT );
+		return query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected <T>
+	T
+	findOne(
+		final String queryStr,
+		final Object... args
 	)
 	{
 		getSession().flush();
 		final Query query = getSession().createQuery( queryStr );
-		query.setMaxResults( LIMIT );
-		return query.list();
+		bind( query, args );
+		return (T) query.uniqueResult();
+	}
+	
+	protected
+	void
+	bind(
+		final Query query,
+		final Object... args
+	)
+	{
+		for ( int i = 0, n = args.length ; i<n ; ++i )
+		{
+			final Object arg = args[i];
+			if ( arg instanceof String )
+			{
+				query.setString( i, (String) args[i] );
+			}
+			else if ( arg instanceof Date )
+			{
+				query.setDate( i, (Date) args[i] );
+			}
+			else
+			{
+				throw new IllegalArgumentException();
+			}
+		}
+
 	}
 
 }

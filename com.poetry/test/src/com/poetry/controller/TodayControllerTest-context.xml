@@ -21,7 +21,9 @@
 	
 	<context:component-scan base-package="com.poetry.web" />
 	
-	<bean class="com.poetry.controller.HomeController" />
+	<bean class="com.poetry.controller.TodayController" />
+	
+	<bean class="com.poetry.util.IdGenerator"></bean>
 	<bean class="com.poetry.service.PoetryServiceMock"></bean>
 	<bean class="com.poetry.service.ReplyServiceMock"></bean>
 	<bean class="com.poetry.service.BinaryServiceMock"></bean>

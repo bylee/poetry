@@ -22,7 +22,7 @@
 	<div class="row offset1 span10" >
 		<div id="menu">
 		</div>
-		<div id="contents" class="row span10" ></div>
+		<div id="contents" class="row span10 container" ></div>
 	</div>
 	
 	
@@ -37,7 +37,9 @@
 	$( function () {
 		var menu = new Menu();
 		var menuView = new MenuView( { el: $("#menu"), collection: menu } );
+		menu.add( new MenuItem( { id:"today", name:"오늘의 시 선정", url:"today.html" } ) );
 		menu.add( new MenuItem( { id:"mission", name:"오늘의 시 미션", url:"mission.html" } ) );
+		menu.add( new MenuItem( { id:"write", name:"시 쓰기", url:"write.html" } ) );
 		menu.add( new MenuItem( { id:"system", name:"System", url:"system.html" } ) );
 		menuView.render();
 	} );

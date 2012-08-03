@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
@@ -16,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.ImageDao;
+import com.poetry.dao.MissionDao;
 import com.poetry.model.Binary;
 import com.poetry.model.ImageAnalysis;
+import com.poetry.model.Mission;
 
 public class
 BinaryServiceImpl
@@ -29,7 +32,21 @@ implements BinaryService
 	protected BinaryDao binaryDao;
 	
 	@Autowired
+	protected MissionDao missionDao;
+	
+	@Autowired
 	protected ImageDao imageDao;
+	
+	@Override
+	public Mission getMission() {
+		return getMission( new Date() );
+	}
+	
+	@Override
+	public Mission getMission( Date date )
+	{
+		return missionDao.getMission( date );
+	}
 	
 	@Override
 	public
@@ -56,7 +73,13 @@ implements BinaryService
 		{
 		}
 		return binaryDao.addBinary( binary );
-		
+	}
+	
+	@Override
+	public String upload( Mission mission )
+	{
+		missionDao.addNewMission( mission );
+		return mission.getId();
 	}
 
 	public

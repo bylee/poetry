@@ -50,6 +50,6 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 				} else {tau.alert("커맨트가 등록 되지 못했습니다. 다시 시도해 주세요");}
 			}
 		});
-	},
+	}
 	
 });

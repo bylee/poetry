@@ -1,6 +1,8 @@
 package com.poetry.dao;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,36 @@ extends AbstractDao
 	{
 		poetry.setId( generateId( poetry ) );
 		super.insert( poetry );
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getTodayPoetryCandidates()
+	{
+		final Collection<Object[]> results = (Collection<Object[]>) find(
+			"select poetry.id, count( poetry.id ) as rank " +
+			"from Poetry poetry, Star star " +
+			"where poetry.id = star.poetryId " +
+			"group by poetry.id order by rank desc"
+		);
+		
+		long max = 0;
+		
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		for ( final Object[] result : results )
+		{
+			long nStar = (Long) result[1];
+			if ( max <= nStar )
+			{
+				max = nStar;
+				ret.add( (String) result[0] );
+			}
+			else
+			{
+				return ret;
+			}
+		}
+		return ret;
 	}
 
 	@SuppressWarnings("unchecked")

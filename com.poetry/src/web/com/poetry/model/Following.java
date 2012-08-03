@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 @Entity
 public class
 Following
@@ -71,6 +74,31 @@ implements Serializable
 	)
 	{
 		this.follower = follower;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder()
+		.append( following )
+		.append( follower )
+		.toHashCode();
+	}
+	
+	@Override
+	public boolean equals(
+		final Object obj
+	)
+	{
+		if ( !( obj instanceof Following ) )
+		{
+			return false;
+		}
+		Following other = (Following) obj;
+		return new EqualsBuilder()
+		.append( following, other.following )
+		.append( follower, other.follower )
+		.isEquals();
 	}
 
 	

@@ -44,21 +44,21 @@ function initScene() {
 	});
 	authorPanel.add(button1);
 	var starImage = new tau.ui.ImageView({
-		src : '/image/star.jpeg',
+		src : '/image/star.jpeg'
 	});
 	authorPanel.add(starImage);
 	var starLabel = new tau.ui.Label({
 		id : 'starNum',
-		text : '17',
+		text : '17'
 	});
 	authorPanel.add(starLabel);
 	var commentImage = new tau.ui.ImageView({
-		src : '/image/comment.jpeg',
+		src : '/image/comment.jpeg'
 	});
 	authorPanel.add(commentImage);
 	var commentLabel = new tau.ui.Label({
 		id : 'commentNum',
-		text : '2',
+		text : '2'
 	});
 	authorPanel.add(commentLabel);
 	/*

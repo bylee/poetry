@@ -57,6 +57,13 @@ create table Bookmark
 	poetId varchar( 32 )
 );
 
+create table Mission
+(
+	id varchar( 32 ),
+	date date,
+	imageId varchar( 32 ),
+	description TEXT
+);
 create table Image
 (
 	id varchar( 32 ),
@@ -65,3 +72,4 @@ create table Image
 	blue numeric,
 	intensity numeric
 );
+

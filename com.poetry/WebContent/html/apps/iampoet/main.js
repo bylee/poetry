@@ -31,7 +31,7 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
         //selected: tabs[i].selectedIcon,
         selected: tabs[i].icon,
         disabled: tabs[i].icon,
-        highlighted: tabs[i].icon,
+        highlighted: tabs[i].icon
       };
       tabcomp.setBackgroundImage(backImage);
       tabcomp.setStyles({

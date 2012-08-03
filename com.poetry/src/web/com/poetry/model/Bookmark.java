@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 @Entity
 public class
 Bookmark
@@ -63,6 +66,30 @@ implements Serializable
 		this.poetId = poetId;
 	}
 	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder()
+		.append( poetryId )
+		.append( poetId )
+		.toHashCode();
+	}
+	
+	@Override
+	public boolean equals(
+		final Object obj
+	)
+	{
+		if ( !( obj instanceof Bookmark ) )
+		{
+			return false;
+		}
+		Bookmark other = (Bookmark) obj;
+		return new EqualsBuilder()
+		.append( poetryId, other.poetryId )
+		.append( poetId, other.poetId )
+		.isEquals();
+	}
 	
 
 }

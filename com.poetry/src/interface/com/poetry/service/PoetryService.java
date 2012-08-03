@@ -10,7 +10,7 @@ public interface PoetryService
 
 	Poetry add( final Poetry poetry );
 
-	List<Poetry> getTodayPoetries( String date );
+	List<Poetry> getTodayPoetries();
 
 	Poetry getPoetry( final String poetryId );
 	

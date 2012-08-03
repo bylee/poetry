@@ -5241,7 +5241,7 @@ tau.ui.Mask.prototype.renderer = tau.mixin({
   $base: 'tau-mask',
   
   $styleClass: {
-    fullscreen: '-fullscreen',
+    fullscreen: '-fullscreen'
   },
   
   updateFullscreen: function ($renderData, fullscreen) {

@@ -3,8 +3,10 @@ package com.poetry.service;
 import static escode.util.StreamUtils.getBytes;
 
 import java.io.FileInputStream;
+import java.util.Date;
 
 import com.poetry.model.Binary;
+import com.poetry.model.Mission;
 
 public class
 BinaryServiceMock
@@ -42,5 +44,19 @@ implements BinaryService
 		throw new UnsupportedOperationException();
 	}
 	
+	@Override
+	public String upload(Mission mission) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Mission getMission() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public Mission getMission(Date date) {
+		throw new UnsupportedOperationException();
+	}
 
 }

@@ -8,48 +8,124 @@
 	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
 </head>
 <body>
-<form id="fileupload" action="../../binary" method="post" enctype="multipart/form-data">
-	<input id="date" type="text">
-	
-    <div class="row fileupload-buttonbar">
-		<img id="image" alt="" src="" width="600" height="480">
-	</div>
-	<label id="imageId" class="offset2"></label>
-	<input type="file" id="uploadFile" name="uploadFile">
-	<input type="submit" id="send" disabled="disabled">
+<form id="fileupload" action="../../binary" method="post" enctype="multipart/form-data" hidden="true">
+	<input type="file" id="uploadFile" name="uploadFile" style="visibility: hidden;">
 </form>
+	<div class="container">
+	<div class="row">
+		<div class="span4">
+			<input id="date" name="date" type="text">
+		</div>
+	</div>
+	<div class="row">
+	    <div class="span6 fileupload-buttonbar">
+			<img id="image" alt="" src="" width="100%" height="300">
+		</div>
+	</div>
+	<div class="row">
+		<div class="span1">Description</div>
+	</div>
+	<div class="row">
+		<div class="span6">
+			<input type="hidden" id="imageId" name="imageId" >
+			<textarea id="description" name="description" cols="200" style="width: 100%"></textarea>
+		</div>
+	</div>
+	<div class="row">
+	<button id="send" disabled="disabled" class="btn btn-primary">등록하기</button>
+	</div>
+	</div>
 </body>
 
 <script type="text/javascript">
-$( function() {
-	window.prettyPrint && prettyPrint();
-	var now = new Date();
-	var d = now.getDate();
-	var m = now.getMonth() + 1;
+function load( date ) {
+	url = "../../mission/" + convert( date );
+	$.ajax( {
+		type : "GET",
+		dataType: "json",
+		url : url,
+		success: function( json )  
+		{
+			var id = "";
+			if ( json ) {
+				id = json.imageId;
+				$( "#image" ).attr( "src", "../../binary/" + id );
+				$( "#imageId" ).val( json.id );
+				$( "#description" ).val( json.description );
+				$( "#send" ).removeAttr( "disabled" );
+			} else {
+				$( "#image" ).attr( "src", "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" );
+				$( "#imageId" ).val( "" );
+				$( "#send" ).attr( "disabled", "disabled" );
+				$( "#description" ).val( "" );
+			}
+			console.log( "Request image :%s", id );
+			return false;
+		},
+		error: function()
+		{
+			return false;
+		}
+		
+	} );
+	if ( date.valueOf() < new Date() ) {
+		alert( "수정할 수 없는 미션의 날짜입니다." );
+	}
+}
+function convert( date ) 
+{
+	var d = date.getDate();
+	var m = date.getMonth() + 1;
 	var dd = ( d < 10 ? '0' : '') + d;
 	var mm = ( m < 10 ? '0' : '') + m;
 	
-	$( '#date' ).val( mm + "/" + dd + "/" + now.getFullYear() );
-	$( '#date' ).datepicker().on( "changeDate", function( ev ) {
-		if ( ev.date.valueOf() < new Date() ) {
-			alert( "수정할 수 없는 미션의 날짜입니다." );
-		}
+	return date.getFullYear() + "-" + mm + "-" + dd;
+};
+$( function() {
+	window.prettyPrint && prettyPrint();
+	var now = new Date();
+	var tomorrow = new Date( now.getTime() + (24 * 60 * 60 * 1000))
+	$( '#date' ).val( convert( tomorrow ) );
+	$( '#date' ).datepicker( { "format" : "yyyy-mm-dd" } ).on( "changeDate", function( ev ) {
+		load( ev.date );
 	} );
-	$("#fileupload").ajaxForm( {
-		dataType : "json",
-		success : function(json) {
-			console.log( "Request image :%s", json.id );
-			$( "#imageId" ).text( json.id );
-			$("#image").attr( "src", "../../binary/" + json.id );
-			$( "#send" ).attr( "disabled", "disabled" );
-			$( "#uploadFile" ).val( "" );
-		}
-	} );
+	load( tomorrow );
+
+	$( "#image" ).click( function(){ $( "#uploadFile" ).click(); } );
 	$( "#uploadFile" ).change( function() {
+		$( "#fileupload" ).submit();
 		$( "#send" ).removeAttr( "disabled" );
-		
 	} );
 	
+	$( "#send" ).click( function() {
+		$.ajax( {
+			type : "POST",
+			dataType: "text",
+			url : "../../mission",
+			data :{ "date" : $( "#date" ).val(),
+				"imageId" : $( "#imageId" ).val(),
+				"description" : $( "#description" ).val() },
+			success: function()  
+			{
+				alert( "성공적으로 등록되었습니다." );
+				return false;
+			},
+			error: function()
+			{
+				alert( "등록할 수 없습니다." );
+				return false;
+			}
+		} );
+	} );
+
+	$( "#fileupload" ).ajaxForm( {
+		dataType : "json",
+		success : function( json ) {
+			console.log( "Request image :%s", json.id );
+			$( "#image" ).attr( "src", "../../binary/" + json.id );
+			$( "#imageId" ).val( json.id );
+		}
+	} );
 });
 </script>
 </html>

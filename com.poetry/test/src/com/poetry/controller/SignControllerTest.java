@@ -23,7 +23,8 @@ import org.springframework.security.core.context.SecurityContextImpl;
 
 import com.poetry.model.SignStatus;
 
-public class SignControllerTest
+public class
+SignControllerTest
 {
 
 	protected SignController loginService;

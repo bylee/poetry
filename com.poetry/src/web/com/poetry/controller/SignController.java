@@ -23,6 +23,7 @@ import com.poetry.service.PoetService;
 @Controller
 public class
 SignController
+extends AbstractController
 {
 
 	@Autowired

@@ -2,6 +2,7 @@ package com.poetry.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -12,7 +13,8 @@ public class Reply
 {
 	@Id
 	protected String id;
-	
+
+	@Column( nullable = false )
 	protected String targetId;
 	
 	@ManyToOne

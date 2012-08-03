@@ -1,6 +1,8 @@
 package com.poetry.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,8 @@ PoetryServiceImpl
 implements PoetryService
 {
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
+	
+	protected static Random random = new Random( System.currentTimeMillis() );
 	
 	@Autowired
 	protected PoetryDao poetryDao;
@@ -50,21 +54,20 @@ implements PoetryService
 	@Override
 	public
 	List<Poetry>
-	getTodayPoetries(
-		final String date
-	)
+	getTodayPoetries()
 	{
-		List<Poetry> poetries = null;
-		if ( null == date )
+		final List<Poetry> poetries = new ArrayList<Poetry>();
+		final List<String> todayCandidates = poetryDao.getTodayPoetryCandidates();
+		if ( 0 < todayCandidates.size() )
 		{
-			poetries = poetryDao.listPoetry();
-		}
-		else
-		{
-			poetries = poetryDao.listPoetryAfter( date );
+			final int nPick = random.nextInt( todayCandidates.size() );
+			final String poetryId = todayCandidates.get( nPick );
+			poetries.add( poetryDao.getPoetry( poetryId ) );
 		}
 		
-		return poetries;
+		poetries.addAll( poetryDao.listPoetry() );
+		
+		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
 	}
 	
 	@Override

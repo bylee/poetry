@@ -19,4 +19,15 @@ select * from Following;
 
 select * from File;
 
-select * from poetry
+select * from Reply;
+
+select * from poetry;
+select * from image;
+select * from mission;
+
+select * from Star;
+
+select poetry.id, count( * ) rank
+from poetry, star
+where poetry.id = star.poetryId
+group by poetry.id order by rank desc
