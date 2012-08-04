@@ -6,15 +6,29 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	},
  
 	init: function (){
-		this.onEvent('todayData', this.handleToday, this);
+		
 
 		if(!tau.util.getCookie('name')) {
 			this.modalCtrl = new iampoet.LoginController();
 			this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
+			this.modalCtrl.onEvent('todayData', this.handleToday, this);
 			this.presentModal(this.modalCtrl, {
 				layout: 'FULL',
 				animate: 'vertical'
 			});
+		} else {
+		  tau.wreq({
+        type: 'GET',
+        url : '/today/20120712',
+        callbackFn : function (resp) {
+          if (resp.status === 200) {
+            this.handleToday('todayData',resp.data);
+          } else {
+            tau.alert('초기 데이타 로딩 실패'); 
+          }
+        },
+        callbackCtx : this
+      });
 		}
 	},
 	

@@ -25,6 +25,7 @@ function initScene() {
 	scrollPanel1.add(panel1);
 	
 	var textField1 = new tau.ui.TextField({
+		id : 'title',
 		styles : {
 			height : '30px',
 			width :'212px',
@@ -58,6 +59,7 @@ function initScene() {
 	button2.onEvent('tap', this.handleLayout, this);
 	scrollPanel1.add(button2);
 	var textArea1 = new tau.ui.TextArea({
+		id : 'contents',
 		styles : {
 			height : '255px',
 			marginBottom : '20px',
