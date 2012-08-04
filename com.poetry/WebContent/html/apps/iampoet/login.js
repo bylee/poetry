@@ -60,6 +60,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 	handleLoginCallBack: function (resp) {
 		if (resp.status === 200) {
 			if (resp.data.status === 'success'){
+				tau.util.setCookie('name', resp.data.username);
 				tau.wreq({
 					type: 'GET',
 					url : '/today/20120712',

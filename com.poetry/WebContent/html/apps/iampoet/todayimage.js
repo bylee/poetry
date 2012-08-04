@@ -6,13 +6,16 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	},
  
 	init: function (){
-		this.modalCtrl = new iampoet.LoginController();
-		this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
-		this.modalCtrl.onEvent('todayData', this.handleToday, this);
-		this.presentModal(this.modalCtrl, {
-			layout: 'FULL',
-			animate: 'vertical'
-		});
+		this.onEvent('todayData', this.handleToday, this);
+
+		if(!tau.util.getCookie('name')) {
+			this.modalCtrl = new iampoet.LoginController();
+			this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
+			this.presentModal(this.modalCtrl, {
+				layout: 'FULL',
+				animate: 'vertical'
+			});
+		}
 	},
 	
 	destroy: function (){
