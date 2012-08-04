@@ -2,12 +2,12 @@ $require('/poemstyle.js');
 $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	WriteformController: function (opts){
 		this.setTitle("Write");
+		this.writeType = opts.mission;
 	},
  
 	init: function (){
 		var that = this;
-		
-		
+
 		this.stylingCtrl = new iampoet.PoemStyleController();
 		this.stylingCtrl.onEvent('cancelStyling', function () {this.dismissModal();});
 		this.stylingCtrl.onEvent('applyStyling', this.handleApplyStyling, this);
@@ -36,6 +36,12 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
+		
+		if (this.writeType == 'mission') {
+		  var cameraBtn = scene.getComponent('pickImg');
+		  cameraBtn.setVisible(false);
+		}
+		
 		var submitBtn = new tau.ui.Button({
 			label : '전송'
 		});
@@ -128,7 +134,8 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 				//file: this.imageFile,
 				title: title.getText(),
 				contents: contents.getText(),
-				imageId: image.id
+				imageId: image.id,
+				where: this.writeType
 			},
 			callbackFn: function (resp) {
 					if (resp.status === 200) {

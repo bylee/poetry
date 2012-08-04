@@ -24,6 +24,6 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	
 	handleWrite: function (){
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.WriteformController());
+		seqNavi.pushController(new iampoet.WriteformController({mission :'mypoetry'}));
 	}
 });

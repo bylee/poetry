@@ -1,11 +1,11 @@
 function initScene() {
   var scene = this.getScene();
-  var scrollPanel1 = new tau.ui.ScrollPanel({
+  var mainScrollPanel = new tau.ui.ScrollPanel({
     id : 'mainPanel',
     pullToRefresh : 'up'
   });
-  scene.add(scrollPanel1);
-  var panel1 = new tau.ui.Panel(
+  scene.add(mainScrollPanel);
+  var missionInfoPanel = new tau.ui.Panel(
       {
         id : 'missionImageInfo',
         styles : {
@@ -15,7 +15,7 @@ function initScene() {
           width : '100%'
         }
       });
-  scrollPanel1.add(panel1);
+  mainScrollPanel.add(missionInfoPanel);
   var imageView1 = new tau.ui.ImageView({
     src : '/image/person.jpeg',
     styles : {
@@ -27,7 +27,7 @@ function initScene() {
       width : '32px'
     }
   });
-  panel1.add(imageView1);
+  missionInfoPanel.add(imageView1);
   var button1 = new tau.ui.Button({
     styles : {
       backgroundColor : 'transparent',
@@ -38,7 +38,7 @@ function initScene() {
       normal : 'Big Picture James'
     }
   });
-  panel1.add(button1);
+  missionInfoPanel.add(button1);
   var label1 = new tau.ui.Label({
     text : 'updated 2012.07',
     styles : {
@@ -48,7 +48,7 @@ function initScene() {
       right : '5px'
     }
   });
-  panel1.add(label1);
+  missionInfoPanel.add(label1);
   var panel2 = new tau.ui.Panel({
     align : 'center',
     styles : {
@@ -62,8 +62,8 @@ function initScene() {
       width : '100%'
     }
   });
-  panel1.add(panel2);
-  var textView1 = new tau.ui.TextView(
+  missionInfoPanel.add(panel2);
+  var missionPicInfo = new tau.ui.TextView(
       {
         text : '  이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다.',
         styles : {
@@ -75,7 +75,7 @@ function initScene() {
           width : ''
         }
       });
-  panel2.add(textView1);
+  panel2.add(missionPicInfo);
   var imageView2 = new tau.ui.ImageView({
     id : 'missionImage',
     src : '/image/fallroad.jpeg',
@@ -84,14 +84,14 @@ function initScene() {
       width : '100%'
     }
   });
-  scrollPanel1.add(imageView2);
+  mainScrollPanel.add(imageView2);
   var carousel1 = new tau.ui.Carousel({
     id : 'missionPanel',
     styles : {
       height : '150px'
     }
   });
-  scrollPanel1.add(carousel1);
+  mainScrollPanel.add(carousel1);
   var panel3 = new tau.ui.Panel({
     id : 'missionPoem',
     styles : {
@@ -102,7 +102,7 @@ function initScene() {
       width : '100%'
     }
   });
-  scrollPanel1.add(panel3);
+  mainScrollPanel.add(panel3);
   var panel4 = new tau.ui.Panel(
       {
         styles : {
@@ -268,7 +268,7 @@ function initScene() {
       width : '100%'
     }
   });
-  scrollPanel1.add(panel8);
+  mainScrollPanel.add(panel8);
   var panel9 = new tau.ui.Panel(
       {
         styles : {
@@ -434,7 +434,7 @@ function initScene() {
       width : '100%'
     }
   });
-  scrollPanel1.add(panel13);
+  mainScrollPanel.add(panel13);
   var panel14 = new tau.ui.Panel(
       {
         styles : {
@@ -600,7 +600,7 @@ function initScene() {
       width : '100%'
     }
   });
-  scrollPanel1.add(panel18);
+  mainScrollPanel.add(panel18);
   var panel19 = new tau.ui.Panel(
       {
         styles : {
