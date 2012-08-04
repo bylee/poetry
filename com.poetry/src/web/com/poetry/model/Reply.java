@@ -39,6 +39,19 @@ public class Reply
 		this.contents = contents;
 	}
 	
+	public Reply(
+		final String id,
+		final String targetId,
+		final Poet writer,
+		final String contens
+	)
+	{
+		this.id = id;
+		this.targetId = targetId;
+		this.writer = writer;
+		this.contents = contens;
+	}
+	
 	/**
 	 * @return the id
 	 */

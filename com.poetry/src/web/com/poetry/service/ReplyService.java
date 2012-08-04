@@ -9,16 +9,14 @@ import com.poetry.dao.ReplyDao;
 import com.poetry.model.Reply;
 
 public class
-ReplyServiceImpl
-implements ReplyService
+ReplyService
 {
-	@Autowired
+	@Autowired( required = false )
 	protected PoetService poetService;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected ReplyDao replyDao;
 	
-	@Override
 	public
 	void
 	addReply(
@@ -29,17 +27,6 @@ implements ReplyService
 		replyDao.addReply( reply );
 	}
 
-	@Override
-	public
-	Reply
-	get(
-		final String id
-	)
-	{
-		return replyDao.get( id );
-	}
-
-	@Override
 	public
 	List<Reply>
 	list(

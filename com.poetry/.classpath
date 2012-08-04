@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/mock"/>
 	<classpathentry kind="src" path="src/web"/>
 	<classpathentry kind="src" path="test/src"/>
-	<classpathentry kind="src" path="src/interface"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

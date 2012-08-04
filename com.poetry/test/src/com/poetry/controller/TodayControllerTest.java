@@ -1,11 +1,19 @@
 package com.poetry.controller;
 
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.poetry.model.Poet;
+import com.poetry.model.Poetry;
+import com.poetry.service.PoetryService;
 import com.poetry.servlet.MockWebApplication;
 import com.poetry.servlet.MockWebApplicationContextLoader;
 
@@ -19,12 +27,19 @@ public class
 TodayControllerTest
 extends AbstractControllerTest
 {
+	@Autowired
+	protected PoetryService poetryService;
+	
 	@Test
 	public
 	void
 	test_getTodayPoetry()
 	throws Exception
 	{
+		when( poetryService.getTodayPoetries() )
+		.thenReturn( Arrays.asList(
+			new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" )
+		) );
 		final Object[][] TEST_CASES = new Object[][] {
 			new Object[] { "/today/20120718", "GET", null, "\"title\"" },
 		};

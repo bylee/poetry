@@ -13,7 +13,7 @@ extends AbstractTestCase
 	@Test
 	public void test_analyze() throws Exception
 	{
-		final BinaryServiceImpl target = new BinaryServiceImpl();
+		final BinaryService target = new BinaryService();
 		
 		final Binary desert = new Binary();
 		desert.setMime( "image/jpg" );

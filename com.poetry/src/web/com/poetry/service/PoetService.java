@@ -19,28 +19,27 @@ import com.poetry.model.Poet;
 
 @Service
 public class
-PoetServiceImpl
-implements UserDetailsService, PoetService
+PoetService
+implements UserDetailsService
 {
 	
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
-	@Autowired
+	@Autowired( required = false )
 	protected PoetDao poetDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected FollowingDao followingDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected BinaryDao binaryDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected PoetryDao poetryDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected BookmarkDao bookmarkDao;
 	
-	@Override
 	public void
 	addNewPoet(
 		final Poet poet
@@ -79,10 +78,11 @@ implements UserDetailsService, PoetService
 		return userDetails;
 	}
 
-	@Override
 	public
 	Poet
-	getPoetDetail( final String username )
+	getPoetDetail(
+		final String username
+	)
 	{
 		final Poet poet = poetDao.getPoet( username );
 		poet.setTheNumberOfPoetries( poetryDao.getTheNumberOfPoetries( username ) );

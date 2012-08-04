@@ -25,35 +25,31 @@ import com.poetry.model.Mission;
 import com.poetry.model.MissionPoetry;
 
 public class
-BinaryServiceImpl
-implements BinaryService
+BinaryService
 {
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
-	@Autowired
+	@Autowired( required = false )
 	protected BinaryDao binaryDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected MissionDao missionDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected MissionPoetDao missionPoetDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected ImageDao imageDao;
 	
-	@Override
 	public Mission getMission() {
 		return getMission( new Date() );
 	}
 	
-	@Override
 	public Mission getMission( Date date )
 	{
 		return missionDao.getMission( date );
 	}
 	
-	@Override
 	public
 	Binary
 	getBinary(
@@ -63,7 +59,6 @@ implements BinaryService
 		return binaryDao.get( id );
 	}
 
-	@Override
 	public
 	String
 	upload(
@@ -80,7 +75,6 @@ implements BinaryService
 		return binaryDao.addBinary( binary );
 	}
 	
-	@Override
 	public String upload( Mission mission )
 	{
 		missionDao.addNewMission( mission );
@@ -189,7 +183,6 @@ implements BinaryService
 		
 	}
 
-	@Override
 	public void upload(
 		final MissionPoetry missionPoet
 	)

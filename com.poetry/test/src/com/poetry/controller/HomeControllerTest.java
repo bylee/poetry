@@ -1,11 +1,16 @@
 package com.poetry.controller;
 
+import static org.mockito.Mockito.when;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.poetry.model.Binary;
+import com.poetry.service.BinaryService;
 import com.poetry.servlet.MockWebApplication;
 import com.poetry.servlet.MockWebApplicationContextLoader;
 
@@ -19,12 +24,18 @@ public class
 HomeControllerTest
 extends AbstractControllerTest
 {
+	@Autowired
+	protected BinaryService binaryService;
+	
 	@Test
 	public void test_getBinary() throws Exception
 	{
 		final Object[][] TEST_CASES = new Object[][] {
 			new Object[] { "/binary/image1", "GET", "image/jpeg", null },
 		};
+		
+		when( binaryService.getBinary( "image1" ) ).thenReturn( new Binary( "image1", "hello.jpeg", "bylee", "image/jpeg", null ) );
+		
 		
 		for ( final Object[] TEST_CASE : TEST_CASES )
 		{

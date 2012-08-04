@@ -54,7 +54,7 @@ extends AbstractController
 	public
 	@ResponseBody
 	List<Poetry>
-	getTodayPoetry(
+	getTodayPoetries(
 		final String date
 	)
 	{

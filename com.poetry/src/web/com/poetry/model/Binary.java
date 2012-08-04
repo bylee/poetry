@@ -34,6 +34,22 @@ Binary
 	
 	@Transient
 	protected String tag;
+	
+	public Binary() {}
+	public Binary(
+		final String id,
+		final String name,
+		final String owner,
+		final String mime,
+		final byte[] contents
+	)
+	{
+		this.id = id;
+		this.name = name;
+		this.owner = owner;
+		this.mime = mime;
+		this.contents = contents;
+	}
 
 	/**
 	 * @return the id

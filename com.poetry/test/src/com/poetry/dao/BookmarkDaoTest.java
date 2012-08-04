@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith( SpringJUnit4ClassRunner.class )
 @ContextConfiguration(
-	locations= { "classpath:com/poetry/dao/PoetryDaoTest-context.xml" }
+	locations = { "classpath:com/poetry/dao/BookmarkDaoTest-context.xml" }
 )
 public class BookmarkDaoTest
 {

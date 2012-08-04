@@ -28,44 +28,49 @@ import com.poetry.util.SignUtils;
 import escode.util.Assert;
 
 public class
-PoetryServiceImpl
-implements PoetryService
+PoetryService
 {
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	protected static Random random = new Random( System.currentTimeMillis() );
 	
-	@Autowired
+	@Autowired( required = false )
 	protected TodayDao todayDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected PoetryDao poetryDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected ReplyDao replyDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected StarDao starDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected MissionPoetDao missionPoetDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected BookmarkDao bookmarkDao;
 	
-	@Autowired
+	@Autowired( required = false )
 	protected FollowingDao followingDao;
 	
-	@Override
-	public Poetry addPoetry( final Poetry poetry )
+	public
+	Poetry
+	addPoetry(
+		final Poetry poetry
+	)
 	{
 		
 		poetryDao.addPoetry( poetry );
 		return poetry;
 	}
 	
-	@Override
-	public Poetry addMissionPoetry( final Poetry poetry )
+	public
+	Poetry
+	addMissionPoetry(
+		final Poetry poetry
+	)
 	{
 		
 		poetryDao.addPoetry( poetry );
@@ -75,7 +80,6 @@ implements PoetryService
 	}
 
 
-	@Override
 	public
 	List<Poetry>
 	getTodayPoetries()
@@ -94,7 +98,6 @@ implements PoetryService
 		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
 	}
 
-	@Override
 	public
 	List<Poetry>
 	getPoetiesOf(
@@ -115,7 +118,6 @@ implements PoetryService
 		
 	}
 
-	@Override
 	public
 	Poetry
 	getPoetry(
@@ -146,7 +148,6 @@ implements PoetryService
 
 	}
 	
-	@Override
 	public
 	void
 	addStar(
@@ -157,7 +158,6 @@ implements PoetryService
 		starDao.addStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 	
-	@Override
 	public
 	void
 	removeStar(

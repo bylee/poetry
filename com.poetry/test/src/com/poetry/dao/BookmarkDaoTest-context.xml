@@ -29,7 +29,7 @@
 		<constructor-arg value="org.hibernate.Session" />
 	</bean>
 	
-	<bean id="dao" class="com.poetry.dao.PoetryDao" />
+	<bean id="dao" class="com.poetry.dao.BookmarkDao" />
 	
 </beans>
 
