@@ -77,7 +77,6 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		  //if (data.status === 'success') {
 			  this.fireEvent('dismiss');
 			  this.fireEvent('todayData', resp.data);
-			  tau.alert('login success and today data!!');  
 		  //} else {tau.alert('초기 데이타 로딩 실패');}
 		  
 	  } else {

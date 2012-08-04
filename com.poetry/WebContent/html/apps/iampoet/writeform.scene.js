@@ -41,6 +41,7 @@ function initScene() {
 		styles : {
 			width : '50px',
 			background : 'url(/image/camera.png) no-repeat center transparent',
+			'background-size' : '32px',
 			border : '0px'
 		}
 	});
@@ -53,6 +54,7 @@ function initScene() {
 		styles : {
 			width : '50px',
 			background : 'url(/image/styling.png) no-repeat center transparent',
+			'background-size' : '32px',
 			border : '0px'
 		}
 	});
@@ -82,31 +84,4 @@ function initScene() {
 		}
 	});
 	scrollPanel1.add(panel2);
-	var button2 = new tau.ui.Button({
-		styles : {
-			display : '-webkit-box'
-		},
-		label : {
-			normal : 'Cancel'
-		}
-	});
-	panel2.add(button2);
-	var button3 = new tau.ui.Button({
-		styles : {
-			display : '-webkit-box'
-		},
-		label : {
-			normal : 'Temp Save'
-		}
-	});
-	panel2.add(button3);
-	var button4 = new tau.ui.Button({
-		styles : {
-			display : '-webkit-box'
-		},
-		label : {
-			normal : 'Share'
-		}
-	});
-	panel2.add(button4);
 }

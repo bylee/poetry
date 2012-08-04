@@ -60,7 +60,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 				});
 				//TODO : IMAGE 없음.. 
 				var poetryImage = new tau.ui.ImageView({
-					src : rootURL + comments[index].writer.image?comments[index].writer.image:'' ,
+					src : rootURL + comments[index].writer.icon?comments[index].writer.icon:'' ,
 					styles : {
 						display : 'inline',
 						height : '32px',
@@ -115,11 +115,8 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 			url : '/star/' + this.poem.id,
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
-					//TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
-					if (resp.data.status === 'success') {
 						tau.alert("별이 등록 되었습니다.");
 						//TODO 별 모양 바꾸기.
-					}
 				}
 			},
 			callbackCtx : this
