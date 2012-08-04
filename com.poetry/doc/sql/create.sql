@@ -5,6 +5,7 @@ create table Poet
 (
 	username varchar( 32 ),
 	pen_name varchar( 32 ),
+	icon varchar( 32 ),
 	password varchar( 64 ),
 	email varchar( 128 ),
 	authority varchar( 128 )

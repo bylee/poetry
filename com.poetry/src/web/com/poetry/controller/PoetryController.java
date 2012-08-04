@@ -109,12 +109,14 @@ extends AbstractController
 		method = POST
 	)
 	public
-	void
+	@ResponseBody
+	String
 	reply(
 		final Reply reply
 	)
 	{
 		replyService.addReply( reply );
+		return "success";
 	}
 	
 	/**

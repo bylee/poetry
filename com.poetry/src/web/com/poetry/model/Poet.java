@@ -31,6 +31,8 @@ implements UserDetails
 	@Column( name = "pen_name" )
 	protected String penName;
 	
+	protected String icon;
+	
 	protected String email;
 	
 	@JsonIgnore
@@ -109,6 +111,16 @@ implements UserDetails
 	public void setPenName( String penName )
 	{
 		this.penName = penName;
+	}
+	
+	public String getIcon()
+	{
+		return this.icon;
+	}
+	
+	public void setIcon( final String icon )
+	{
+		this.icon = icon;
 	}
 
 	/**
