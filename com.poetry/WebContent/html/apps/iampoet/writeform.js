@@ -91,6 +91,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
   	  	var params = {'param1':'param1 value'};
   	  	var that = this;
 		//ax.ext.ui.showProgress('Loading...');
+  	/*  	
 		ax.ext.net.upload(
 				rootURL + '/binary',
 				params,
@@ -111,7 +112,8 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 				}
 		);
 		
-		
+		*/
+  	this.handlePoetry({id :12345667890});
 	},
 	
 	handlePoetry: function (image) {
@@ -132,7 +134,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 						//TODO : 성공 실패 테스트 
 						tau.alert("시가 등록 되었습니다.");
 					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
-					ax.ext.ui.hideProgress();
+					//ax.ext.ui.hideProgress();
 				},
 				callbackCtx: this
 			}
@@ -165,7 +167,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		// for android - 안드로이드는 removable만 지원합니다.
 		// var opts = {'crop':true, 'out': 'removable/pickedImage.jpg'};
 		var opts = {'out': 'images/pickedImage'+ tau.genId('') +'.jpg'};
-		ax.ext.media.pickImage(scb, ecb, opts);
+		//ax.ext.media.pickImage(scb, ecb, opts);
 		//ax.ext.media.pickImage(scb, ecb);
 	},
 	

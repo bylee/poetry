@@ -52,7 +52,7 @@ function initScene() {
 		id : 'layout',
 		styles : {
 			width : '50px',
-			background : 'url(/image/theme.png) no-repeat center transparent',
+			background : 'url(/image/styling.png) no-repeat center transparent',
 			border : '0px'
 		}
 	});
