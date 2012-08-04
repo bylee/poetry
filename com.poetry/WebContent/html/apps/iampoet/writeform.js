@@ -128,16 +128,17 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 				//file: this.imageFile,
 				title: title.getText(),
 				contents: contents.getText(),
-				imageId: image.id,
-				callbackFn: function (resp) {
+				imageId: image.id
+			},
+			callbackFn: function (resp) {
 					if (resp.status === 200) {
 						//TODO : 성공 실패 테스트 
 						tau.alert("시가 등록 되었습니다.");
 					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
 					//ax.ext.ui.hideProgress();
-				},
-				callbackCtx: this
-			}
+			},
+			callbackCtx: this
+			
 		});
 	},
 	
