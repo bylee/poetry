@@ -16,7 +16,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 				layout: 'FULL',
 				animate: 'vertical'
 			});
-		} else {
+		} else { 
 		  tau.wreq({
         type: 'GET',
         url : '/today/20120712',
