@@ -1,14 +1,18 @@
 package com.poetry.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poetry;
+import com.poetry.model.Today;
 import com.poetry.service.PoetryService;
 
 @Controller
@@ -17,6 +21,20 @@ extends AbstractController
 {
 	@Autowired
 	protected PoetryService poetryService;
+	
+	@RequestMapping(
+		value = "/today/candidate",
+		method = GET
+	)
+	public List<Poetry>
+	getCandidate(
+		@RequestParam( value = "start", required = false )
+		final String start
+	)
+	{
+		return poetryService.getTodayCandidates( start );
+	}
+	
 	
 	/**
 	 * 오늘의 시들을 반환한다.
@@ -31,7 +49,7 @@ extends AbstractController
 	 */
 	@RequestMapping(
 		value = { "/today" , "/today/{date}" },
-		method = RequestMethod.GET
+		method = GET
 	)
 	public
 	@ResponseBody
@@ -41,6 +59,19 @@ extends AbstractController
 	)
 	{
 		return poetryService.getTodayPoetries();
+	}
+	
+	@RequestMapping(
+		value = "/today/{date}",
+		method = POST
+	)
+	public
+	@ResponseBody
+	String
+	setTodayPoetry( Today today )
+	{
+		poetryService.setTodayPoetry( today );
+		return "success";
 	}
 	
 

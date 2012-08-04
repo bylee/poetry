@@ -6,6 +6,7 @@ import java.util.List;
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
+import com.poetry.model.Today;
 
 public class
 PoetryServiceMock
@@ -123,6 +124,14 @@ implements PoetryService
 		throw new UnsupportedOperationException();
 	}
 	public void removeFollowing( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public void setTodayPoetry( Today today )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public List<Poetry> getTodayCandidates( String start )
 	{
 		throw new UnsupportedOperationException();
 	}

@@ -73,3 +73,12 @@ create table Image
 	intensity numeric
 );
 
+create table Today
+(
+	date date,
+	target varchar( 32 ),
+	poet varchar( 64 )
+);
+
+
+

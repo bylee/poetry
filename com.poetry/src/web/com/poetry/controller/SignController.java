@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.poetry.model.Poet;
 import com.poetry.model.SignStatus;
 import com.poetry.service.PoetService;
+import com.poetry.util.SignUtils;
 
 @Controller
 public class
@@ -42,10 +43,9 @@ extends AbstractController
 	SignStatus
 	getStatus()
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if ( null != auth && !auth.getName().equals("anonymousUser") && auth.isAuthenticated() )
+		if ( SignUtils.isSignIn() )
 		{
-			return new SignStatus( auth.getName(), "success" );
+			return new SignStatus( SignUtils.getSignedInUsername(), "success" );
 		} else {
 			return new SignStatus( null, "fail" );
 		}

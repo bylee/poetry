@@ -18,6 +18,7 @@ import com.poetry.model.PoetryStatus;
 import com.poetry.model.Reply;
 import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
+import com.poetry.util.SignUtils;
 
 @Controller
 public class
@@ -155,13 +156,15 @@ extends AbstractController
 		method = POST
 	)
 	public
-	void
+	@ResponseBody
+	String
 	addStar(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
 		poetryService.addStar( poetryId );
+		return "success";
 	}
 	
 	/**
@@ -174,13 +177,27 @@ extends AbstractController
 		method = DELETE
 	)
 	public
-	void
+	@ResponseBody
+	String
 	deleteStar(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
 		poetryService.removeStar( poetryId );
+		return "success";
+	}
+	
+	@RequestMapping(
+		value = "/bookmark",
+		method = GET
+	)
+	public
+	List<Poetry>
+	getBookmarkList()
+	{
+		final String username = SignUtils.getSignedInUsername();
+		return poetryService.listBookmarkOf( username );
 	}
 	
 	/**
@@ -193,13 +210,15 @@ extends AbstractController
 		method = POST
 	)
 	public
-	void
+	@ResponseBody
+	String
 	addBookmark(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
 		poetryService.addBookmark( poetryId );
+		return "success";
 	}
 	
 	/**
@@ -212,13 +231,15 @@ extends AbstractController
 		method = DELETE
 	)
 	public
-	void
+	@ResponseBody
+	String
 	deleteBookmark(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
 		poetryService.removeBookmark( poetryId );
+		return "success";
 	}
 	
 	/**
@@ -231,13 +252,15 @@ extends AbstractController
 		method = POST
 	)
 	public
-	void
+	@ResponseBody
+	String
 	addFollowing(
 		@PathVariable( "poetId" )
 		final String poetId
 	)
 	{
 		poetryService.addFollowing( poetId );
+		return "success";
 	}
 	
 	/**
@@ -250,13 +273,15 @@ extends AbstractController
 		method = DELETE
 	)
 	public
-	void
+	@ResponseBody
+	String
 	deleteFollowing(
 		@PathVariable( "poetId" )
 		final String poetId
 	)
 	{
 		poetryService.removeFollowing( poetId );
+		return "success";
 	}
 	
 	

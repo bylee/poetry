@@ -17,6 +17,9 @@ select * from Poet;
 
 select * from Following;
 
+select * from Bookmark;
+
+
 select * from File where id='ef8f1673c0a81f38517ceb9b210bf604';
 
 select * from Reply;

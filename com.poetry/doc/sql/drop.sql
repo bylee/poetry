@@ -6,6 +6,8 @@ delete from Following;
 delete from Star;
 delete from Bookmark;
 delete from Mission;
+delete from Image;
+delete from Today;
 
 drop table Poet;
 
@@ -23,3 +25,5 @@ drop table Bookmark;
 
 drop table Mission;
 drop table Image;
+
+drop table Today;

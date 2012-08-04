@@ -55,7 +55,7 @@ extends AbstractDao
 	public List<Poetry> listPoetry()
 	{
 		final String query =
-			"from Poetry poetry order by poetry";
+			"from Poetry poetry";
 		
 		return (List<Poetry>) find( query ); 
 	}

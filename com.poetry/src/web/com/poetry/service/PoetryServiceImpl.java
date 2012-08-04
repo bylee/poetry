@@ -15,11 +15,16 @@ import com.poetry.dao.FollowingDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
+import com.poetry.dao.TodayDao;
 import com.poetry.model.Bookmark;
 import com.poetry.model.Following;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
 import com.poetry.model.Star;
+import com.poetry.model.Today;
+import com.poetry.util.SignUtils;
+
+import escode.util.Assert;
 
 public class
 PoetryServiceImpl
@@ -28,6 +33,9 @@ implements PoetryService
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	protected static Random random = new Random( System.currentTimeMillis() );
+	
+	@Autowired
+	protected TodayDao todayDao;
 	
 	@Autowired
 	protected PoetryDao poetryDao;
@@ -119,13 +127,8 @@ implements PoetryService
 		final String poetryId
 	)
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		starDao.addStar( new Star( poetryId, auth.getName() ) );
+		Assert.isTrue( SignUtils.isSignIn() );
+		starDao.addStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 	
 	@Override
@@ -135,59 +138,63 @@ implements PoetryService
 		final String poetryId
 	)
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		starDao.removeStar( new Star( poetryId, auth.getName() ) );
+		Assert.isTrue( SignUtils.isSignIn() );
+		starDao.removeStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 
-	public void addBookmark( String poetryId )
+	public
+	void
+	addBookmark(
+		final String poetryId
+	)
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		bookmarkDao.addBookmark( new Bookmark( poetryId, auth.getName() ) );
+		Assert.isTrue( SignUtils.isSignIn() );
+		bookmarkDao.addBookmark( new Bookmark( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 
-	public void removeBookmark( String poetryId )
+	public
+	void
+	removeBookmark( String poetryId )
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		bookmarkDao.removeBookmark( new Bookmark( poetryId, auth.getName() ) );
+		Assert.isTrue( SignUtils.isSignIn() );
+		bookmarkDao.removeBookmark( new Bookmark( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 
-	public void addFollowing( String poetId )
+	public 
+	void
+	addFollowing( String poetId )
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		followingDao.addFollowing( new Following( poetId, auth.getName() ) );
-		
+		Assert.isTrue( SignUtils.isSignIn() );
+		followingDao.addFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
 	}
 
-	public void removeFollowing( String poetId )
+	public 
+	void
+	removeFollowing( String poetId )
 	{
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return ;
-		}
-		followingDao.addFollowing( new Following( poetId, auth.getName() ) );
-		
+		Assert.isTrue( SignUtils.isSignIn() );
+		followingDao.addFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
+	}
+
+	public 
+	void
+	setTodayPoetry( Today today )
+	{
+		todayDao.setToday( today );
+	}
+
+	public
+	List<Poetry>
+	getTodayCandidates(
+		final String start
+	)
+	{
+		return null;
+	}
+
+	public List<Poetry> listBookmarkOf( String username )
+	{
+		return null;
 	}
 	
 

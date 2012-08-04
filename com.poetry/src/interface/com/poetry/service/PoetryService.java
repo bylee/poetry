@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
+import com.poetry.model.Today;
 
 public interface PoetryService
 {
@@ -27,5 +28,11 @@ public interface PoetryService
 	void addFollowing( final String poetId );
 	
 	void removeFollowing( final String poetId );
+
+	void setTodayPoetry( Today today );
+
+	List<Poetry> getTodayCandidates( String start );
+
+	List<Poetry> listBookmarkOf( String username );
 
 }
