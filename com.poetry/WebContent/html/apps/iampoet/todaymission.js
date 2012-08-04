@@ -21,14 +21,6 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
 		
-		for (var i=1; i<4 ; i++) {
-			var pPoem = scene.getComponent('pPoem'+i);
-			pPoem.onEvent(
-					tau.rt.Event.TOUCHMOVE,
-					this.handleScrollStopPropagation,
-					this);
-		}
-		
 	},
 	
 	handleWrite: function (){

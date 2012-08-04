@@ -59,8 +59,15 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 					}
 				});
 				//TODO : IMAGE 없음.. 
+				var imageSrc = '/image/person.jpeg';
+				var writer = comments[index].writer;
+				
+				if ((writer.icon != null)) {
+				  imageSrc = rootURL + '/binary/' + writer.icon;
+				}
+				
 				var poetryImage = new tau.ui.ImageView({
-					src : rootURL + comments[index].writer.icon?comments[index].writer.icon:'' ,
+					src :  imageSrc,
 					styles : {
 						display : 'inline',
 						height : '32px',
@@ -75,7 +82,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 						borderStyle : 'none'
 					},
 					label : {
-						normal : comments[index].writer.penName
+						normal : writer.penName
 					}
 				});
 				commentPanel.add(penName);
