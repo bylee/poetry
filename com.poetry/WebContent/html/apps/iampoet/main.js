@@ -4,6 +4,8 @@ $require('/todayimage.js');
 $require('/todaymission.js');
 $require('/newsfeed.js');
 $require('/setting.js');
+$require('/my.js');
+
 /**
  * tab bar based application main controller
  */
@@ -17,7 +19,7 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
 		                     new iampoet.TodayNavigator(),
 		                     new iampoet.TodayMissionNavigator(),
 		                     new iampoet.NewsFeedNavigator(),
-		                     new iampoet.SettingNavigator()
+		                     new iampoet.MyNavigator()
 		                     ]);
 		
 		this.appCtx = tau.getCurrentContext();
@@ -101,6 +103,20 @@ $class('iampoet.SettingNavigator').extend(tau.ui.SequenceNavigator).define({
 	
 	init: function () {
 		this.setRootController(new iampoet.SettingController());
+	},
+	
+	destory: function () {
+		
+	}
+});
+
+$class('iampoet.MyNavigator').extend(tau.ui.SequenceNavigator).define({
+	SettingNavigator: function (opt) {
+		this.setTitle('My');
+	},
+	
+	init: function () {
+		this.setRootController(new iampoet.MyController());
 	},
 	
 	destory: function () {
