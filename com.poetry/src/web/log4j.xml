@@ -16,7 +16,7 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<!-- Root Logger -->

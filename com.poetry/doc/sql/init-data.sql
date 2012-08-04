@@ -17,7 +17,7 @@ select * from Poet;
 
 select * from Following;
 
-select * from File;
+select * from File where id='ef8f1673c0a81f38517ceb9b210bf604';
 
 select * from Reply;
 
@@ -31,3 +31,4 @@ select poetry.id, count( * ) rank
 from poetry, star
 where poetry.id = star.poetryId
 group by poetry.id order by rank desc
+

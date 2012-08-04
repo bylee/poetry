@@ -12,14 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.poetry.model.Binary;
 import com.poetry.model.Mission;
 import com.poetry.service.BinaryService;
+
+import escode.util.CollectionUtils;
 
 @Controller
 public class
@@ -50,9 +55,34 @@ extends AbstractController
 	@ResponseBody
 	String
 	uploadMission(
-		final Mission mission
+		final Mission mission,
+		final Binary binary,
+		final BindingResult result
 	)
 	{
+		logger.trace( "trying upload :{}", binary );
+		final CommonsMultipartFile file = binary.getUploadFile();
+		if ( null == file )
+		{
+			return null;
+		}
+		if ( file.isEmpty() )
+		{
+			logger.warn( "file is empty" );
+			return null;
+		}
+		binary.setName( file.getOriginalFilename() );
+		binary.setMime( file.getContentType() );
+		binary.setContents( file.getBytes() );
+		
+		logger.info(
+			"File uploaded :{}[{}]",
+			binary.getName(),
+			CollectionUtils.size( binary.getContents() )
+		);
+		binaryService.upload( binary );
+		mission.setImageId( binary.getId() );
+
 		logger.trace( "trying upload :{}", mission );
 		binaryService.upload( mission );
 		return "success";
@@ -81,8 +111,19 @@ extends AbstractController
 		@PathVariable( "date" ) final Date date
 	)
 	{
-		logger.trace( "trying get {}'s mission", date );
-		return binaryService.getMission( date );
+		try
+		{
+			logger.trace( "trying get {}'s mission", date );
+			final Mission mission = binaryService.getMission( date );
+			logger.info( "{}'s mission :{}", date, mission );
+			return mission;
+		}
+		catch ( Throwable e )
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

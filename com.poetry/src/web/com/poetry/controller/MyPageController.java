@@ -1,5 +1,7 @@
 package com.poetry.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ extends AbstractController
 	@Autowired
 	protected PoetService poetService;
 	
-	@RequestMapping( "/poet/{username}" )
+	@RequestMapping( value = "/poet/{username}", method = GET )
 	public
 	@ResponseBody
 	Poet

@@ -34,8 +34,8 @@ extends AbstractController
 	public
 	Binary
 	uploadBinary(
-		Binary binary,
-		BindingResult result
+		final Binary binary,
+		final BindingResult result
 	)
 	{
 		final CommonsMultipartFile file = binary.getUploadFile();

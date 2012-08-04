@@ -5,12 +5,12 @@
 	<title>Admin page</title>
 	<link rel="stylesheet" href="../../css/datepicker.css" />
 	
+	<script type="text/javascript" src="../../js/load-image.js"></script>
 	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
 </head>
 <body>
-<form id="fileupload" action="../../binary" method="post" enctype="multipart/form-data" hidden="true">
-	<input type="file" id="uploadFile" name="uploadFile" style="visibility: hidden;">
-</form>
+<form id="fileupload" action="../../mission" method="post" enctype="multipart/form-data">
+	<input type="file" id="uploadFile" name="uploadFile" style="visibility: hidden;" hidden="true">
 	<div class="container">
 	<div class="row">
 		<div class="span4">
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row">
-	    <div class="span6 fileupload-buttonbar">
+	    <div class="span6 fileupload-buttonbar" id="imageContainer">
 			<img id="image" alt="" src="" width="100%" height="300">
 		</div>
 	</div>
@@ -35,11 +35,13 @@
 	<button id="send" disabled="disabled" class="btn btn-primary">등록하기</button>
 	</div>
 	</div>
+</form>
 </body>
 
 <script type="text/javascript">
 function load( date ) {
 	url = "../../mission/" + convert( date );
+	console.log( "trying "+url + " for " + date );
 	$.ajax( {
 		type : "GET",
 		dataType: "json",
@@ -47,14 +49,15 @@ function load( date ) {
 		success: function( json )  
 		{
 			var id = "";
+			image = $( "#imageContainer>img" );
 			if ( json ) {
 				id = json.imageId;
-				$( "#image" ).attr( "src", "../../binary/" + id );
+				image.attr( "src", "../../binary/" + id );
 				$( "#imageId" ).val( json.id );
 				$( "#description" ).val( json.description );
 				$( "#send" ).removeAttr( "disabled" );
 			} else {
-				$( "#image" ).attr( "src", "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" );
+				image.attr( "src", "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" );
 				$( "#imageId" ).val( "" );
 				$( "#send" ).attr( "disabled", "disabled" );
 				$( "#description" ).val( "" );
@@ -62,8 +65,9 @@ function load( date ) {
 			console.log( "Request image :%s", id );
 			return false;
 		},
-		error: function()
+		error: function( e )
 		{
+			alert( "미션을 가져오지 못했습니다. :" + e );
 			return false;
 		}
 		
@@ -82,50 +86,58 @@ function convert( date )
 	return date.getFullYear() + "-" + mm + "-" + dd;
 };
 $( function() {
-	window.prettyPrint && prettyPrint();
+    var result = $( '#imageContainer' ),
+    loadImage = function (e) {
+        e = e.originalEvent;
+        e.preventDefault();
+        window.loadImage(
+            (e.dataTransfer || e.target).files[0],
+            function (img) {
+            	$( "#send" ).removeAttr( "disabled" );
+				$( "#description" ).val( "" );
+                result.children().replaceWith(img);
+            },
+            {
+                maxWidth: result.children().outerWidth(),
+                canvas: true
+            }
+        );
+    };
+	
 	var now = new Date();
 	var tomorrow = new Date( now.getTime() + (24 * 60 * 60 * 1000))
 	$( '#date' ).val( convert( tomorrow ) );
 	$( '#date' ).datepicker( { "format" : "yyyy-mm-dd" } ).on( "changeDate", function( ev ) {
 		load( ev.date );
 	} );
-	load( tomorrow );
 
-	$( "#image" ).click( function(){ $( "#uploadFile" ).click(); } );
-	$( "#uploadFile" ).change( function() {
-		$( "#fileupload" ).submit();
-		$( "#send" ).removeAttr( "disabled" );
+	$( "#imageContainer" ).click( function(){ $( "#uploadFile" ).click(); } );
+	$( "#uploadFile" ).change( loadImage );
+
+	$( "#fileupload" ).ajaxForm( {
+		success : function() {
+			alert( "미션을 성공적으로 등록하였습니다." );
+			
+		}
+		
 	} );
 	
-	$( "#send" ).click( function() {
-		$.ajax( {
-			type : "POST",
-			dataType: "text",
-			url : "../../mission",
-			data :{ "date" : $( "#date" ).val(),
-				"imageId" : $( "#imageId" ).val(),
-				"description" : $( "#description" ).val() },
-			success: function()  
-			{
-				alert( "성공적으로 등록되었습니다." );
-				return false;
-			},
-			error: function()
-			{
-				alert( "등록할 수 없습니다." );
-				return false;
-			}
-		} );
-	} );
-
 	$( "#fileupload" ).ajaxForm( {
 		dataType : "json",
 		success : function( json ) {
 			console.log( "Request image :%s", json.id );
-			$( "#image" ).attr( "src", "../../binary/" + json.id );
+			$( "#imageContainer>img" ).attr( "src", "../../binary/" + json.id );
 			$( "#imageId" ).val( json.id );
 		}
 	} );
+	
+	
+	$(document).on( 'dragover', function (e) {
+        e = e.originalEvent;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    } ).on('drop', loadImage );
+	load( tomorrow );
 });
 </script>
 </html>
