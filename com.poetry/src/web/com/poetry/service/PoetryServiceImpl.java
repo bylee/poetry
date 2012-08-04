@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
+import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
@@ -55,6 +56,7 @@ implements PoetryService
 	@Override
 	public Poetry add( final Poetry poetry )
 	{
+		
 		poetryDao.insert( poetry );
 		return poetry;
 	}
@@ -77,7 +79,17 @@ implements PoetryService
 		
 		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
 	}
-	
+
+	@Override
+	public
+	List<Poetry>
+	getPoetiesOf(
+		final String poetId
+	)
+	{
+		return poetryDao.getPoetryOf( poetId );
+	}
+
 	@Override
 	public
 	Poetry
@@ -192,9 +204,11 @@ implements PoetryService
 		return null;
 	}
 
-	public List<Poetry> listBookmarkOf( String username )
+	public List<Poetry> getBookmarksOf(
+		final String poetId
+	)
 	{
-		return null;
+		return bookmarkDao.getBookmarksOf( poetId );
 	}
 	
 

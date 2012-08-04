@@ -111,19 +111,10 @@ extends AbstractController
 		@PathVariable( "date" ) final Date date
 	)
 	{
-		try
-		{
-			logger.trace( "trying get {}'s mission", date );
-			final Mission mission = binaryService.getMission( date );
-			logger.info( "{}'s mission :{}", date, mission );
-			return mission;
-		}
-		catch ( Throwable e )
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		logger.trace( "trying get {}'s mission", date );
+		final Mission mission = binaryService.getMission( date );
+		logger.info( "{}'s mission :{}", date, mission );
+		return mission;
 	}
 
 }

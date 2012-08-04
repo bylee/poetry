@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
 import com.poetry.model.Reply;
+import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
 import com.poetry.util.SignUtils;
@@ -25,6 +26,9 @@ public class
 PoetryController
 extends AbstractController
 {
+	@Autowired
+	protected PoetService poetService;
+	
 	@Autowired
 	protected PoetryService poetryService;
 
@@ -49,9 +53,14 @@ extends AbstractController
 		final String action
 	)
 	{
+		if ( !SignUtils.isSignIn() )
+		{
+			throw new IllegalArgumentException();
+		}
+		poetry.setAuthor( poetService.getPoetDetail( SignUtils.getSignedInUsername() ) );
 		poetryService.add( poetry );
 	}
-	
+
 	/**
 	 * 지정한 시 정보를 반환한다.
 	 * 
@@ -188,18 +197,6 @@ extends AbstractController
 	{
 		poetryService.removeStar( poetryId );
 		return "success";
-	}
-	
-	@RequestMapping(
-		value = "/bookmark",
-		method = GET
-	)
-	public
-	List<Poetry>
-	getBookmarkList()
-	{
-		final String username = SignUtils.getSignedInUsername();
-		return poetryService.listBookmarkOf( username );
 	}
 	
 	/**

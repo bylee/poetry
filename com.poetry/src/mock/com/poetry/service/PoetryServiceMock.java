@@ -139,5 +139,13 @@ implements PoetryService
 	{
 		throw new UnsupportedOperationException();
 	}
+	public List<Poetry> getPoetiesOf( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public List<Poetry> getBookmarksOf( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
 
 }

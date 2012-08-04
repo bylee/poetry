@@ -1,10 +1,13 @@
 package com.poetry.dao;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Bookmark;
+import com.poetry.model.Poetry;
 
 @Repository
 public class
@@ -59,5 +62,20 @@ extends AbstractDao
 		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
 
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Poetry> getBookmarksOf( String poetId )
+	{
+		final List<Object[]> list =
+			(List<Object[]>) find(  "from Poetry poetry, Bookmark bookmark where poetry.id = bookmark.poetryId and bookmark.poetId = ?", poetId );
+		
+		ArrayList<Poetry> poetries = new ArrayList<Poetry>();
+		for ( final Object[] row : list )
+		{
+			poetries.add( (Poetry) row[0] );
+		}
+		
+		return poetries;
+	}
+
 }
