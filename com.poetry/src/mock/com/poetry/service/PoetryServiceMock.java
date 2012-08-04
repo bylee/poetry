@@ -135,5 +135,9 @@ implements PoetryService
 	{
 		throw new UnsupportedOperationException();
 	}
+	public List<Poetry> listBookmarkOf( String username )
+	{
+		throw new UnsupportedOperationException();
+	}
 
 }
