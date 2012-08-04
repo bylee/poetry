@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class
@@ -26,14 +27,19 @@ Poetry
 	
 	protected Date createdDate = new Date();
 	
+	@Transient
 	protected int stars;
 	
+	@Transient
 	protected int replys;
 	
+	@Transient
 	protected boolean bStar;
 	
+	@Transient
 	protected boolean bBookmark;
 	
+	@Transient
 	protected boolean bFollowing;
 	
 	public Poetry()
