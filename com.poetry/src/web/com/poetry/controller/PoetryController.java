@@ -269,7 +269,7 @@ extends AbstractController
 	 * @param poetId 시인 아이디
 	 */
 	@RequestMapping(
-		value = "/following/{poetryId}",
+		value = "/following/{poetId}",
 		method = DELETE
 	)
 	public
@@ -283,7 +283,6 @@ extends AbstractController
 		poetryService.removeFollowing( poetId );
 		return "success";
 	}
-	
 	
 
 }

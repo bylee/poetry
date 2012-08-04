@@ -1,5 +1,6 @@
 package com.poetry.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ implements ReplyService
 		final Reply reply
 	)
 	{
+		reply.setCreateDate( new Date() );
 		replyDao.addReply( reply );
 	}
 
