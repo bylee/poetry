@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Mission;
+import com.poetry.model.MissionPoet;
 
 public class
 BinaryServiceMock
@@ -57,6 +58,12 @@ implements BinaryService
 	@Override
 	public Mission getMission(Date date) {
 		throw new UnsupportedOperationException();
+	}
+
+	public void upload( MissionPoet missionPoet )
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

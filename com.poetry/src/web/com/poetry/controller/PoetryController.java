@@ -41,16 +41,18 @@ extends AbstractController
 	 * 작성된 시의 공유 여부를 <code>action</code>를 통해 지정한다.
 	 * 
 	 * @param poetry 시 정보
-	 * @param action 공유 여부
+	 * @param action 시를 쓰는 장소
 	 */
 	@RequestMapping(
 		value = "/poetry",
 		method = POST
 	)
-	public void
+	public
+	@ResponseBody
+	String
 	write(
 		final Poetry poetry,
-		final String action
+		@RequestParam( value = "where", required = false ) final String action
 	)
 	{
 		if ( !SignUtils.isSignIn() )
@@ -58,7 +60,17 @@ extends AbstractController
 			throw new IllegalArgumentException();
 		}
 		poetry.setAuthor( poetService.getPoetDetail( SignUtils.getSignedInUsername() ) );
-		poetryService.add( poetry );
+		if ( "mission".equals( action ) )
+		{
+			poetryService.addMissionPoetry( poetry );
+		}
+		else
+		{
+			poetryService.addPoetry( poetry );
+		}
+		
+		return "success";
+		
 	}
 
 	/**

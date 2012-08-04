@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Mission;
+import com.poetry.model.MissionPoet;
 
 public interface
 BinaryService
@@ -17,5 +18,7 @@ BinaryService
 	String upload( final Binary binary );
 	
 	String upload( final Mission mission );
+	
+	void upload( final MissionPoet missionPoet );
 
 }

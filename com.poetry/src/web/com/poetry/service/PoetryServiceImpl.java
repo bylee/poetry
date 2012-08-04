@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
+import com.poetry.dao.MissionPoetDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
@@ -19,6 +20,7 @@ import com.poetry.dao.StarDao;
 import com.poetry.dao.TodayDao;
 import com.poetry.model.Bookmark;
 import com.poetry.model.Following;
+import com.poetry.model.MissionPoet;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
 import com.poetry.model.Star;
@@ -48,18 +50,32 @@ implements PoetryService
 	protected StarDao starDao;
 	
 	@Autowired
+	protected MissionPoetDao missionPoetDao;
+	
+	@Autowired
 	protected BookmarkDao bookmarkDao;
 	
 	@Autowired
 	protected FollowingDao followingDao;
 	
 	@Override
-	public Poetry add( final Poetry poetry )
+	public Poetry addPoetry( final Poetry poetry )
 	{
 		
-		poetryDao.insert( poetry );
+		poetryDao.addPoetry( poetry );
 		return poetry;
 	}
+	
+	@Override
+	public Poetry addMissionPoetry( final Poetry poetry )
+	{
+		
+		poetryDao.addPoetry( poetry );
+		missionPoetDao.addMissionPoet( new MissionPoet( poetry.getId() ) );
+		
+		return poetry;
+	}
+
 
 	@Override
 	public

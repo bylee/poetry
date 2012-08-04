@@ -24,7 +24,7 @@ Poetry
 	
 	protected String image;
 	
-	protected Date createdDate;
+	protected Date createdDate = new Date();
 	
 	public Poetry()
 	{

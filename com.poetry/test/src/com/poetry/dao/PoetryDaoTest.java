@@ -22,7 +22,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(
 	locations= { "classpath:com/poetry/dao/PoetryDaoTest-context.xml" }
 )
-public class PoetryDaoTest
+public class
+PoetryDaoTest
 {
 	@Autowired
 	protected PoetryDao poetryDao;
