@@ -41,7 +41,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 			url: '/reply',
 			params: {
 				targetId: this.targetId,
-				content: editor.getText()
+				contents: editor.getText()
 			},
 			callbackFn : function (resp) {
 				if (resp.status === 200) {

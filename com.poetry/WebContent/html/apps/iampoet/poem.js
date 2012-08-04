@@ -150,7 +150,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	handleFollow : function () {
 		tau.wreq({
 			type : 'POST',
-			url : '/follow/' + this.poem.author.username,
+			url : '/following/' + this.poem.author.username,
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
 					//TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
