@@ -3,7 +3,6 @@ package com.poetry.service;
 import java.util.List;
 
 import com.poetry.model.Poetry;
-import com.poetry.model.PoetryStatus;
 import com.poetry.model.Today;
 
 public interface PoetryService
@@ -17,8 +16,6 @@ public interface PoetryService
 
 	Poetry getPoetry( final String poetryId );
 	
-	PoetryStatus getPoetryStatus( final String poetryId );
-
 	void addStar( final String poetryId );
 
 	void removeStar( final String poetryId );
@@ -35,8 +32,8 @@ public interface PoetryService
 
 	List<Poetry> getTodayCandidates( String start );
 
-	List<PoetryStatus> getPoetiesOf( String poetId );
+	List<Poetry> getPoetiesOf( String poetId );
 
-	List<PoetryStatus> getBookmarksOf( String poetId );
+	List<Poetry> getBookmarksOf( String poetId );
 
 }

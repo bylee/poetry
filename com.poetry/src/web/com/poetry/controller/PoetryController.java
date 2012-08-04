@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poetry;
-import com.poetry.model.PoetryStatus;
 import com.poetry.model.Reply;
 import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
@@ -138,35 +137,6 @@ extends AbstractController
 	{
 		replyService.addReply( reply );
 		return "success";
-	}
-	
-	/**
-	 * 시의 상태를 반환한다.
-	 * 
-	 * 시의 상태는 다음의 정보를 갖는다.
-	 * <ul>
-	 * 	<li>사용자가 이 시를 좋아하는지</li>
-	 * 	<li>사용자가 이 시를 북마크( bookmark )했는지</li>
-	 * 	<li>사용자가 이 시의 작가를 follow했는지</li>
-	 * </ul>
-	 * 
-	 * @param poetryId 시의 아이디
-	 * 
-	 * @return 시의 상태 정보
-	 */
-	@RequestMapping(
-		value = "/poetrystatus/{id}",
-		method = GET
-	)
-	public
-	@ResponseBody
-	PoetryStatus
-	getPoetryStatus(
-		@PathVariable( "id" ) final String poetryId
-	)
-	{
-		// star, bookmark, follow
-		return poetryService.getPoetryStatus( poetryId );
 	}
 	
 	/**

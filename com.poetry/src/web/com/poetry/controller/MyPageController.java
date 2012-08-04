@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poet;
-import com.poetry.model.PoetryStatus;
+import com.poetry.model.Poetry;
 import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
 
@@ -46,7 +46,7 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	List<PoetryStatus>
+	List<Poetry>
 	getMyPoetries(
 		@PathVariable( "username" ) final String poetId
 	)
@@ -62,7 +62,7 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	List<PoetryStatus>
+	List<Poetry>
 	getMyBookmarks(
 		@PathVariable( "username" ) final String poetId
 	)

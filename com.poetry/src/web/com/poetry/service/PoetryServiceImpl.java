@@ -21,7 +21,6 @@ import com.poetry.model.Bookmark;
 import com.poetry.model.Following;
 import com.poetry.model.MissionPoetry;
 import com.poetry.model.Poetry;
-import com.poetry.model.PoetryStatus;
 import com.poetry.model.Star;
 import com.poetry.model.Today;
 import com.poetry.util.SignUtils;
@@ -97,24 +96,21 @@ implements PoetryService
 
 	@Override
 	public
-	List<PoetryStatus>
+	List<Poetry>
 	getPoetiesOf(
 		final String poetId
 	)
 	{
 		final List<Poetry> poetries = poetryDao.getPoetryOf( poetId );
 		
-		final ArrayList<PoetryStatus> ret = new ArrayList<PoetryStatus>();
-		
 		for ( final Poetry poetry : poetries )
 		{
 			final String poetryId = poetry.getId();
-			PoetryStatus status = new PoetryStatus( poetryId, poetry.getAuthor().getUsername() );
-			status.setReply( replyDao.getTheNumberOfReply( poetryId ) );
-			status.setStar( starDao.getTheNumberOfStar( poetryId ) );
+			poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
+			poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
 		}
 		
-		return ret;
+		return poetries;
 
 		
 	}
@@ -127,40 +123,29 @@ implements PoetryService
 	)
 	{
 		final Poetry poetry = poetryDao.getPoetry( poetryId );
-		return poetry;
-	}
-	
-	@Override
-	public
-	PoetryStatus
-	getPoetryStatus(
-		final String poetryId
-	)
-	{
-		final PoetryStatus status = new PoetryStatus();
 		
+		final int nReply = replyDao.getTheNumberOfReply( poetryId );
+		poetry.setReplys( nReply );
+		final int nStar = starDao.getTheNumberOfStar( poetryId );
+		poetry.setStars( nStar );
+
+
 		final Authentication auth =
 			SecurityContextHolder.getContext().getAuthentication();
 		if ( null == auth || !auth.isAuthenticated() )
 		{
-			return status;
+			return poetry;
 		}
 		final String userId = auth.getName();
 
-		final int nReply = replyDao.getTheNumberOfReply( poetryId );
-		status.setReply( nReply );
-		final int nStar = starDao.getTheNumberOfStar( poetryId );
-		status.setStar( nStar );
-
-
-		status.setStar( starDao.exists( poetryId, userId ) );
-		status.setBookmark( bookmarkDao.exists( poetryId, userId ) );
-		Poetry poetry = poetryDao.getPoetry( poetryId );
-		status.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), userId ) );
+		poetry.setStar( starDao.exists( poetryId, userId ) );
+		poetry.setBookmark( bookmarkDao.exists( poetryId, userId ) );
+		poetry.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), userId ) );
 		
-		return status;
-	}
+		return poetry;
 
+	}
+	
 	@Override
 	public
 	void
@@ -233,22 +218,20 @@ implements PoetryService
 		return null;
 	}
 
-	public List<PoetryStatus> getBookmarksOf(
+	public List<Poetry> getBookmarksOf(
 		final String poetId
 	)
 	{
 		final List<Poetry> poetries = bookmarkDao.getBookmarksOf( poetId );
-		final ArrayList<PoetryStatus> ret = new ArrayList<PoetryStatus>();
 		
 		for ( final Poetry poetry : poetries )
 		{
 			final String poetryId = poetry.getId();
-			PoetryStatus status = new PoetryStatus( poetryId, poetry.getAuthor().getUsername() );
-			status.setReply( replyDao.getTheNumberOfReply( poetryId ) );
-			status.setStar( starDao.getTheNumberOfStar( poetryId ) );
+			poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
+			poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
 		}
 		
-		return ret;
+		return poetries;
 	}
 	
 

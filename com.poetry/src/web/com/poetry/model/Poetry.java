@@ -26,6 +26,16 @@ Poetry
 	
 	protected Date createdDate = new Date();
 	
+	protected int stars;
+	
+	protected int replys;
+	
+	protected boolean bStar;
+	
+	protected boolean bBookmark;
+	
+	protected boolean bFollowing;
+	
 	public Poetry()
 	{
 	}
@@ -125,6 +135,58 @@ Poetry
 	public void setCreatedDate( Date createdDate )
 	{
 		this.createdDate = createdDate;
+	}
+
+	public int getStars()
+	{
+		return this.stars;
+	}
+	
+	public void setStars( final int star )
+	{
+		this.stars = star;
+	}
+	
+	public int getReplys()
+	{
+		return this.replys;
+	}
+	
+	public void setReplys( final int reply )
+	{
+		this.replys = reply;
+	}
+	
+	public boolean isStar()
+	{
+		return bStar;
+	}
+	
+	public void setStar( final boolean bStar )
+	{
+		this.bStar = bStar;
+	}
+	
+	public boolean isBookmark()
+	{
+		return this.bBookmark;
+	}
+	
+	public void setBookmark( final boolean bBookmark )
+	{
+		this.bBookmark = bBookmark;
+	}
+	
+	public boolean isFollowing()
+	{
+		return this.bFollowing;
+	}
+	
+	public void setFollowing(
+		final boolean bFollowing
+	)
+	{
+		this.bFollowing = bFollowing;
 	}
 
 	@Override
