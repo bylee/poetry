@@ -7,7 +7,7 @@ import java.util.Date;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Mission;
-import com.poetry.model.MissionPoet;
+import com.poetry.model.MissionPoetry;
 
 public class
 BinaryServiceMock
@@ -60,7 +60,7 @@ implements BinaryService
 		throw new UnsupportedOperationException();
 	}
 
-	public void upload( MissionPoet missionPoet )
+	public void upload( MissionPoetry missionPoet )
 	{
 		// TODO Auto-generated method stub
 		

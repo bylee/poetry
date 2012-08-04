@@ -22,6 +22,7 @@
 	
 	<bean class="com.poetry.controller.PoetryController" />
 	
+	<bean class="com.poetry.service.PoetServiceMock"></bean>
 	<bean class="com.poetry.service.PoetryServiceMock"></bean>
 	<bean class="com.poetry.service.ReplyServiceMock"></bean>
 	

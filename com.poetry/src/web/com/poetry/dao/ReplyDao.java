@@ -1,8 +1,5 @@
 package com.poetry.dao;
 
-import static com.poetry.util.ReplyUtils.strip;
-
-
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -43,7 +40,7 @@ extends AbstractDao
 	{
 		final String query =
 			MessageFormat.format( "from Reply reply where reply.targetId = ''{0}''", id );
-		return strip( (List<Reply>) find( query ) );
+		return (List<Reply>) find( query );
 	}
 
 	public

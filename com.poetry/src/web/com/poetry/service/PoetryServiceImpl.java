@@ -20,7 +20,7 @@ import com.poetry.dao.StarDao;
 import com.poetry.dao.TodayDao;
 import com.poetry.model.Bookmark;
 import com.poetry.model.Following;
-import com.poetry.model.MissionPoet;
+import com.poetry.model.MissionPoetry;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
 import com.poetry.model.Star;
@@ -71,7 +71,7 @@ implements PoetryService
 	{
 		
 		poetryDao.addPoetry( poetry );
-		missionPoetDao.addMissionPoet( new MissionPoet( poetry.getId() ) );
+		missionPoetDao.addMissionPoet( new MissionPoetry( poetry.getId() ) );
 		
 		return poetry;
 	}

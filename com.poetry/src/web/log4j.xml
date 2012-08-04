@@ -16,7 +16,11 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="error" />
+		<level value="trace" />
+	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="info" />
 	</logger>
 	
 	<!-- Root Logger -->

@@ -1,5 +1,7 @@
 package com.poetry.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.BookmarkDao;
+import com.poetry.dao.FollowingDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.model.Poet;
@@ -24,6 +27,9 @@ implements UserDetailsService, PoetService
 	
 	@Autowired
 	protected PoetDao poetDao;
+	
+	@Autowired
+	protected FollowingDao followingDao;
 	
 	@Autowired
 	protected BinaryDao binaryDao;
@@ -85,6 +91,24 @@ implements UserDetailsService, PoetService
 		poet.setTheNumberOfBookmarks( bookmarkDao.getTheNumberOfBookmarks( username ) );
 		
 		return poet;
+	}
+
+	public
+	List<Poet>
+	getFollowings(
+		final String poetId
+	)
+	{
+		return followingDao.getFollowings( poetId );
+	}
+
+	public
+	List<Poet>
+	getFollowers(
+		final String poetId
+	)
+	{
+		return followingDao.getFollowers( poetId );
 	}
 
 }

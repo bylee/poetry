@@ -2,7 +2,6 @@ package com.poetry.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
-import com.poetry.util.SignUtils;
 
 @Controller
 public class
@@ -28,7 +26,10 @@ extends AbstractController
 	@Autowired
 	protected PoetryService poetryService;
 	
-	@RequestMapping( value = "/poet/{username}", method = GET )
+	@RequestMapping(
+		value = "/poet/{username}",
+		method = GET
+	)
 	public
 	@ResponseBody
 	Poet
@@ -39,7 +40,10 @@ extends AbstractController
 		return poetService.getPoetDetail( username );
 	}
 
-	@RequestMapping( value = "/poet/{username}/poetry", method = GET )
+	@RequestMapping(
+		value = "/poet/{username}/poetry",
+		method = GET
+	)
 	public
 	@ResponseBody
 	List<Poetry>
@@ -52,7 +56,10 @@ extends AbstractController
 	}
 
 	
-	@RequestMapping( value = "/poet/{username}/bookmark", method = GET )
+	@RequestMapping(
+		value = "/poet/{username}/bookmark",
+		method = GET
+	)
 	public
 	@ResponseBody
 	List<Poetry>
@@ -64,39 +71,32 @@ extends AbstractController
 		
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping( value = "/poet/{username}/following", method = GET )
+	@RequestMapping(
+		value = "/poet/{username}/following",
+		method = GET
+	)
 	public
 	@ResponseBody
 	List<Poet>
-	getFollowing()
+	getFollowing(
+		final String poetId
+	)
 	{
-		if ( SignUtils.isSignIn() )
-		{
-			return Collections.EMPTY_LIST;
-		}
-		
-//		return poetryService.getPoetiesOf( SignUtils.getSignedInUsername() );
-		return null;
-
-		
+		return poetService.getFollowings( poetId );
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping( value = "/poet/{username}/follower", method = GET )
+	@RequestMapping(
+		value = "/poet/{username}/follower",
+		method = GET
+	)
 	public
 	@ResponseBody
 	List<Poet>
-	getFollower()
+	getFollower(
+		final String poetId
+	)
 	{
-		if ( SignUtils.isSignIn() )
-		{
-			return Collections.EMPTY_LIST;
-		}
-		
-//		return poetryService.getPoetiesOf( SignUtils.getSignedInUsername() );
-		return null;
-		
+		return poetService.getFollowers( poetId );
 	}
 
 }

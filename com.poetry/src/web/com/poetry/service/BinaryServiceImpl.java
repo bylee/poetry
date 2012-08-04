@@ -22,7 +22,7 @@ import com.poetry.dao.MissionPoetDao;
 import com.poetry.model.Binary;
 import com.poetry.model.ImageAnalysis;
 import com.poetry.model.Mission;
-import com.poetry.model.MissionPoet;
+import com.poetry.model.MissionPoetry;
 
 public class
 BinaryServiceImpl
@@ -191,7 +191,7 @@ implements BinaryService
 
 	@Override
 	public void upload(
-		final MissionPoet missionPoet
+		final MissionPoetry missionPoet
 	)
 	{
 		missionPoetDao.addMissionPoet( missionPoet );

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class MissionPoet
+public class MissionPoetry
 {
 	@Id
 	protected String id;
@@ -15,9 +15,9 @@ public class MissionPoet
 	
 	protected String poetryId;
 	
-	public MissionPoet() {}
+	public MissionPoetry() {}
 	
-	public MissionPoet( final String poetId )
+	public MissionPoetry( final String poetId )
 	{
 		this.poetryId = poetId;
 	}
