@@ -93,4 +93,14 @@ extends AbstractDao
 		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
 	}
 
+	@SuppressWarnings("unchecked")
+	public
+	List<Poetry>
+	getPoetryOf(
+		final String poetId
+	)
+	{
+		return (List<Poetry>) find( "from Poetry poetry where poetry.author =  ?", poetId );
+	}
+
 }

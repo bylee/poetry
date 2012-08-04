@@ -24,7 +24,7 @@ select * from File where id='ef8f1673c0a81f38517ceb9b210bf604';
 
 select * from Reply;
 
-select * from poetry where id='ef2392d2c0a81f387e7ee46a92577d1d';
+select * from poetry;
 select * from image;
 select * from mission;
 

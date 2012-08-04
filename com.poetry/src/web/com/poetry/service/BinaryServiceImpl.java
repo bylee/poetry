@@ -18,9 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.ImageDao;
 import com.poetry.dao.MissionDao;
+import com.poetry.dao.MissionPoetDao;
 import com.poetry.model.Binary;
 import com.poetry.model.ImageAnalysis;
 import com.poetry.model.Mission;
+import com.poetry.model.MissionPoet;
 
 public class
 BinaryServiceImpl
@@ -33,6 +35,9 @@ implements BinaryService
 	
 	@Autowired
 	protected MissionDao missionDao;
+	
+	@Autowired
+	protected MissionPoetDao missionPoetDao;
 	
 	@Autowired
 	protected ImageDao imageDao;
@@ -182,6 +187,14 @@ implements BinaryService
 		
 		return new double[] { red / (double) total, green / (double) total, blue / (double) total };
 		
+	}
+
+	@Override
+	public void upload(
+		final MissionPoet missionPoet
+	)
+	{
+		missionPoetDao.addMissionPoet( missionPoet );
 	}
 
 	

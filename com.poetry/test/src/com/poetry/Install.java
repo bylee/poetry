@@ -133,24 +133,24 @@ extends AbstractTestCase
 			userDao.addFollowing( new Following( bylee.getUsername(), anjong.getUsername() ) );
 			userDao.addFollowing( new Following( bylee.getUsername(), csoonoosc.getUsername() ) );
 			
-			final Poetry poetry2 = new Poetry( "Second", bylee, "contents2", image2_1.getId() );
+			final Poetry poetry2 = new Poetry( "Second", anjong, "contents2", image2_1.getId() );
 			poetryDao.addPoetry( poetry2 );
 			
-			replyDao.addReply( new Reply( poetry2.getId(), anjong, "Good~~" ) );
+			replyDao.addReply( new Reply( poetry2.getId(), bylee, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry2.getId(), csoonoosc, "So so" ) );
 
-			final Poetry poetry3 = new Poetry( "3", bylee, "contents3", image2_2.getId() );
+			final Poetry poetry3 = new Poetry( "3", csoonoosc, "contents3", image2_2.getId() );
 			poetryDao.addPoetry( poetry3 );
 			
 			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
 
-			final Poetry poetry4 = new Poetry( "4", csoonoosc, "contents4", image3_1.getId() );
+			final Poetry poetry4 = new Poetry( "4", hellojintae, "contents4", image3_1.getId() );
 			poetryDao.addPoetry( poetry4 );
 			
 			replyDao.addReply( new Reply( poetry4.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry4.getId(), hellojintae, "So so" ) );
 
-			final Poetry poetry5 = new Poetry( "Last", anjong, "contents5", image3_2.getId() );
+			final Poetry poetry5 = new Poetry( "Last", hanseoung82, "contents5", image3_2.getId() );
 			poetryDao.addPoetry( poetry5 );
 			
 			replyDao.addReply( new Reply( poetry5.getId(), bylee, "Good~~" ) );

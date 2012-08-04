@@ -81,5 +81,10 @@ create table Today
 	poet varchar( 64 )
 );
 
-
+create table MissionPoet
+(
+	id varchar( 32 ),
+	date date,
+	poetId
+);
 

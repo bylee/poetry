@@ -91,7 +91,7 @@ implements PoetryService
 	}
 	
 	@Override
-	public Poetry add( Poetry poetry )
+	public Poetry addPoetry( Poetry poetry )
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -138,6 +138,19 @@ implements PoetryService
 	public List<Poetry> listBookmarkOf( String username )
 	{
 		throw new UnsupportedOperationException();
+	}
+	public List<Poetry> getPoetiesOf( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public List<Poetry> getBookmarksOf( String poetId )
+	{
+		throw new UnsupportedOperationException();
+	}
+	public Poetry addMissionPoetry( Poetry poetry )
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -8,8 +8,10 @@ import com.poetry.model.Today;
 
 public interface PoetryService
 {
+	Poetry addPoetry( final Poetry poetry );
 
-	Poetry add( final Poetry poetry );
+	Poetry addMissionPoetry( final Poetry poetry );
+
 
 	List<Poetry> getTodayPoetries();
 
@@ -33,6 +35,8 @@ public interface PoetryService
 
 	List<Poetry> getTodayCandidates( String start );
 
-	List<Poetry> listBookmarkOf( String username );
+	List<Poetry> getPoetiesOf( String poetId );
+
+	List<Poetry> getBookmarksOf( String poetId );
 
 }

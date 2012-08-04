@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.poetry.model.Poetry;
 import com.poetry.model.PoetryStatus;
 import com.poetry.model.Reply;
+import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
 import com.poetry.service.ReplyService;
 import com.poetry.util.SignUtils;
@@ -25,6 +26,9 @@ public class
 PoetryController
 extends AbstractController
 {
+	@Autowired
+	protected PoetService poetService;
+	
 	@Autowired
 	protected PoetryService poetryService;
 
@@ -37,21 +41,38 @@ extends AbstractController
 	 * 작성된 시의 공유 여부를 <code>action</code>를 통해 지정한다.
 	 * 
 	 * @param poetry 시 정보
-	 * @param action 공유 여부
+	 * @param action 시를 쓰는 장소
 	 */
 	@RequestMapping(
 		value = "/poetry",
 		method = POST
 	)
-	public void
+	public
+	@ResponseBody
+	String
 	write(
 		final Poetry poetry,
-		final String action
+		@RequestParam( value = "where", required = false ) final String action
 	)
 	{
-		poetryService.add( poetry );
+		if ( !SignUtils.isSignIn() )
+		{
+			throw new IllegalArgumentException();
+		}
+		poetry.setAuthor( poetService.getPoetDetail( SignUtils.getSignedInUsername() ) );
+		if ( "mission".equals( action ) )
+		{
+			poetryService.addMissionPoetry( poetry );
+		}
+		else
+		{
+			poetryService.addPoetry( poetry );
+		}
+		
+		return "success";
+		
 	}
-	
+
 	/**
 	 * 지정한 시 정보를 반환한다.
 	 * 
@@ -188,18 +209,6 @@ extends AbstractController
 	{
 		poetryService.removeStar( poetryId );
 		return "success";
-	}
-	
-	@RequestMapping(
-		value = "/bookmark",
-		method = GET
-	)
-	public
-	List<Poetry>
-	getBookmarkList()
-	{
-		final String username = SignUtils.getSignedInUsername();
-		return poetryService.listBookmarkOf( username );
 	}
 	
 	/**
