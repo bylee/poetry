@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 
 import org.springframework.stereotype.Repository;
 
-import com.poetry.model.Following;
 import com.poetry.model.Poet;
 
 @Repository
@@ -32,13 +31,6 @@ extends AbstractDao
 	)
 	{
 		return get( Poet.class, username );
-	}
-	
-	public
-	void
-	addFollowing( final Following following )
-	{
-		insert( following );
 	}
 	
 	public

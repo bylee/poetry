@@ -35,8 +35,8 @@ public interface PoetryService
 
 	List<Poetry> getTodayCandidates( String start );
 
-	List<Poetry> getPoetiesOf( String poetId );
+	List<PoetryStatus> getPoetiesOf( String poetId );
 
-	List<Poetry> getBookmarksOf( String poetId );
+	List<PoetryStatus> getBookmarksOf( String poetId );
 
 }

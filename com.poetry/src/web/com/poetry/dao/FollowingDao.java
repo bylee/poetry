@@ -50,10 +50,12 @@ extends AbstractDao
 		delete( following );
 	}
 	
+	@SuppressWarnings("unchecked")
 	public
 	List<Poet>
 	getFollowings( final String poetId )
 	{
+		logger.trace( "Trying get followings for {}", poetId );
 		final List<Object[]> list =
 			(List<Object[]>) find( "from Poet poet, Following following where poet.username = following.following and following.follower = ?", poetId );
 		
@@ -66,10 +68,12 @@ extends AbstractDao
 		return poets;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public
 	List<Poet>
 	getFollowers( final String poetId )
 	{
+		logger.trace( "Trying get followers for {}", poetId );
 		final List<Object[]> list =
 			(List<Object[]>) find( "from Poet poet, Following following where poet.username = following.follower and following.following = ?", poetId );
 		

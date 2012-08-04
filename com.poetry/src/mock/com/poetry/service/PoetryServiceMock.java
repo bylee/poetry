@@ -139,11 +139,11 @@ implements PoetryService
 	{
 		throw new UnsupportedOperationException();
 	}
-	public List<Poetry> getPoetiesOf( String poetId )
+	public List<PoetryStatus> getPoetiesOf( String poetId )
 	{
 		throw new UnsupportedOperationException();
 	}
-	public List<Poetry> getBookmarksOf( String poetId )
+	public List<PoetryStatus> getBookmarksOf( String poetId )
 	{
 		throw new UnsupportedOperationException();
 	}

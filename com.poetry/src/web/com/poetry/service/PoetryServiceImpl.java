@@ -13,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
 import com.poetry.dao.MissionPoetDao;
-import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
@@ -98,12 +97,26 @@ implements PoetryService
 
 	@Override
 	public
-	List<Poetry>
+	List<PoetryStatus>
 	getPoetiesOf(
 		final String poetId
 	)
 	{
-		return poetryDao.getPoetryOf( poetId );
+		final List<Poetry> poetries = poetryDao.getPoetryOf( poetId );
+		
+		final ArrayList<PoetryStatus> ret = new ArrayList<PoetryStatus>();
+		
+		for ( final Poetry poetry : poetries )
+		{
+			final String poetryId = poetry.getId();
+			PoetryStatus status = new PoetryStatus( poetryId, poetry.getAuthor().getUsername() );
+			status.setReply( replyDao.getTheNumberOfReply( poetryId ) );
+			status.setStar( starDao.getTheNumberOfStar( poetryId ) );
+		}
+		
+		return ret;
+
+		
 	}
 
 	@Override
@@ -220,11 +233,22 @@ implements PoetryService
 		return null;
 	}
 
-	public List<Poetry> getBookmarksOf(
+	public List<PoetryStatus> getBookmarksOf(
 		final String poetId
 	)
 	{
-		return bookmarkDao.getBookmarksOf( poetId );
+		final List<Poetry> poetries = bookmarkDao.getBookmarksOf( poetId );
+		final ArrayList<PoetryStatus> ret = new ArrayList<PoetryStatus>();
+		
+		for ( final Poetry poetry : poetries )
+		{
+			final String poetryId = poetry.getId();
+			PoetryStatus status = new PoetryStatus( poetryId, poetry.getAuthor().getUsername() );
+			status.setReply( replyDao.getTheNumberOfReply( poetryId ) );
+			status.setStar( starDao.getTheNumberOfStar( poetryId ) );
+		}
+		
+		return ret;
 	}
 	
 

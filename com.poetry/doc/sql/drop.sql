@@ -8,7 +8,7 @@ delete from Bookmark;
 delete from Mission;
 delete from Image;
 delete from Today;
-delete from MissionPoet;
+delete from MissionPoetry;
 
 drop table Poet;
 

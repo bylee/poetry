@@ -27,6 +27,7 @@ select * from Reply;
 select * from poetry;
 select * from image;
 select * from mission;
+select * from missionpoetry;
 
 select * from Star;
 

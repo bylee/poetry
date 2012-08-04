@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.poetry.dao.BinaryDao;
+import com.poetry.dao.FollowingDao;
 import com.poetry.dao.MissionDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
@@ -130,9 +131,6 @@ extends AbstractTestCase
 			replyDao.addReply( new Reply( poetry1.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry1.getId(), csoonoosc, "So so" ) );
 			
-			userDao.addFollowing( new Following( bylee.getUsername(), anjong.getUsername() ) );
-			userDao.addFollowing( new Following( bylee.getUsername(), csoonoosc.getUsername() ) );
-			
 			final Poetry poetry2 = new Poetry( "Second", anjong, "contents2", image2_1.getId() );
 			poetryDao.addPoetry( poetry2 );
 			
@@ -163,6 +161,14 @@ extends AbstractTestCase
 			starDao.addStar( new Star( poetry2.getId(), bylee.getUsername() ) );
 			starDao.addStar( new Star( poetry2.getId(), hellojintae.getUsername() ) );
 
+			installMission();
+			installFollowing( bylee, hanseoung82 );
+			installFollowing( bylee, anjong );
+			installFollowing( anjong, bylee );
+			installFollowing( anjong, csoonoosc );
+			installFollowing( csoonoosc, hanseoung82 );
+			installFollowing( hanseoung82, hellojintae );
+			installFollowing( hellojintae, bylee );
 		}
 		finally
 		{
@@ -188,6 +194,17 @@ extends AbstractTestCase
 		binaryDao.addBinary( binary );
 		final Mission mission = new Mission( new Date(), binary.getId(), "이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다." );
 		missionDao.addNewMission( mission );
+	}
+	
+	@Autowired
+	protected FollowingDao followingDao;
+	
+	
+	protected
+	void
+	installFollowing( Poet following, Poet follower )
+	{
+		followingDao.addFollowing( new Following( following.getUsername(), follower.getUsername() ) );
 	}
 	
 
