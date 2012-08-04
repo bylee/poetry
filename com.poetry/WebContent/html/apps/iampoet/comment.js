@@ -1,7 +1,7 @@
 
 $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 {
-	DefaultController: function(opts) {
+  CommentController: function(opts) {
 		this.setTitle('Comment');
 		this.targetId = opts.targetId;
 	},
