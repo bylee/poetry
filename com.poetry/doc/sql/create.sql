@@ -1,6 +1,8 @@
 SET GLOBAL max_allowed_packet = 1024 * 1024 * 32;
 SET SESSION max_allowed_packet = 1024 * 1024 * 32;
 
+create database poetry default character set utf8 collate utf8_general_ci;
+
 create table Poet
 (
 	username varchar( 32 ) primary key,

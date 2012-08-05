@@ -20,13 +20,13 @@ select * from Following;
 select * from Bookmark;
 
 
-select * from File where id='ef8f1673c0a81f38517ceb9b210bf604';
+select * from File;
 
 select * from Reply;
 
 select * from poetry;
 select * from image;
-select * from mission;
+select * from Mission;
 select * from missionpoetry;
 
 select * from Star;

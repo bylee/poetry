@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html lang="utf-8">
 <head>
 <meta charset="UTF-8">
 	<title>Admin page</title>
@@ -13,8 +13,7 @@
 	<input type="file" id="uploadFile" name="uploadFile" style="visibility: hidden;" hidden="true">
 	<div class="container">
 	<div class="row">
-		<div class="span4">
-			<input id="date" name="date" type="text">
+		<div class="span4" id="dateContainer">
 		</div>
 	</div>
 	<div class="row">
@@ -37,6 +36,18 @@
 	</div>
 </form>
 </body>
+	<script id="date-template" type="template/jquery">
+		<input name="{{cid}}" type="text">
+	</div>
+	</script>
+	
+	<script id="imageUpload-template" type="template/jquery">
+	    <div class="span6 fileupload-buttonbar">
+			<img width="100%" height="300">
+		</div>
+	</script>
+	
+	
 
 <script type="text/javascript">
 function load( date ) {
@@ -86,6 +97,18 @@ function convert( date )
 	return date.getFullYear() + "-" + mm + "-" + dd;
 };
 $( function() {
+	
+	var now = new Date();
+	var tomorrow = new Date( now.getTime() + (24 * 60 * 60 * 1000))
+	
+	var date = new Calendar( {
+		date : tomorrow,
+		changeDate: function( ev ) {
+			load( ev.date );
+		}
+	} );
+	new CalendarView( { el: $( "#dateContainer" ), model: date, format: "yyyy-mm-dd" } ).render();
+	
     var result = $( '#imageContainer' ),
     loadImage = function (e) {
         e = e.originalEvent;
@@ -104,8 +127,6 @@ $( function() {
         );
     };
 	
-	var now = new Date();
-	var tomorrow = new Date( now.getTime() + (24 * 60 * 60 * 1000))
 	$( '#date' ).val( convert( tomorrow ) );
 	$( '#date' ).datepicker( { "format" : "yyyy-mm-dd" } ).on( "changeDate", function( ev ) {
 		load( ev.date );
@@ -115,6 +136,8 @@ $( function() {
 	$( "#uploadFile" ).change( loadImage );
 
 	$( "#fileupload" ).ajaxForm( {
+		scriptCharset: "utf-8" ,
+		contentType: "multipart/form-data; charset=UTF-8",
 		success : function() {
 			alert( "미션을 성공적으로 등록하였습니다." );
 			

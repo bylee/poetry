@@ -1,3 +1,6 @@
+window.Model = Backbone.Model.extend( {
+	
+} );
 window.View = Backbone.View.extend( {
 	template: function( model ) {
 		var temp = $(this.templateId).html();
@@ -10,7 +13,7 @@ window.View = Backbone.View.extend( {
 	}
 } );
 
-window.MenuItem = Backbone.Model.extend( {
+window.MenuItem = window.Model.extend( {
 	
 } );
 window.MenuItemView = View.extend( {
@@ -40,6 +43,7 @@ window.MenuView = View.extend( {
 		this.collection.bind( 'add', this.add, this );
 		this.collection.bind( 'remove', this.remove );
 		$( this.el ).append( $( this.template( this.model ) ) );
+		this.collection.each( this.add, this );
 	},
 	render: function () {
 		return this;
@@ -63,8 +67,34 @@ window.MenuView = View.extend( {
 	}
 } );
 
+window.ImageUpload = Model.extend( {
+	
+} );
 window.ImageUploadView = View.extend( {
-	templateId: "#imageUpload"
-	
-	
+	templateId: "#imageUpload-template",
+	addChangeListener: function( listener )
+	{
+		
+	}
+		
+} );
+
+
+window.Calendar = Model.extend( {
+	changeDate: function( ev ) {
+		
+	}
+} );
+
+window.CalendarView = View.extend( {
+	format: "yyyy-mm-dd",
+	templateId: "#date-template",
+	initialize: function() {
+		$( this.el ).append( $( this.template( this.model ) ) );
+	},
+	render: function() {
+		$( 'input' ).datepicker( { "format" : this.format } ).on( "changeDate", this.model.changeDate );
+		return this;
+	}
+
 } );

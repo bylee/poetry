@@ -76,9 +76,14 @@ extends AbstractService
 		return binaryDao.addBinary( binary );
 	}
 	
-	public String upload( Mission mission )
+	public
+	String
+	upload(
+		final Mission mission
+	)
 	{
 		missionDao.addNewMission( mission );
+		logger.info( "Mission registered :{}", mission );
 		return mission.getId();
 	}
 
