@@ -16,7 +16,7 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="trace" />
+		<level value="debug" />
 	</logger>
 	
 	<logger name="org.hibernate">
