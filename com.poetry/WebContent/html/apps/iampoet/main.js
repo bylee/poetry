@@ -6,6 +6,25 @@ $require('/newsfeed.js');
 $require('/setting.js');
 $require('/my.js');
 
+(function (global) {
+  if (typeof tau.util != 'undefined') {
+    poetutil = {
+        getPoetDate : function() {
+          var dateObj = new Date();
+          var month, date;
+          if (dateObj.getMonth() < 9) {
+            month = '0' + (dateObj.getMonth() + 1);
+          }
+          if (dateObj.getDate() < 10) {
+            date = '0' + dateObj.getDate();
+          }
+          var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
+          return dateStr;
+      }
+    };
+  }
+}) (window);
+
 /**
  * tab bar based application main controller
  */

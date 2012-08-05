@@ -4,14 +4,29 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	},
  
 	init: function (){
-		
-	},
-	
+  },
+  
 	destroy: function (){
 		
 	},
 	
 	sceneLoaded: function (){
+	  
+	  var scene = this.getScene();
+	  scene.setStyles({
+	    backgroundColor : 'transparent',
+	    backgroundImage : 'none'
+	  });
+	  var scrollPanel1 = new tau.ui.ScrollPanel({
+	    id : 'mainPanel',
+	    pullDownLabel: ['업데이트하시려면 아래로 당기세요.', '업데이트하시려면 당겼다 놓으세요.', '업데이트중...'],
+	    pullToRefresh: 'both',
+	    pullUpLabel: ['추가로 보실려면 위로 당기세요.', '추가하시려면 당겼다 놓으세요.', '업데이트중...'],
+	    pullDownFn : tau.ctxAware(this.loadingRefresh, this),
+	    pullUpFn : tau.ctxAware(this.loadingAddData, this)
+	  });
+	  scene.add(scrollPanel1);
+	  
 		var writeBtn = new tau.ui.Button({label : '작성'});
 		this.getNavigationBar().setRightItem(writeBtn);
     tau.wreq({
@@ -26,46 +41,37 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       },
       callbackCtx : this
     });
+    
+	},
+	
+	loadingAddData: function () {
+	  tau.wreq({
+      type: 'GET',
+      url : '/newsfeed',
+      params : {
+        start : this.lastId
+      },
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          this.loadingNewsPoet(resp.data);
+          
+        } else {
+          tau.alert('추가 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    });
+	},
+	
+	loadingRefresh: function () {
+	  console.log('loadingRefresh');
 	},
 	
 	loadingNewsPoet: function (data) {
-    var newsOfPoet = [{
-      writer : {
-        penName : '땡중땡중',
-        userName : '박중훈',
-        level : '하수'
-      },
-      stars : 15,
-      comments : 22,
-      createDate : 2012-11-22,
-      contents : '루루루루루룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-    },{
-      writer : {
-        penName : '룰루룰루',
-        userName : '할리갈리',
-        level : '하수'
-      },
-      stars : 15,
-      comments : 22,
-      createDate : 2012-11-22,
-      contents : '루1루2루3루4루5룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-    },{
-      writer : {  
-        penName : '땡땡중',
-        userName : '이본용',
-        level : '하수'
-      },
-      stars : 151,
-      comments : 2,
-      createDate : 2012-11-22,
-      contents : '루루루루루룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-    }];
-    
-    newsOfPoet = data;
+    var newsOfPoet = data;
   
     var scene = this.getScene();
     var scrollPanel = scene.getComponent('mainPanel');
-    
     for (var index in newsOfPoet) {
       var poet = newsOfPoet[index];
       var poetPanel = new tau.ui.Panel({
@@ -232,12 +238,15 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
      );
       poetPanel.add(content);
       scrollPanel.add(poetPanel);
+      this.lastId = poet.id
     }
-    scrollPanel.render();
+    scene.update();
+    scrollPanel.refresh();
   },
 	
 	handleWrite: function (){
 		var seqNavi = this.getParent();
 		seqNavi.pushController(new iampoet.WriteformController({mission :'mypoetry'}));
 	}
+	
 });

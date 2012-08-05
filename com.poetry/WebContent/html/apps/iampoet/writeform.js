@@ -132,8 +132,8 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 			//contentType: 'multipart/form-data',
 			params: {
 				//file: this.imageFile,
-				title: title.getText(),
-				contents: contents.getText(),
+				title: encodeURIComponent(title.getText()),
+				contents: encodeURIComponent(contents.getText()),
 				imageId: image.id,
 				where: this.writeType
 			},

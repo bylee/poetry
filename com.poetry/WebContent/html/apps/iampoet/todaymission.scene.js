@@ -2,8 +2,13 @@ function initScene() {
   var scene = this.getScene();
   var mainScrollPanel = new tau.ui.ScrollPanel({
     id : 'mainPanel',
-    pullToRefresh : 'up'
+    pullDownLabel: ['업데이트하시려면 아래로 당기세요.', '업데이트하시려면 당겼다 놓으세요.', '업데이트중...'],
+    pullToRefresh: 'both',
+    pullUpLabel: ['추가로 보실려면 위로 당기세요.', '추가하시려면 당겼다 놓으세요.', '업데이트중...'],
+    pullDownFn : tau.ctxAware(this.loadingRefresh, this),
+    pullUpFn : tau.ctxAware(this.loadingAddData, this)
   });
+  
   scene.add(mainScrollPanel);
   var missionInfoPanel = new tau.ui.Panel(
       {

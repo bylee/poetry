@@ -1061,13 +1061,15 @@
     		  break;
     	  default:
     		  opts.url = ".." + opts.url; //TODO poem을 위해서 작성된 코드 수정해야 함.
-    	      var callback = opts.callbackFn;
-    	  	  opts.callbackFn = function (resp) {
-    	  		  var response = {};
-    	  		  response.status = resp.status;
-    	  		  response.data = resp.responseJSON;
-    	  		  callback.call(opts.callbackCtx, response);
-    	  	  };
+    	    opts.encoding = 'UTF-8';
+    	    opts.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+  	      var callback = opts.callbackFn;
+  	  	  opts.callbackFn = function (resp) {
+  	  		  var response = {};
+  	  		  response.status = resp.status;
+  	  		  response.data = resp.responseJSON;
+  	  		  callback.call(opts.callbackCtx, response);
+  	  	  };
     		  var req = tau.req(opts);
     		  var id = req.send();
     		  return { req : req , reqid : id};

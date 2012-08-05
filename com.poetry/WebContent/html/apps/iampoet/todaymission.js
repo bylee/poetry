@@ -20,11 +20,10 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		missionPanel.setComponents([missionImage,missionImageInfo]);
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
-		var dateObj = new Date();
-		var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+1) + '-' + dateObj.getDate(); 
+		 
 		tau.wreq({
       type: 'GET',
-      url : '/mission/' + dateStr,
+      url : '/missionpoetry/' + poetutil.getPoetDate(),
       callbackFn : function (resp) {
         if (resp.status === 200) {
           console.log(resp.data);
@@ -38,38 +37,15 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		
 	},
 	
+	loadingRefresh: function () {
+    console.log('loadingRefresh');
+  },
+  
+  loadingAddData: function () {
+    console.log('loadingRefresh');
+  },
+	
 	loadingMissionPoet: function (data) {
-	  var missionPoets = [{
-	    writer : {
-	      penName : '땡중땡중',
-	      userName : '박중훈',
-	      level : '하수'
-	    },
-	    stars : 15,
-	    comments : 22,
-	    createDate : 2012-11-22,
-	    contents : '루루루루루룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-	  },{
-	    writer : {
-        penName : '룰루룰루',
-        userName : '할리갈리',
-        level : '하수'
-      },
-      stars : 15,
-      comments : 22,
-      createDate : 2012-11-22,
-      contents : '루1루2루3루4루5룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-	  },{
-	    writer : {  
-	      penName : '땡땡중',
-	      userName : '이본용',
-	      level : '하수'
-	    },
-	    stars : 151,
-	    comments : 2,
-	    createDate : 2012-11-22,
-	    contents : '루루루루루룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
-	  }];
 	  missionPoets = data;
 	
 	  var scene = this.getScene();
