@@ -116,7 +116,7 @@ $class('iampoet.MyNavigator').extend(tau.ui.SequenceNavigator).define({
 	},
 	
 	init: function () {
-		this.setRootController(new iampoet.MyController());
+		this.setRootController(new iampoet.MyController({}));
 	},
 	
 	destory: function () {

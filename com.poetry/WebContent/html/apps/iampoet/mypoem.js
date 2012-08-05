@@ -1,6 +1,7 @@
 $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 	MyPoemController: function (opts){
 		this.setTitle('내가 쓴 시');
+		this.curr_name = opts.name;
 	},
  
 	init: function () {
@@ -23,7 +24,7 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 
 	handleWrite: function (){
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.WriteformController());
+		seqNavi.pushController(new iampoet.WriteformController({mission :'내가 쓴 시'}));
 	},
 
 	getPoems : function() {
@@ -32,160 +33,196 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 		var poemsT = scene.getComponent('poemTable');
 
 		var name = tau.util.getCookie('name');
+		if (this.curr_name) {
+			name = this.curr_name;
+		}		
 		tau.wreq({
 			type: 'GET',
 			url: '/poet/' + name + '/poetry' ,
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
 					var poems = resp.data;
-					for ( var poem in poems) {
+					for (var poem in poems) {
 						var imageSrc = '/image/icon-person.png';
 						var author = poems[poem].author;
+						var poet = poems[poem];
 						if ((author.icon != null) && (author.icon !== 'null')) {
 							imageSrc = rootURL + '/binary/' + author.icon;
 				        }
 					      
 						var Ttablecell = new tau.ui.TableCell({
 							styles : {
-						        WebkitBorderRadius : '7px',
-								backgroundColor : 'transparent',
 								height : '160px',
-					            width : '98%',
+					            margin : '5px auto 0px auto'
+							}
+						});
+						
+						var poetPanel = new tau.ui.Panel({
+							styles : {
+					            backgroundColor : '#FFFFFF',
+					            //backgroundImage : '-webkit-gradient(linear, left top, right top,from(#FF0A05),to(#FFFFFF))',
 					            border : '1px solid rgb(102,102,102)',
 					            padding : '5px',
 					            'box-shadow': '2px 2px 5px #888888',
-					            margin : '20px auto 0px auto'
+					            width : '100%',
+					            height : '100%',
+//					            margin : '20px auto 0px auto',
+					            '-webkit-border-radius' : '7px'
 							}
 						});
 						
-						var tmpPanel = new tau.ui.Panel({
-							styles : {
-								width : '100%'
-							}
-						});
-						
-						var tmpUserInfoPanel = new tau.ui.Panel({
-							styles : {
-								height : '60px',
-								width : '100%'
-							}
-						});
-						var tmpUserIcon = new tau.ui.ImageView({
-					        src :  imageSrc,
+					    var imagePanel = new tau.ui.Panel({
 					        styles : {
-						        WebkitBorderRadius : '7px',
-						        display : 'inline',
-						    	height : '64px',
-						    	width : '64px'
-					        }							
-						});
-						tmpUserInfoPanel.add(tmpUserIcon);
-						var penNameBtn = new tau.ui.Button({
-							styles : {
-								backgroundColor : 'transparent',
-								backgroundImage : 'none',
-								borderStyle : 'none',
-								width: '150px',
-								'text-align': 'left'
-							},
-							label : {
-								normal : author.penName
-							}
-				        });
-						tmpUserInfoPanel.add(penNameBtn);
-						
-						var createLabel = new tau.ui.Label({
-							text : poems[poem].createDate,
-							styles : {
-								right : '5px',
-								'text-align' : 'right',
-								'display' : 'inline',
-								'font-size' : '10px'
-							}								
-						})
+						        width : '52px',
+						        height : '52px',
+						        overflow : 'hidden',
+						        display : 'inline-box',
+						        backgroundImage : 'url('+ imageSrc + ')',
+						        backgroundPosition : 'center',
+						        backgroundSize : '52px',
+						        '-webkit-border-radius' : '10px',
+						        border : '2px solid white',
+						        overflow : 'hidden'					            
+					        }
+					    });
+					    poetPanel.add(imagePanel);
 
-						tmpUserInfoPanel.add(createLabel);
-						
-						var lvl = poems[poem].author.theNumberOfBookmarks + poems[poem].author.theNumberOfFollowings + poems[poem].author.theNumberOfFollowers + poems[poem].author.theNumberOfPoetries; 
-						if (lvl < 100) {
-							lvl = '초보시인';
-						} else if (lvl < 300){
-							lvl = '중수시인';
-						} else {
-							lvl = '시인';
-						}					      
-						var lvlLabel = new tau.ui.Label({
-							text : lvl,
-						});
-
-						tmpUserInfoPanel.add(lvlLabel);
-						
-						var poemStatus = new tau.ui.Panel({
-							styles : {
-								display  : 'inline',
-								position : 'absolute',
-								right : '5px',
-								color : 'black'
-							}
-						});
-						tmpUserInfoPanel.add(poemStatus);
-						var starImg = new tau.ui.ImageView({
-							src : '/image/star.png',
-							styles : {
-								width : '30px',
-								'text-align' : 'right',
-							}
-						});
-						poemStatus.add(starImg);
-						
-						var starLbl = new tau.ui.Label({
-							id : 'starLbl',
-							text : poems[poem].stars,
-							styles : {
-								fontSize : '20px',
-								paddingTop : '6px',
-								'text-align' : 'right'
-							}
-						});
-						poemStatus.add(starLbl);
-						var commentImg = new tau.ui.ImageView({
-							src : '/image/comment.png',
+					    var namePanel = new tau.ui.Panel({
 							styles: {
-								width : '30px',
-								'text-align' : 'right'
+							    display : 'inline-block'
 							}
-						});
-						poemStatus.add(commentImg);
-						var commentLbl = new tau.ui.Label({
-							id : 'commentLbl',
-							text : poems[poem].replys,
-							styles : {
-								fontSize : '20px',
-								paddingTop : '6px',
-								'text-align' : 'right'
-							}
-						});
-						poemStatus.add(commentLbl);
-					        
-						// 이하 시 내용
-						var tmpPoemInfoPanel = new tau.ui.Panel({
-							styles : {
-								height : '60px',
-								width : '100%'
-							}		
-						});
-						var tmpContent = new tau.ui.TextView({
-							styles : {
-								marginLeft : '20px', 
-								fontSize : '30px'
-							}
-						});
-						tmpContent.setText(poems[poem].contents);
-						tmpPoemInfoPanel.add(tmpContent);
-						tmpPanel.add(tmpUserInfoPanel);
-						tmpPanel.add(tmpPoemInfoPanel);
+					    });
+					    poetPanel.add(namePanel);
+					    var penName = new tau.ui.Button({
+					    	styles : {
+					    		backgroundColor : 'transparent',
+					    		backgroundImage : 'none',
+					    		borderStyle : 'none',
+					    		width: '150px',
+					    		'text-align': 'left',
+					    		display : 'block',
+					    		height : '30px',
+					    		paddingLeft : '15px'
+					    	},
+					    	label : {
+					    		normal : author.penName
+					    	}
+					    });
+					    namePanel.add(penName);
+					    
+//						var lvl = poet.author.theNumberOfBookmarks + poet.author.theNumberOfFollowings + poet.author.theNumberOfFollowers + poet.author.theNumberOfPoetries; 
+//						if (lvl < 100) {
+//							lvl = '초보시인';
+//						} else if (lvl < 300){
+//							lvl = '중수시인';
+//						} else {
+//							lvl = '시인';
+//						}					      
+					    
+					    var levelName = new tau.ui.Label({
+					    	text : calcLevel(poet.author),
+					    	styles : {
+					    		display : 'block',
+					    		fontSize : '15px',
+					    		color : 'black',
+					    		paddingLeft : '15px'
+					    	}
+					    });
+					    namePanel.add(levelName);					    
+					    
+					    var timeLabel = new tau.ui.Label({
+					    	text : poet.createDate,
+					    	styles : {
+					    		right : '5px',
+					    		'text-align' : 'right',
+					    		'display' : 'inline',
+					    		'font-size' : '10px'
+					    	}
+					    });
+					    //poetPanel.add(timeLabel);
 						
-						Ttablecell.setContentItem(tmpPanel);
+					    
+					    var rightPanel = new tau.ui.Panel({
+					    	styles : {
+					    		display : 'inline',
+					    		position : 'absolute',
+					    		right : '5px',
+					    		color : 'black'
+					    	}
+					    });
+					    poetPanel.add(rightPanel);
+					    var innerPanel1 = new tau.ui.Panel({
+					    	styles : {
+					    		display : 'inline-block',
+					    		width : '50px'
+					    	}
+					    });
+					    rightPanel.add(innerPanel1);
+					    var innerPanel2 = new tau.ui.Panel({
+					    	styles : {
+					    		display : 'inline-block',
+					    		width : '50px'
+					    	}
+					    });
+					    rightPanel.add(innerPanel2);
+					        
+					    var starImage = new tau.ui.ImageView({
+					    	src : '/image/star.png',
+					    	styles: {
+					            width : '35px',
+					            marginLeft : 'auto',
+					            marginRight : 'auto',
+					            display : 'block'
+					          }
+					    });
+					    innerPanel1.add(starImage);
+					    var starLabel = new tau.ui.Label({
+					          id : 'starNum',
+					          text : poet.stars,
+					          styles : {
+					            fontSize : '20px',
+					            paddingTop  : '6px',
+					            'text-align' : 'center',
+					            display : 'block'
+					          }
+					    });
+					    innerPanel1.add(starLabel);
+					    var commentImage = new tau.ui.ImageView({
+					          src : '/image/comment.png',
+					          styles: {
+					            width : '35px',
+					            marginLeft : 'auto',
+					            marginRight : 'auto',
+					            display : 'block',
+					            paddingTop : '4px'
+					          }
+
+					    });
+					    innerPanel2.add(commentImage);
+					    var commentLabel = new tau.ui.Label({
+					          id : 'commentNum',
+					          text : poet.replys,
+					          styles : {
+					            fontSize : '20px',
+					            paddingTop  : '6px',
+					            'text-align' : 'center',
+					            display : 'block'
+					          }
+					    });
+					    innerPanel2.add(commentLabel);
+					    
+					    var content = new tau.ui.TextView({
+					    	text : poet.contents,
+					    	styles : {
+					                display : 'block',
+					                fontSize : '13px',
+					                marginTop : '13px',
+					                borderTop : '1px solid black'
+					    	}
+					    });
+					    poetPanel.add(content);
+
+					    Ttablecell.setContentItem(poetPanel);
 						poemsT.add(Ttablecell);
 					}
 					poemsT.render();

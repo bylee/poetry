@@ -13,23 +13,20 @@ function initScene() {
 	});
 	scene.add(myPoemScrollPanel);
 
-	var myInfoPanel = new tau.ui.Panel({
-		id : 'myInfoPanel',
-		styles : {
-			backgroundColor : 'transparent',
-			//height : '32px',
-			width : '100%'
-		}
-	});
-	myPoemScrollPanel.add(myInfoPanel);
-
 	var table = new tau.ui.Table({
 		id : 'poemTable'
 	});
 	myPoemScrollPanel.add(table);
 
 	var iampoetImg = new tau.ui.ImageView({
-		src : '/image/my-page-get_20.png',
+		src : '/image/my-page-logo.png',
+		styles : {
+			width : '108px',
+			height : '91px',
+			marginLeft : '120px',
+			marginRight : '120px',
+			border : 'none'
+		}
 	})
 	myPoemScrollPanel.add(iampoetImg);	
 }
