@@ -21,39 +21,7 @@ function initScene() {
         }
       });
   mainScrollPanel.add(missionInfoPanel);
-  var missionpicAuthorImg = new tau.ui.ImageView({
-    src : '/image/person.jpeg',
-    styles : {
-      borderColor : '#CCCCCC',
-      borderStyle : 'solid',
-      borderWidth : '2px',
-      display : 'inline',
-      height : '32px',
-      width : '32px'
-    }
-  });
-  missionInfoPanel.add(missionpicAuthorImg);
-  var missionAuthorPenname = new tau.ui.Button({
-    styles : {
-      backgroundColor : 'transparent',
-      backgroundImage : 'none',
-      borderStyle : 'none'
-    },
-    label : {
-      normal : 'Big Picture James'
-    }
-  });
-  missionInfoPanel.add(missionAuthorPenname);
-  var missionDate = new tau.ui.Label({
-    text : 'updated 2012.07',
-    styles : {
-      bottom : '2px',
-      fontSize : '11px',
-      position : 'absolute',
-      right : '5px'
-    }
-  });
-  missionInfoPanel.add(missionDate);
+  
   var missionInfoTextPanel = new tau.ui.Panel({
     align : 'center',
     styles : {
@@ -70,6 +38,7 @@ function initScene() {
   missionInfoPanel.add(missionInfoTextPanel);
   var missionPicInfo = new tau.ui.TextView(
       {
+        id : 'pinInfoText',
         text : '  이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다.',
         styles : {
           WebkitBorderRadius : '2px',
@@ -77,7 +46,7 @@ function initScene() {
           display : 'inline-block',
           fontSize : '15px',
           margin : '',
-          width : ''
+          width : '100%'
         }
       });
   missionInfoTextPanel.add(missionPicInfo);

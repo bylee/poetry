@@ -14,19 +14,35 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
-		var missionPanel = scene.getComponent('missionPanel');
+		this.missionPanel = scene.getComponent('missionPanel');
 		var missionImage = scene.getComponent('missionImage');
 		var missionImageInfo = scene.getComponent('missionImageInfo');
-		missionPanel.setComponents([missionImage,missionImageInfo]);
+		var missionInfoText = scene.getComponent('pinInfoText');
+		this.missionPanel.setComponents([missionImage,missionImageInfo]);
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
-		 
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
+		
+		tau.wreq({
+      type: 'GET',
+      url : '/mission/' + poetutil.getPoetDate(),
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          this.missionData = resp.data;
+          missionInfoText.setText(this.missionData.description);
+          missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
+        } else {
+          tau.alert('초기 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    }); 
+    
 		tau.wreq({
       type: 'GET',
       url : '/missionpoetry/' + poetutil.getPoetDate(),
       callbackFn : function (resp) {
         if (resp.status === 200) {
-          console.log(resp.data);
           this.loadingMissionPoet(resp.data);
         } else {
           tau.alert('초기 데이타 로딩 실패'); 
@@ -38,11 +54,42 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	},
 	
 	loadingRefresh: function () {
-    console.log('loadingRefresh');
+	  var scene = this.getScene();
+    var scrollPanel = scene.getComponent('mainPanel');
+    scrollPanel.removeAll();
+    tau.wreq({
+      type: 'GET',
+      url : '/missionpoetry/'+ poetutil.getPoetDate(),
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          scrollPanel.add(this.missionPanel);
+          this.loadingMissionPoet(resp.data);
+          
+        } else {
+          tau.alert('추가 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    });
   },
   
   loadingAddData: function () {
-    console.log('loadingRefresh');
+    tau.wreq({
+      type: 'GET',
+      url : '/missionpoetry/'+ poetutil.getPoetDate(),
+      params : {
+        start : this.lastId
+      },
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          this.loadingMissionPoet(resp.data);
+          
+        } else {
+          tau.alert('추가 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    });
   },
 	
 	loadingMissionPoet: function (data) {
@@ -168,7 +215,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       innerPanel1.add(starImage);
       var starLabel = new tau.ui.Label({
         id : 'starNum',
-        text : '17',
+        text : poet.stars,
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
@@ -191,7 +238,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       innerPanel2.add(commentImage);
       var commentLabel = new tau.ui.Label({
         id : 'commentNum',
-        text : '2',
+        text : poet.replys,
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
@@ -216,8 +263,10 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
      );
       poetPanel.add(content);
       scrollPanel.add(poetPanel);
+      this.lastId = poet.id;
 	  }
-	  scrollPanel.render();
+	  scene.update();
+	  scrollPanel.refresh();
 	},
 	
 	handleWrite: function (){

@@ -64,7 +64,22 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	},
 	
 	loadingRefresh: function () {
-	  console.log('loadingRefresh');
+	  var scene = this.getScene();
+    var scrollPanel = scene.getComponent('mainPanel');
+    scrollPanel.removeAll();
+    tau.wreq({
+      type: 'GET',
+      url : '/newsfeed',
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          this.loadingMissionPoet(resp.data);
+          
+        } else {
+          tau.alert('추가 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    });
 	},
 	
 	loadingNewsPoet: function (data) {
@@ -189,7 +204,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       innerPanel1.add(starImage);
       var starLabel = new tau.ui.Label({
         id : 'starNum',
-        text : '17',
+        text : poet.stars,
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
@@ -212,7 +227,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       innerPanel2.add(commentImage);
       var commentLabel = new tau.ui.Label({
         id : 'commentNum',
-        text : '2',
+        text : poet.replys,
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
