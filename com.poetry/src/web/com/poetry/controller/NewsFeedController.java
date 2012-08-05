@@ -19,6 +19,7 @@ import escode.util.Assert;
 @Controller
 public class
 NewsFeedController
+extends AbstractController
 {
 	@Autowired
 	protected PoetryService poetryService;
@@ -34,6 +35,7 @@ NewsFeedController
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
 		final String username = SignUtils.getSignedInUsername();
+		logger.debug( "signed-in username :{}", username );
 		
 		return poetryService.getNewsfeed( username, start );
 	}

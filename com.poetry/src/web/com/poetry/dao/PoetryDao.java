@@ -109,14 +109,30 @@ extends AbstractDao
 		final String username
 	)
 	{
-//		return ( List<Poetry> );
-		return null;
+		final List<Object[]> result =
+			(List<Object[]>) find(
+				"from Poetry poetry, Following following " +
+				"where poetry.author = following.following " +
+				"and following.follower = ? " +
+				"order by poetry.id",
+				username
+			);
+		
+		return extract( result, 0 );
 	}
 
 	public List<Poetry> getNewsfeed( String username, String start )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		final List<Object[]> result = (List<Object[]>) find(
+			"from Poetry poetry, Following following " +
+			"where poetry.author = following.following " +
+			"and following.follower = ? " +
+			"and poetry.id > ? " +
+			"order by poetry.id",
+			username, start
+		);
+		
+		return extract( result, 0 );
 	}
 
 }

@@ -38,3 +38,9 @@ from poetry, star
 where poetry.id = star.poetryId
 group by poetry.id order by rank desc
 
+select *
+from poetry, following 
+where poetry.author = following.following 
+and following.follower = 'bylee'
+order by poetry.id;
+

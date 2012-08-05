@@ -1,6 +1,7 @@
 package com.poetry.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -172,6 +173,26 @@ AbstractDao
 		bind( query, args );
 		return (T) query.uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	protected static <T>
+	List<T>
+	extract(
+		final List<Object[]> inputs,
+		final int index
+	)
+	{
+		final List<T> ret = new ArrayList<T>();
+		
+		for ( final Object[] input : inputs )
+		{
+			ret.add( (T) input[index] );
+		}
+		
+		return ret;
+	}
+
+	
 	
 	protected
 	void

@@ -11,23 +11,14 @@ delete from Today;
 delete from MissionPoetry;
 
 drop table Poet;
-
 drop table File;
-
 drop table Poetry;
-
 drop table Reply;
-
 drop table Following;
-
 drop table Star;
-
 drop table Bookmark;
-
 drop table Mission;
 drop table Image;
-
 drop table Today;
-
 drop table MissionPoetry;
 
