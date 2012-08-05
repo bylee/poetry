@@ -95,10 +95,10 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 					userLevel = calcLevel(resp.data);
 					var ul = scene.getComponent('myLevel');
 					ul.setText(userLevel);
-					var mpc = scene.getComponent('myPoemCount').setText(resp.data.theNumberOfPoetries);
-					var cpc = scene.getComponent('myClipPoemCount').setText(resp.data.theNumberOfBookmarks);
-					var cpc = scene.getComponent('followingCount').setText(resp.data.theNumberOfFollowings);
-					var cpc = scene.getComponent('followerCount').setText(resp.data.theNumberOfFollowers);
+					var mpc = scene.getComponent('myPoemCount').setText(resp.data.theNumberOfPoetries + '&nbsp;');
+					var cpc = scene.getComponent('myClipPoemCount').setText(resp.data.theNumberOfBookmarks + '&nbsp;');
+					var cpc = scene.getComponent('followingCount').setText(resp.data.theNumberOfFollowings + '&nbsp;');
+					var cpc = scene.getComponent('followerCount').setText(resp.data.theNumberOfFollowers + '&nbsp;');
 					
 				} else { tau.alert("에러")};
 			}
