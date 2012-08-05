@@ -44,21 +44,26 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		var comp = event.getSource();
 		var compId = comp.getId();
 		var targetpoem ;
+		var index = 0;
 		switch (compId){
 		case "mainImage":
 			targetpoem  = this.mainpoem[0];
 			break;
 		case "sub1Image":
 			targetpoem  = this.mainpoem[1];
+			index = 1;
 			break;
 		case "sub2Image":
 			targetpoem  = this.mainpoem[2];
+			index = 2;
 			break;
 		case "sub3Image":
 			targetpoem  = this.mainpoem[3];
+			index = 3;
 			break;
 		case "sub4Image":
 			targetpoem  = this.mainpoem[4];
+			index = 4;
 			break;
 		default:
 			return;
@@ -68,6 +73,8 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		seqCtrl.pushController(
 				new iampoet.PoemController(
 						{
+						  dataref : this.mainpoem,
+						  datarefNo : index,
 							poem :targetpoem,
 							seqCtrl : seqCtrl 
 						}

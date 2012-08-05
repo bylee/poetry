@@ -30,16 +30,16 @@ $class('iampoet.MainController').extend(tau.ui.ParallelNavigator).define({
       var tabcomp = tabcomps[i];
       var backImage = {
         normal: tabs[i].icon,
-        //selected: tabs[i].selectedIcon,
-        selected: tabs[i].icon,
+        selected: tabs[i].selectedIcon,
+        //selected: tabs[i].icon,
         disabled: tabs[i].icon,
         highlighted: tabs[i].icon
       };
       tabcomp.setBackgroundImage(backImage);
       tabcomp.setStyles({
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: '50% 70%',
-        backgroundSize: '80px 55px'
+        backgroundPosition: 'top center',
+        backgroundSize: '30px'
       });
       tabcomp.setLabel(tabs[i].title);
     }
