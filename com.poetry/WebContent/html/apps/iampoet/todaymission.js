@@ -71,7 +71,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
             padding : '5px',
             'box-shadow': '2px 2px 5px #888888',
             width : '95%',
-            margin : '20px auto 0px auto'
+            margin : '20px auto 0px auto',
+            '-webkit-border-radius' : '7px'
 	      }
 	    });
 	    var imageSrc = '/image/icon-person.png';
@@ -81,28 +82,54 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
         imageSrc = rootURL + '/binary/' + writer.icon;
       }
       
-      var poetryImage = new tau.ui.ImageView({
-        src :  imageSrc,
+      var imagePanel = new tau.ui.Panel({
         styles : {
-          display : 'inline',
-          height : '32px',
-          width : '32px'
+          width : '52px',
+          height : '52px',
+          overflow : 'hidden',
+          display : 'inline-box',
+          backgroundImage : 'url('+ imageSrc + ')',
+          backgroundPosition : 'center',
+          backgroundSize : '52px',
+          '-webkit-border-radius' : '10px',
+          border : '2px solid white',
+          overflow : 'hidden'
+            
         }
       });
-      poetPanel.add(poetryImage);
+      poetPanel.add(imagePanel);
+      var namePanel = new tau.ui.Panel({
+        styles: {
+          display : 'inline-block'
+        }
+      });
+      poetPanel.add(namePanel);
       var penName = new tau.ui.Button({
         styles : {
           backgroundColor : 'transparent',
           backgroundImage : 'none',
           borderStyle : 'none',
           width: '150px',
-          'text-align': 'left'
+          'text-align': 'left',
+          display : 'block',
+          height : '30px',
+          paddingLeft : '15px'
         },
         label : {
           normal : writer.penName
         }
       });
-      poetPanel.add(penName);
+      namePanel.add(penName);
+      var levelName = new tau.ui.Label({
+        text : writer.level,
+        styles : {
+          display : 'block',
+          fontSize : '15px',
+          color : 'black',
+          paddingLeft : '15px'
+        }
+      });
+      namePanel.add(levelName);
       var timeLabel = new tau.ui.Label({
         text : poet.createDate,
         styles : {
@@ -121,48 +148,70 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
           color : 'black'
           
         }
-      })
+      });
       poetPanel.add(rightPanel);
+      var innerPanel1 = new tau.ui.Panel({
+        styles : {
+          display : 'inline-block',
+          width : '50px'
+        }
+      });
+      rightPanel.add(innerPanel1);
+      var innerPanel2 = new tau.ui.Panel({
+        styles : {
+          display : 'inline-block',
+          width : '50px'
+        }
+      });
+      rightPanel.add(innerPanel2);
       
       var starImage = new tau.ui.ImageView({
         src : '/image/star.png',
         styles: {
           width : '35px',
-          'text-align' : 'right',
+          marginLeft : 'auto',
+          marginRight : 'auto',
+          display : 'block'
         }
           
       });
-      rightPanel.add(starImage);
+      innerPanel1.add(starImage);
       var starLabel = new tau.ui.Label({
         id : 'starNum',
         text : '17',
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
-          'text-align' : 'right',
+          'text-align' : 'center',
+          display : 'block'
         }
       });
-      rightPanel.add(starLabel);
+      innerPanel1.add(starLabel);
       var commentImage = new tau.ui.ImageView({
         src : '/image/comment.png',
         styles: {
           width : '35px',
-          'text-align' : 'right'
+          marginLeft : 'auto',
+          marginRight : 'auto',
+          display : 'block',
+          paddingTop : '4px'
         }
 
       });
-      rightPanel.add(commentImage);
+      innerPanel2.add(commentImage);
       var commentLabel = new tau.ui.Label({
         id : 'commentNum',
         text : '2',
         styles : {
           fontSize : '20px',
           paddingTop  : '6px',
-          'text-align' : 'right'
+          'text-align' : 'center',
+          display : 'block'
+           
             
         }
       });
-      rightPanel.add(commentLabel);
+      innerPanel2.add(commentLabel);
       var content = new tau.ui.TextView(
           {
             text : poet.contents,
@@ -171,8 +220,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
               //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
               display : 'inline-block',
               fontSize : '13px',
-              margin : '',
-              width : ''
+              marginTop : '13px',
+              borderTop : '1px solid black'
             }
           }
      );
