@@ -73,7 +73,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 					}
 				});
 				//TODO : IMAGE 없음.. 
-				var imageSrc = '/image/person.jpeg';
+				var imageSrc = '/image/icon-person.png';
 				var writer = comments[index].writer;
 				
 				if ((writer.icon != null)) {
