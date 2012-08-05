@@ -95,7 +95,7 @@ extends AbstractController
 	 * 해당 <code>targetId</code>에 대한 {@link Reply}들을 반환한다.
 	 * 
 	 * @param targetId 대상에 대한 아이디
-	 * @param startId 시작 아이디
+	 * @param start 시작 아이디
 	 * 
 	 * @return {@link Reply}의 {@link List}
 	 */
@@ -110,10 +110,10 @@ extends AbstractController
 		@PathVariable( "targetId" )
 		final String targetId,
 		@RequestParam( value = "start", required = false )
-		final String startId
+		final String start
 	)
 	{
-		return poetryService.list( targetId, startId );
+		return poetryService.list( targetId, start );
 	}
 	
 	/**

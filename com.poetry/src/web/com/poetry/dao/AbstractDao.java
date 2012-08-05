@@ -18,7 +18,7 @@ public class
 AbstractDao
 {
 	
-	protected static final int LIMIT = 10;
+	protected static final int LIMIT = 5;
 	
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
