@@ -13,16 +13,6 @@ function initScene() {
 	});
 	scene.add(myClipPoemScrollPanel);
 
-	var myInfoPanel = new tau.ui.Panel({
-		id : 'myInfoPanel',
-		styles : {
-			backgroundColor : 'transparent',
-			//height : '32px',
-			width : '100%'
-		}
-	});
-	myClipPoemScrollPanel.add(myInfoPanel);
-
 	
 	var table = new tau.ui.Table({
 		id : 'clipTable'
@@ -30,7 +20,14 @@ function initScene() {
 	myClipPoemScrollPanel.add(table);
 
 	var iampoetImg = new tau.ui.ImageView({
-		src : '/image/my-page-get_20.png',
+		src : '/image/my-page-logo.png',
+		styles : {
+			width : '108px',
+			height : '91px',
+			marginLeft : '120px',
+			marginRight : '120px',
+			border : 'none'
+		}
 	})
-	myClipPoemScrollPanel.add(iampoetImg);
+	myClipPoemScrollPanel.add(iampoetImg);	
 }

@@ -3,9 +3,23 @@ $require('/myclip.js');
 $require('/following.js');
 $require('/follower.js');
 
+function calcLevel(user) {
+	var result = '';
+	var lvl = user.theNumberOfBookmarks + user.theNumberOfFollowings + user.theNumberOfFollowers + user.theNumberOfPoetries; 
+	if (lvl < 100) {
+		result = '초보시인';
+	} else if (lvl < 300){
+		result = '중수시인';
+	} else {
+		result = '시인';
+	}	
+	return result;
+}
+
 $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	MyController: function (opts){
-		this.setTitle('my');
+		this.setTitle('My Page');
+		this.curr_name = opts.name;
 	},
  
 	init: function () {
@@ -56,19 +70,31 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	
 	handleWrite: function (){
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.WriteformController());
+		seqNavi.pushController(new iampoet.WriteformController({mission :'My Page'}));
 	},
 	
 	getMyInfo: function (){
 		var scene = this.getScene();
 		var name = tau.util.getCookie('name');
+		if (this.curr_name) {
+			name = this.curr_name;
+		}
 		tau.wreq({
 			type: 'GET',
 			url: '/poet/' + name,
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
-					scene.getComponent('myName').setText(resp.data.username);
+//					scene.getComponent('myName').setText(resp.data.username);
+					var imageSrc = '/image/icon-person.png';
+					if ((resp.data.icon != null) && (resp.data.icon !== 'null')) {
+						imageSrc = rootURL + '/binary/' + author.icon;
+			        }
+					var ui = scene.getComponent('userIcon');
+					ui.setStyle('backgroundImage', 'url(' + imageSrc + ')');
 					scene.getComponent('myPenName').setText(resp.data.penName);
+					userLevel = calcLevel(resp.data);
+					var ul = scene.getComponent('myLevel');
+					ul.setText(userLevel);
 					var mpc = scene.getComponent('myPoemCount').setText(resp.data.theNumberOfPoetries);
 					var cpc = scene.getComponent('myClipPoemCount').setText(resp.data.theNumberOfBookmarks);
 					var cpc = scene.getComponent('followingCount').setText(resp.data.theNumberOfFollowings);
@@ -81,22 +107,38 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	
 	gotoMyPoem:function() {
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.MyPoemController());		
+		var cname = tau.util.getCookie('name');
+		if (this.curr_name) {
+			cname = this.curr_name;
+		}	
+		seqNavi.pushController(new iampoet.MyPoemController({name:cname}));		
 	},
 		
 	gotoMyClipPoem:function() {
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.MyClipController());		
+		var cname = tau.util.getCookie('name');
+		if (this.curr_name) {
+			cname = this.curr_name;
+		}			
+		seqNavi.pushController(new iampoet.MyClipController({name:cname}));		
 	},
 		
 	gotoFollowing:function() {
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.FollowingController());		
+		var cname = tau.util.getCookie('name');
+		if (this.curr_name) {
+			cname = this.curr_name;
+		}	
+		seqNavi.pushController(new iampoet.FollowingController({name:cname}));		
 	},
 		
 	gotoFollower:function() {
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.FollowerController());		
+		var cname = tau.util.getCookie('name');
+		if (this.curr_name) {
+			cname = this.curr_name;
+		}
+		seqNavi.pushController(new iampoet.FollowerController({name:cname}));		
 	},
 		
 	

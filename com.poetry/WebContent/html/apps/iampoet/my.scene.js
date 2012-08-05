@@ -21,33 +21,79 @@ function initScene() {
 	var myInfoPanel = new tau.ui.Panel({
 		id : 'myInfoPanel',
 		styles : {
+	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
-			//height : '32px',
-			width : '100%'
+            border : '1px solid rgb(102,102,102)',
+            padding : '5px',
+			height : '70px',
+			width : '97%',
+            margin : '5px 5px 5px 5px'
 		}
 	});
 	myScrollPanel.add(myInfoPanel);
-	
-	var myInfoImage = new tau.ui.ImageView({
-		src : '/image/my-page_09.png',
-	});	
-	myInfoPanel.add(myInfoImage);
 
-	var myNameLabel = new tau.ui.Label({
-		id : 'myName'
-	});
-	myInfoPanel.add(myNameLabel);
+	var imageSrc = '/image/icon-person.png';
+
+    var imagePanel = new tau.ui.Panel({
+    	id : 'userIcon',
+        styles : {
+	        width : '52px',
+	        height : '52px',
+	        overflow : 'hidden',
+	        display : 'inline-box',
+	        backgroundImage : 'url('+ imageSrc + ')',
+	        backgroundPosition : 'center',
+	        backgroundSize : '52px',
+	        '-webkit-border-radius' : '10px',
+	        border : '2px solid white',
+	        overflow : 'hidden'					            
+        }
+    });	
+    myInfoPanel.add(imagePanel);
 	
+//	var myInfoImage = new tau.ui.ImageView({
+//		src : '/image/my-page_09.png',
+//	});	
+//	myInfoPanel.add(myInfoImage);
+
+//	var myNameLabel = new tau.ui.Label({
+//		id : 'myName'
+//	});
+//	myInfoPanel.add(myNameLabel);
+
+    var namePanel = new tau.ui.Panel({
+		styles: {
+		    display : 'inline-block'
+		}
+    });
+    myInfoPanel.add(namePanel);
 	var myPenNameLabel = new tau.ui.Label({
-		id : 'myPenName'
+		id : 'myPenName',
+		styles :{
+			fontSize : '20px',
+		    margin : '10px 0px 0px 10px'
+		}
 	});
-	myInfoPanel.add(myPenNameLabel);
+	namePanel.add(myPenNameLabel);
+	
+    var levelName = new tau.ui.Label({
+    	id :'myLevel',
+    	text : '',
+    	styles : {
+    		display : 'block',
+    		fontSize : '15px',
+    		color : 'black',
+    		paddingLeft : '10px',
+    		paddingTop : '5px',
+    	}
+    });
+    namePanel.add(levelName);	
 	
 	var myInfoPanel2 = new tau.ui.Panel({
 		id : 'myInfoPanel2',
 		styles : {
 			backgroundColor : 'transparent',
-			height : '150px',
+			height : '90px',
 			width : '100%'
 		}
 	});	
@@ -59,9 +105,13 @@ function initScene() {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
 			height : '70px',
-			width : '50%',
+			width : '45%',
 			borderStyle : 'solid',
 	        borderWidth : '1px',
+	        position : 'absolute',
+	        left : '10px',
+		    top : '20px',
+		    padding : '5px'
 		}
 	});
 	myInfoPanel2.add(myPoemInfo);
@@ -69,7 +119,10 @@ function initScene() {
 	var myPoemCount = new tau.ui.Label({
 		id: 'myPoemCount',
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'
 		}
 	});
 	myPoemInfo.add(myPoemCount);
@@ -78,7 +131,10 @@ function initScene() {
 		id: 'myPoemLabel',
 		text : '내가 쓴 시보기', 
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'
 		}
 	});
 	myPoemInfo.add(myPoemLabel);
@@ -89,9 +145,13 @@ function initScene() {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
 			height : '70px',
-			width : '50%',
+			width : '45%',
 			borderStyle : 'solid',
 	        borderWidth : '1px',
+	        position : 'absolute',
+	        right : '10px',
+		    top : '20px',
+			padding : '5px'
 		}
 	});
 	myInfoPanel2.add(clipPoemInfo);
@@ -99,7 +159,10 @@ function initScene() {
 	var myClipPoemCount = new tau.ui.Label({
 		id: 'myClipPoemCount',
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'
 		}
 	});
 	clipPoemInfo.add(myClipPoemCount);
@@ -108,7 +171,10 @@ function initScene() {
 		id: 'myClipPoemLabel',
 		text : '가져온 시보기', 
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'
 		}
 	});
 	clipPoemInfo.add(myClipPoemLabel);
@@ -117,8 +183,9 @@ function initScene() {
 		id : 'myInfoPanel3',
 		styles : {
 			backgroundColor : 'transparent',
-			height : '150px',
-			width : '100%'
+			height : '100px',
+			width : '100%',
+			margin : '0px 0px 30px 0px'
 		}
 	});	
 	myScrollPanel.add(myInfoPanel3);
@@ -129,9 +196,13 @@ function initScene() {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
 			height : '70px',
-			width : '50%',
+			width : '45%',
 			borderStyle : 'solid',
 	        borderWidth : '1px',
+	        position : 'absolute',
+	        left : '10px',
+		    top : '20px',
+		    padding : '5px'
 		}
 	});
 	myInfoPanel3.add(followingInfo);
@@ -139,7 +210,10 @@ function initScene() {
 	var followingCount = new tau.ui.Label({
 		id: 'followingCount',
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'			
 		}
 	});
 	followingInfo.add(followingCount);
@@ -148,7 +222,10 @@ function initScene() {
 		id: 'followingLabel',
 		text : 'Following', 
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'			
 		}
 	});
 	followingInfo.add(followingLabel);	
@@ -159,9 +236,13 @@ function initScene() {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
 			height : '70px',
-			width : '50%',
+			width : '45%',
 			borderStyle : 'solid',
 	        borderWidth : '1px',
+	        position : 'absolute',
+	        right : '10px',
+		    top : '20px',
+		    padding : '5px'
 		}
 	});
 	myInfoPanel3.add(followerInfo);
@@ -170,7 +251,10 @@ function initScene() {
 	var followerCount = new tau.ui.Label({
 		id: 'followerCount',
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'			
 		}
 	});
 	followerInfo.add(followerCount);
@@ -179,7 +263,10 @@ function initScene() {
 		id: 'followerLabel',
 		text : 'Follower', 
 		styles : {
-			
+			margin : '10px 0px 0px 0px',
+			display : 'block',
+			'font-size' : '20px',
+			'text-align' : 'right'			
 		}
 	});
 	followerInfo.add(followerLabel);		
@@ -214,12 +301,13 @@ function initScene() {
 		},
 		id : 'logout',
 		styles : {
-			width : '331px',
-			height : '80px',
+			width : '160px',
+			height : '40px',
 			marginLeft : '80px',
 			marginRight : '80px',
 			background : 'url(/image/my-page_49.png) no-repeat center transparent',
-			border : '0px'
+			'background-size' : '100%',
+			border : 'none'
 		}
 	});	
 
