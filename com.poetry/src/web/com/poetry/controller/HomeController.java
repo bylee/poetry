@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.poetry.model.Binary;
-import com.poetry.service.BinaryService;
+import com.poetry.service.MissionService;
 
 import escode.util.CollectionUtils;
 
@@ -24,7 +24,7 @@ HomeController
 extends AbstractController
 {
 	@Autowired
-	protected BinaryService binaryService;
+	protected MissionService binaryService;
 	
 	@RequestMapping(
 		value = "/binary",

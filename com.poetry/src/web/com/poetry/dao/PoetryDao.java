@@ -15,7 +15,7 @@ public class
 PoetryDao
 extends AbstractDao
 {
-	public void addPoetry( final Poetry poetry )
+	public void addNewPoetry( final Poetry poetry )
 	{
 		poetry.setId( generateId( poetry ) );
 		super.insert( poetry );
@@ -101,6 +101,22 @@ extends AbstractDao
 	)
 	{
 		return (List<Poetry>) find( "from Poetry poetry where poetry.author =  ?", poetId );
+	}
+
+	public
+	List<Poetry>
+	getNewsfeed(
+		final String username
+	)
+	{
+//		return ( List<Poetry> );
+		return null;
+	}
+
+	public List<Poetry> getNewsfeed( String username, String start )
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

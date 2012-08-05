@@ -17,7 +17,6 @@ import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
 import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
-import com.poetry.service.ReplyService;
 import com.poetry.util.SignUtils;
 
 @Controller
@@ -31,9 +30,6 @@ extends AbstractController
 	@Autowired
 	protected PoetryService poetryService;
 
-	@Autowired
-	protected ReplyService replyService;
-	
 	/**
 	 * 작성된 시를 저장한다.
 	 * 
@@ -65,7 +61,7 @@ extends AbstractController
 		}
 		else
 		{
-			poetryService.addPoetry( poetry );
+			poetryService.addNewPoetry( poetry );
 		}
 		
 		return "success";
@@ -116,7 +112,7 @@ extends AbstractController
 		final String startId
 	)
 	{
-		return replyService.list( targetId, startId );
+		return poetryService.list( targetId, startId );
 	}
 	
 	/**
@@ -135,7 +131,7 @@ extends AbstractController
 		final Reply reply
 	)
 	{
-		replyService.addReply( reply );
+		poetryService.addReply( reply );
 		return "success";
 	}
 	

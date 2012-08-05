@@ -22,7 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Mission;
-import com.poetry.service.BinaryService;
+import com.poetry.service.MissionService;
 
 import escode.util.CollectionUtils;
 
@@ -32,7 +32,7 @@ MissionController
 extends AbstractController
 {
 	@Autowired
-	protected BinaryService binaryService;
+	protected MissionService binaryService;
 	
 	@InitBinder
 	protected void initBinder(

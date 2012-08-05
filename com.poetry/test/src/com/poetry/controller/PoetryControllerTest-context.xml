@@ -24,9 +24,6 @@
 	<bean class="org.mockito.Mockito" factory-method="mock">
 		<constructor-arg value="com.poetry.service.PoetryService" />
 	</bean>
-	<bean class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="com.poetry.service.ReplyService" />
-	</bean>
 	
 	<bean class="com.poetry.controller.PoetryController" />
 	

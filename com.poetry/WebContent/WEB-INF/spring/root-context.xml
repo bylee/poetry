@@ -36,8 +36,7 @@
 	<context:component-scan base-package="com.poetry.dao" />
 	
 	<bean name="poetryService" class="com.poetry.service.PoetryService"></bean>
-	<bean name="replyService" class="com.poetry.service.ReplyService"></bean>
-	<bean name="binaryService" class="com.poetry.service.BinaryService"></bean>
+	<bean name="binaryService" class="com.poetry.service.MissionService"></bean>
 	<bean name="poetService" class="com.poetry.service.PoetService"></bean>
 
 </beans>

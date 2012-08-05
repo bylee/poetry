@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.poetry.model.Binary;
-import com.poetry.service.BinaryService;
+import com.poetry.service.MissionService;
 import com.poetry.servlet.MockWebApplication;
 import com.poetry.servlet.MockWebApplicationContextLoader;
 
@@ -25,7 +25,7 @@ HomeControllerTest
 extends AbstractControllerTest
 {
 	@Autowired
-	protected BinaryService binaryService;
+	protected MissionService binaryService;
 	
 	@Test
 	public void test_getBinary() throws Exception
@@ -45,6 +45,7 @@ extends AbstractControllerTest
 			final String bodyContaining = (String) TEST_CASE[3];
 			
 			final MockHttpServletResponse res = request( path, method );
+			
 			assertResponse( path + "(" + method + ") failed", res, headerContaining, bodyContaining );
 		}
 		

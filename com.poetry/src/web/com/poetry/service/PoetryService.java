@@ -1,14 +1,14 @@
 package com.poetry.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
@@ -21,17 +21,17 @@ import com.poetry.model.Bookmark;
 import com.poetry.model.Following;
 import com.poetry.model.MissionPoetry;
 import com.poetry.model.Poetry;
+import com.poetry.model.Reply;
 import com.poetry.model.Star;
 import com.poetry.model.Today;
 import com.poetry.util.SignUtils;
 
 import escode.util.Assert;
 
+@Service
 public class
 PoetryService
 {
-	protected final Logger logger = LoggerFactory.getLogger( getClass() );
-	
 	protected static Random random = new Random( System.currentTimeMillis() );
 	
 	@Autowired( required = false )
@@ -57,12 +57,12 @@ PoetryService
 	
 	public
 	Poetry
-	addPoetry(
+	addNewPoetry(
 		final Poetry poetry
 	)
 	{
 		
-		poetryDao.addPoetry( poetry );
+		poetryDao.addNewPoetry( poetry );
 		return poetry;
 	}
 	
@@ -72,11 +72,30 @@ PoetryService
 		final Poetry poetry
 	)
 	{
-		
-		poetryDao.addPoetry( poetry );
+		addNewPoetry( poetry );
 		missionPoetDao.addMissionPoet( new MissionPoetry( poetry.getId() ) );
 		
 		return poetry;
+	}
+	
+	public
+	void
+	addDetailInformation(
+		final Poetry poetry,
+		final String username
+	)
+	{
+		final String poetryId = poetry.getId();
+		poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
+		poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
+		if ( null != username )
+		{
+			return ;
+		}
+		poetry.setStar( starDao.exists( poetryId, username ) );
+		poetry.setBookmark( bookmarkDao.exists( poetryId, username ) );
+		poetry.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), username ) );
+	
 	}
 
 
@@ -90,7 +109,9 @@ PoetryService
 		{
 			final int nPick = random.nextInt( todayCandidates.size() );
 			final String poetryId = todayCandidates.get( nPick );
-			poetries.add( poetryDao.getPoetry( poetryId ) );
+			final Poetry poetry = poetryDao.getPoetry( poetryId );
+			addDetailInformation( poetry, null );
+			poetries.add( poetry );
 		}
 		
 		poetries.addAll( poetryDao.listPoetry() );
@@ -108,9 +129,7 @@ PoetryService
 		
 		for ( final Poetry poetry : poetries )
 		{
-			final String poetryId = poetry.getId();
-			poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
-			poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
+			addDetailInformation( poetry, null );
 		}
 		
 		return poetries;
@@ -139,11 +158,8 @@ PoetryService
 			return poetry;
 		}
 		final String userId = auth.getName();
+		addDetailInformation( poetry, userId );
 
-		poetry.setStar( starDao.exists( poetryId, userId ) );
-		poetry.setBookmark( bookmarkDao.exists( poetryId, userId ) );
-		poetry.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), userId ) );
-		
 		return poetry;
 
 	}
@@ -226,14 +242,50 @@ PoetryService
 		
 		for ( final Poetry poetry : poetries )
 		{
-			final String poetryId = poetry.getId();
-			poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
-			poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
+			addDetailInformation( poetry, null );
 		}
 		
 		return poetries;
 	}
 	
+
+	public
+	void
+	addReply(
+		final Reply reply
+	)
+	{
+		reply.setCreateDate( new Date() );
+		replyDao.addReply( reply );
+	}
+
+	public
+	List<Reply>
+	list(
+		final String targetId,
+		final String start
+	)
+	{
+		return replyDao.list( targetId );
+	}
+
+	public
+	List<Poetry>
+	getNewsfeed(
+		final String username,
+		final String start
+	)
+	{
+		if ( null == start )
+		{
+			return poetryDao.getNewsfeed( username );
+		}
+		else
+		{
+			return poetryDao.getNewsfeed( username, start );
+		}
+		
+	}
 
 
 }

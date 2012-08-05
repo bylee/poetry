@@ -15,7 +15,6 @@ import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
 import com.poetry.service.PoetryService;
-import com.poetry.service.ReplyService;
 import com.poetry.servlet.MockWebApplication;
 import com.poetry.servlet.MockWebApplicationContextLoader;
 
@@ -31,9 +30,6 @@ extends AbstractControllerTest
 {
 	@Autowired
 	protected PoetryService poetryService;
-	
-	@Autowired
-	protected ReplyService replyService;
 	
 	@Test
 	public
@@ -71,7 +67,7 @@ extends AbstractControllerTest
 	test_getReply()
 	throws Exception
 	{
-		when( replyService.list( "reply1", null ) )
+		when( poetryService.list( "reply1", null ) )
 		.thenReturn( Arrays.asList( new Reply( "reply1", "poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "wonderfull" ) ) );
 		
 		final Object[][] TEST_CASES = new Object[][] {
@@ -86,6 +82,7 @@ extends AbstractControllerTest
 			final String bodyContaining = (String) TEST_CASE[3];
 			
 			final MockHttpServletResponse res = request( path, method );
+			
 			assertResponse( path + "(" + method + ") failed", res, headerContaining, bodyContaining );
 		}
 		

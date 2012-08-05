@@ -11,9 +11,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.ImageDao;
@@ -24,11 +23,11 @@ import com.poetry.model.ImageAnalysis;
 import com.poetry.model.Mission;
 import com.poetry.model.MissionPoetry;
 
+@Service
 public class
-BinaryService
+MissionService
+extends AbstractService
 {
-	protected final Logger logger = LoggerFactory.getLogger( getClass() );
-	
 	@Autowired( required = false )
 	protected BinaryDao binaryDao;
 	

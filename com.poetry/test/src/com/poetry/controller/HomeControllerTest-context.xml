@@ -20,7 +20,7 @@
 	<mvc:resources mapping="/html/**" location="/html/" />
 	
 	<bean class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="com.poetry.service.BinaryService" />
+		<constructor-arg value="com.poetry.service.MissionService" />
 	</bean>
 	<bean class="com.poetry.controller.HomeController" />
 

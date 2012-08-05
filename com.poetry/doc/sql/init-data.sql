@@ -31,6 +31,8 @@ select * from missionpoetry;
 
 select * from Star;
 
+
+
 select poetry.id, count( * ) rank
 from poetry, star
 where poetry.id = star.poetryId

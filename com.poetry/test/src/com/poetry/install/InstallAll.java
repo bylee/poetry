@@ -97,30 +97,30 @@ extends AbstractTestCase
 			missionImage = binaries.get( "fallroad.jpeg" );
 			
 			final Poetry poetry1 = new Poetry( "My First Poem", bylee, "contents1", image1.getId() );
-			poetryDao.addPoetry( poetry1 );
+			poetryDao.addNewPoetry( poetry1 );
 			
 			replyDao.addReply( new Reply( poetry1.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry1.getId(), csoonoosc, "So so" ) );
 			
 			final Poetry poetry2 = new Poetry( "Second", anjong, "contents2", image2_1.getId() );
-			poetryDao.addPoetry( poetry2 );
+			poetryDao.addNewPoetry( poetry2 );
 			
 			replyDao.addReply( new Reply( poetry2.getId(), bylee, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry2.getId(), csoonoosc, "So so" ) );
 
 			final Poetry poetry3 = new Poetry( "3", csoonoosc, "contents3", image2_2.getId() );
-			poetryDao.addPoetry( poetry3 );
+			poetryDao.addNewPoetry( poetry3 );
 			
 			replyDao.addReply( new Reply( poetry3.getId(), csoonoosc, "So so" ) );
 
 			final Poetry poetry4 = new Poetry( "4", hellojintae, "contents4", image3_1.getId() );
-			poetryDao.addPoetry( poetry4 );
+			poetryDao.addNewPoetry( poetry4 );
 			
 			replyDao.addReply( new Reply( poetry4.getId(), anjong, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry4.getId(), hellojintae, "So so" ) );
 
 			final Poetry poetry5 = new Poetry( "Last", hanseoung82, "contents5", image3_2.getId() );
-			poetryDao.addPoetry( poetry5 );
+			poetryDao.addNewPoetry( poetry5 );
 			
 			replyDao.addReply( new Reply( poetry5.getId(), bylee, "Good~~" ) );
 			replyDao.addReply( new Reply( poetry5.getId(), csoonoosc, "So so" ) );

@@ -2,8 +2,6 @@ package com.poetry.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,15 +13,15 @@ import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
+import com.poetry.dao.ReplyDao;
 import com.poetry.model.Poet;
 
 @Service
 public class
 PoetService
+extends AbstractService
 implements UserDetailsService
 {
-	
-	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired( required = false )
 	protected PoetDao poetDao;
@@ -36,6 +34,9 @@ implements UserDetailsService
 	
 	@Autowired( required = false )
 	protected PoetryDao poetryDao;
+	
+	@Autowired( required = false )
+	protected ReplyDao replyDao;
 	
 	@Autowired( required = false )
 	protected BookmarkDao bookmarkDao;
@@ -110,5 +111,6 @@ implements UserDetailsService
 	{
 		return followingDao.getFollowers( poetId );
 	}
+
 
 }
