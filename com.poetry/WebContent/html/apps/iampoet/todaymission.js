@@ -28,9 +28,11 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       url : '/mission/' + poetutil.getPoetDate(),
       callbackFn : function (resp) {
         if (resp.status === 200) {
-          this.missionData = resp.data;
-          missionInfoText.setText(this.missionData.description);
-          missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
+          if (resp.data != null) {
+            this.missionData = resp.data;
+            missionInfoText.setText(this.missionData.description);
+            missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
+          }
         } else {
           tau.alert('초기 데이타 로딩 실패'); 
         }
@@ -43,7 +45,11 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       url : '/missionpoetry/' + poetutil.getPoetDate(),
       callbackFn : function (resp) {
         if (resp.status === 200) {
-          this.loadingMissionPoet(resp.data);
+          if (this.lastId == null && resp.data.length == 0) {
+            tau.alert('현재 미션시가 없습니다. 첫 도전을 해주세요~');
+          } else {
+            this.loadingMissionPoet(resp.data);
+          }
         } else {
           tau.alert('초기 데이타 로딩 실패'); 
         }
@@ -64,7 +70,6 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
         if (resp.status === 200) {
           scrollPanel.add(this.missionPanel);
           this.loadingMissionPoet(resp.data);
-          
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
         }
@@ -82,8 +87,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       },
       callbackFn : function (resp) {
         if (resp.status === 200) {
-          this.loadingMissionPoet(resp.data);
-          
+            this.loadingMissionPoet(resp.data);
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
         }
@@ -93,7 +97,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
   },
 	
 	loadingMissionPoet: function (data) {
-	  missionPoets = data;
+	  var missionPoets = data;
 	
 	  var scene = this.getScene();
 	  var scrollPanel = scene.getComponent('mainPanel');

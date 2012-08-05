@@ -1070,6 +1070,14 @@
   	  		  response.data = resp.responseJSON;
   	  		  callback.call(opts.callbackCtx, response);
   	  	  };
+  	  	  if (opts.type == 'GET') {
+  	  	    if (opts.params != null) {
+              opts.url += '?';
+            }
+            for (var param in opts.params) {
+              opts.url += param + '=' + opts.params[param] + ';'
+            }
+  	  	  }
     		  var req = tau.req(opts);
     		  var id = req.send();
     		  return { req : req , reqid : id};

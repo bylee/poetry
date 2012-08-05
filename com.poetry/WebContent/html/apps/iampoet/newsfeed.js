@@ -72,8 +72,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       url : '/newsfeed',
       callbackFn : function (resp) {
         if (resp.status === 200) {
-          this.loadingMissionPoet(resp.data);
-          
+          this.loadingNewsPoet(resp.data);
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
         }
