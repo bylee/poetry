@@ -1,13 +1,17 @@
 $require("/comment.js");
 $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	PoemController: function (opts){
+	  this.dataref = {
+	      data : opts.dataref,
+	      datarefNo : opts.datarefNo
+	  };
 		this.poem = opts.poem;
 		this.seqCtrl = opts.seqCtrl;
 		this.setTitle(this.poem.title);
 		this.status = {
-		    star : opts.star,
-		    bookmark : opts.bookmark,
-		    following : opts.following
+		    star : this.poem.star,
+		    bookmark : this.poem.bookmark,
+		    following : this.poem.following
 		}; 
 	},
  
@@ -36,10 +40,19 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		var poemPanel = scene.getComponent('poemPanel');
 		var poemContent = scene.getComponent('content');
 		var starBtn = scene.getComponent('star');
+		var bookmarkBtn = scene.getComponent('bookmark');
+		var followingBtn = scene.getComponent('following');
 		
 		if (this.status.star) {
 		  starBtn.setBackgroundImage('/image/star-red.png');
 		}
+		if (this.status.bookmark) {
+      bookmarkBtn.setBackgroundImage('/image/bookmark-red.png');
+    }
+		if (this.status.following) {
+      followingBtn.setBackgroundImage('/image/following-red.png');
+    }
+		
 		
 		starNum.setText(this.poem.stars);
 		commentNum.setText(this.poem.replys);
@@ -163,6 +176,8 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
       });
       
     }
+   var mainData = this.dataref;
+   mainData.data[mainData.datarefNo].poem.star = this.status.star;
 	  
 		
 	},
@@ -208,6 +223,8 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
       });
     }
 		
+    var mainData = this.dataref;
+    mainData.data[mainData.datarefNo].poem.bookmark = this.status.bookmark;
 	},
 	
 	handleFollow : function () {
@@ -221,7 +238,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
           if (resp.status === 200) {
             //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
             tau.alert('팔로워가 해제 되었습니다.');
-            followingBtn.setBackgroundImage('/image/bookmark.png');
+            followingBtn.setBackgroundImage('/image/following.png');
             this.status.following = false;
           } else {tau.alert('팔로워가 해제 되지 못했습니다. 다시 시도해 주세요.');}
         },
@@ -235,14 +252,15 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
           if (resp.status === 200) {
             //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
             tau.alert('팔로워가 등록 되었습니다.');
-            followingBtn.setBackgroundImage('/image/bookmark-red.png');
+            followingBtn.setBackgroundImage('/image/following-red.png');
             this.status.following = true;
           } else {tau.alert('팔로워가 등록 되지 못했습니다. 다시 시도해 주세요.');}
         },
         callbackCtx : this
       });
     }
-		
+    var mainData = this.dataref;
+    mainData.data[mainData.datarefNo].poem.following = this.status.following;
 	}
 	
 });
