@@ -17,9 +17,11 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 				animate: 'vertical'
 			});
 		} else { 
+		  var dateObj = new Date();
+		  var dateStr = dateObj.getFullYear() + '-'+ (dateObj.getMonth()+1) + '-' +dateObj.getDate();
 		  tau.wreq({
         type: 'GET',
-        url : '/today/20120712',
+        url : '/today/' + dateStr,//2012-07-14
         callbackFn : function (resp) {
           if (resp.status === 200) {
             this.handleToday('todayData',resp.data);

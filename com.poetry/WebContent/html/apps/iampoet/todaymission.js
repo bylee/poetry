@@ -20,12 +20,25 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		missionPanel.setComponents([missionImage,missionImageInfo]);
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
-		
-		this.loadingMissionPoet();
+		var dateObj = new Date();
+		var dateStr = dateObj.getFullYear() + '-' + (dateObj.getMonth()+1) + '-' + dateObj.getDate(); 
+		tau.wreq({
+      type: 'GET',
+      url : '/mission/' + dateStr,
+      callbackFn : function (resp) {
+        if (resp.status === 200) {
+          console.log(resp.data);
+          this.loadingMissionPoet(resp.data);
+        } else {
+          tau.alert('초기 데이타 로딩 실패'); 
+        }
+      },
+      callbackCtx : this
+    });
 		
 	},
 	
-	loadingMissionPoet: function () {
+	loadingMissionPoet: function (data) {
 	  var missionPoets = [{
 	    writer : {
 	      penName : '땡중땡중',
@@ -57,6 +70,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	    createDate : 2012-11-22,
 	    contents : '루루루루루룰룰 \n 루룰루루루 \n 하하 룰루루루 \n 랄라랄라라'
 	  }];
+	  missionPoets = data;
 	
 	  var scene = this.getScene();
 	  var scrollPanel = scene.getComponent('mainPanel');
@@ -76,7 +90,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	      }
 	    });
 	    var imageSrc = '/image/icon-person.png';
-	    var writer = poet.writer;
+	    var writer = poet.author;
       
       if ((writer.icon != null)) {
         imageSrc = rootURL + '/binary/' + writer.icon;
@@ -218,7 +232,6 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
             styles : {
               WebkitBorderRadius : '2px',
               //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
-              display : 'inline-block',
               fontSize : '13px',
               marginTop : '13px',
               borderTop : '1px solid black'
@@ -227,9 +240,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
      );
       poetPanel.add(content);
       scrollPanel.add(poetPanel);
-	    
 	  }
-	  
+	  scrollPanel.render();
 	},
 	
 	handleWrite: function (){

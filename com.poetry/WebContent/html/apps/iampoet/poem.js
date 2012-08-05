@@ -1,10 +1,6 @@
 $require("/comment.js");
 $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	PoemController: function (opts){
-	  this.dataref = {
-	      data : opts.dataref,
-	      datarefNo : opts.datarefNo
-	  };
 		this.poem = opts.poem;
 		this.seqCtrl = opts.seqCtrl;
 		this.setTitle(this.poem.title);
@@ -176,9 +172,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
       });
       
     }
-   var mainData = this.dataref;
-   mainData.data[mainData.datarefNo].poem.star = this.status.star;
-	  
 		
 	},
 	
@@ -223,8 +216,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
       });
     }
 		
-    var mainData = this.dataref;
-    mainData.data[mainData.datarefNo].poem.bookmark = this.status.bookmark;
 	},
 	
 	handleFollow : function () {
@@ -259,8 +250,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         callbackCtx : this
       });
     }
-    var mainData = this.dataref;
-    mainData.data[mainData.datarefNo].poem.following = this.status.following;
 	}
 	
 });
