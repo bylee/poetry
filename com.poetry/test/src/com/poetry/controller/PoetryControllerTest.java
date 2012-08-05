@@ -44,10 +44,10 @@ extends AbstractControllerTest
 			new Object[] { "/poetry/poetry4", "GET", null, "\"title\"" },
 		};
 		
-		when( poetryService.getPoetry( "poetry1" ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
-		when( poetryService.getPoetry( "poetry2" ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
-		when( poetryService.getPoetry( "poetry3" ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
-		when( poetryService.getPoetry( "poetry4" ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
+		when( poetryService.getPoetry( "poetry1", null ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
+		when( poetryService.getPoetry( "poetry2", null ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
+		when( poetryService.getPoetry( "poetry3", null ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
+		when( poetryService.getPoetry( "poetry4", null ) ).thenReturn( new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" ) );
 		
 		for ( final Object[] TEST_CASE : TEST_CASES )
 		{

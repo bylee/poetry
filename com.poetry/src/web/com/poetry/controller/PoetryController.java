@@ -87,7 +87,8 @@ extends AbstractController
 		final String poetryId
 	)
 	{
-		return poetryService.getPoetry( poetryId );
+		String username = SignUtils.getSignedInUsername();
+		return poetryService.getPoetry( poetryId, username );
 	}
 
 	/**

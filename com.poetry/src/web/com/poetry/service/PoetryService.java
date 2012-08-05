@@ -1,6 +1,7 @@
 package com.poetry.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -79,7 +80,7 @@ PoetryService
 	}
 	
 	public
-	void
+	Poetry
 	addDetailInformation(
 		final Poetry poetry,
 		final String username
@@ -90,12 +91,29 @@ PoetryService
 		poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
 		if ( null != username )
 		{
-			return ;
+			return poetry;
 		}
 		poetry.setStar( starDao.exists( poetryId, username ) );
 		poetry.setBookmark( bookmarkDao.exists( poetryId, username ) );
 		poetry.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), username ) );
+		
+		return poetry;
+	}
 	
+	public
+	List<Poetry>
+	addDetailInformation(
+		final List<Poetry> poetries,
+		final String username
+	)
+	{
+		for ( final Poetry poetry : poetries )
+		{
+			addDetailInformation( poetry, username );
+		}
+		
+		return poetries;
+		
 	}
 
 
@@ -125,22 +143,14 @@ PoetryService
 		final String poetId
 	)
 	{
-		final List<Poetry> poetries = poetryDao.getPoetryOf( poetId );
-		
-		for ( final Poetry poetry : poetries )
-		{
-			addDetailInformation( poetry, null );
-		}
-		
-		return poetries;
-
-		
+		return addDetailInformation( poetryDao.getPoetryOf( poetId ), null );
 	}
 
 	public
 	Poetry
 	getPoetry(
-		final String poetryId
+		final String poetryId,
+		final String username
 	)
 	{
 		final Poetry poetry = poetryDao.getPoetry( poetryId );
@@ -150,17 +160,7 @@ PoetryService
 		final int nStar = starDao.getTheNumberOfStar( poetryId );
 		poetry.setStars( nStar );
 
-
-		final Authentication auth =
-			SecurityContextHolder.getContext().getAuthentication();
-		if ( null == auth || !auth.isAuthenticated() )
-		{
-			return poetry;
-		}
-		final String userId = auth.getName();
-		addDetailInformation( poetry, userId );
-
-		return poetry;
+		return addDetailInformation( poetry, username );
 
 	}
 	
@@ -234,18 +234,12 @@ PoetryService
 		return null;
 	}
 
-	public List<Poetry> getBookmarksOf(
+	public List<Poetry>
+	getBookmarksOf(
 		final String poetId
 	)
 	{
-		final List<Poetry> poetries = bookmarkDao.getBookmarksOf( poetId );
-		
-		for ( final Poetry poetry : poetries )
-		{
-			addDetailInformation( poetry, null );
-		}
-		
-		return poetries;
+		return addDetailInformation( bookmarkDao.getBookmarksOf( poetId ), null );
 	}
 	
 
@@ -278,11 +272,11 @@ PoetryService
 	{
 		if ( null == start )
 		{
-			return poetryDao.getNewsfeed( username );
+			return addDetailInformation( poetryDao.getNewsfeed( username ), username );
 		}
 		else
 		{
-			return poetryDao.getNewsfeed( username, start );
+			return addDetailInformation( poetryDao.getNewsfeed( username, start ), username );
 		}
 		
 	}

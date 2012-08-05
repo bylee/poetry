@@ -18,8 +18,8 @@ public class
 AbstractDao
 {
 	
-	protected static final int LIMIT = 20;
-
+	protected static final int LIMIT = 10;
+	
 	protected final Logger logger = LoggerFactory.getLogger( getClass() );
 	
 	@Autowired
@@ -67,6 +67,13 @@ AbstractDao
 	)
 	{
 		return idGenerator.create( obj );
+	}
+	
+	protected
+	int
+	getLimit()
+	{
+		return LIMIT;
 	}
 	
 	public
@@ -156,7 +163,7 @@ AbstractDao
 		session.flush();
 		final Query query = session.createQuery( queryStr );
 		bind( query, args );
-		query.setMaxResults( LIMIT );
+		query.setMaxResults( getLimit() );
 		return query.list();
 	}
 	
