@@ -1,4 +1,4 @@
-package com.poetry;
+package com.poetry.install;
 
 import org.hibernate.FlushMode;
 import org.hibernate.Session;

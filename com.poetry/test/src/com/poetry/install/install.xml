@@ -32,10 +32,10 @@
 	</bean>
 
 	<bean name="idGenerator" class="com.poetry.util.IdGenerator"></bean>
-	
-	<bean class="com.poetry.Install" />
-	
+
 	<context:component-scan base-package="com.poetry.dao" />
+
+	<context:component-scan base-package="com.poetry.install" />
 	
 </beans>
 
