@@ -15,14 +15,20 @@ public class
 PoetryDao
 extends AbstractDao
 {
-	public void addNewPoetry( final Poetry poetry )
+	public
+	void
+	addNewPoetry(
+		final Poetry poetry
+	)
 	{
 		poetry.setId( generateId( poetry ) );
 		super.insert( poetry );
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<String> getTodayPoetryCandidates()
+	public
+	List<String>
+	getTodayPoetryCandidates()
 	{
 		final Collection<Object[]> results = (Collection<Object[]>) find(
 			"select poetry.id, count( poetry.id ) as rank " +
@@ -33,7 +39,7 @@ extends AbstractDao
 		
 		long max = 0;
 		
-		ArrayList<String> ret = new ArrayList<String>();
+		final ArrayList<String> ret = new ArrayList<String>();
 		
 		for ( final Object[] result : results )
 		{
@@ -52,7 +58,9 @@ extends AbstractDao
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Poetry> listPoetry()
+	public
+	List<Poetry>
+	listPoetry()
 	{
 		final String query =
 			"from Poetry poetry";
@@ -61,7 +69,11 @@ extends AbstractDao
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Poetry> listPoetryAfter( final String startId )
+	public
+	List<Poetry>
+	listPoetryAfter(
+		final String startId
+	)
 	{
 		final String query =
 			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
@@ -70,7 +82,11 @@ extends AbstractDao
 	}
 	
 
-	public Poetry getPoetry( final String id )
+	public
+	Poetry
+	getPoetry(
+		final String id
+	)
 	{
 		final Poetry poetry = get( Poetry.class, id );
 		
@@ -121,7 +137,12 @@ extends AbstractDao
 		return extract( result, 0 );
 	}
 
-	public List<Poetry> getNewsfeed( String username, String start )
+	public
+	List<Poetry>
+	getNewsfeed(
+		final String username,
+		final String start
+	)
 	{
 		final List<Object[]> result = (List<Object[]>) find(
 			"from Poetry poetry, Following following " +

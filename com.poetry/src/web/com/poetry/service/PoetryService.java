@@ -1,14 +1,11 @@
 package com.poetry.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BookmarkDao;
@@ -32,6 +29,7 @@ import escode.util.Assert;
 @Service
 public class
 PoetryService
+extends AbstractService
 {
 	protected static Random random = new Random( System.currentTimeMillis() );
 	
@@ -86,17 +84,30 @@ PoetryService
 		final String username
 	)
 	{
+		logger.trace( "add {}'s details to {}", username, poetry );
+		
 		final String poetryId = poetry.getId();
 		poetry.setReplys( replyDao.getTheNumberOfReply( poetryId ) );
 		poetry.setStars( starDao.getTheNumberOfStar( poetryId ) );
-		if ( null != username )
+		
+		logger.debug( "username :{}", username );
+		if ( null == username )
 		{
 			return poetry;
 		}
-		poetry.setStar( starDao.exists( poetryId, username ) );
-		poetry.setBookmark( bookmarkDao.exists( poetryId, username ) );
-		poetry.setFollowing( followingDao.exists( poetry.getAuthor().getUsername(), username ) );
+		final boolean bStar = starDao.exists( poetryId, username );
+		final boolean bBookmark = bookmarkDao.exists( poetryId, username );
+		final boolean bFollowing = followingDao.exists( poetry.getAuthor().getUsername(), username );
+		logger.debug(
+			"star :{}, bookmark :{}, following :{}",
+			new Object[] { bStar, bBookmark, bFollowing }
+		);
+		poetry.setStar( bStar );
+		poetry.setBookmark( bBookmark );
+		poetry.setFollowing( bFollowing );
+
 		
+		logger.info( "poetry :{}", poetry );
 		return poetry;
 	}
 	
@@ -128,11 +139,11 @@ PoetryService
 			final int nPick = random.nextInt( todayCandidates.size() );
 			final String poetryId = todayCandidates.get( nPick );
 			final Poetry poetry = poetryDao.getPoetry( poetryId );
-			addDetailInformation( poetry, null );
+			addDetailInformation( poetry, SignUtils.getSignedInUsername() );
 			poetries.add( poetry );
 		}
 		
-		poetries.addAll( poetryDao.listPoetry() );
+		poetries.addAll( addDetailInformation( poetryDao.listPoetry(), SignUtils.getSignedInUsername() ) );
 		
 		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
 	}

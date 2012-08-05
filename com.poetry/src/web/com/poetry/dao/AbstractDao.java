@@ -146,10 +146,10 @@ AbstractDao
 		final T t = get( clazz, id );
 		if ( null != t )
 		{
-			return false;
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	protected
