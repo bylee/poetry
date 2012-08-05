@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -17,11 +18,12 @@ import org.springframework.stereotype.Service;
 import com.poetry.dao.BinaryDao;
 import com.poetry.dao.ImageDao;
 import com.poetry.dao.MissionDao;
-import com.poetry.dao.MissionPoetDao;
+import com.poetry.dao.MissionPoetryDao;
 import com.poetry.model.Binary;
 import com.poetry.model.ImageAnalysis;
 import com.poetry.model.Mission;
 import com.poetry.model.MissionPoetry;
+import com.poetry.model.Poetry;
 
 @Service
 public class
@@ -35,7 +37,7 @@ extends AbstractService
 	protected MissionDao missionDao;
 	
 	@Autowired( required = false )
-	protected MissionPoetDao missionPoetDao;
+	protected MissionPoetryDao missionPoetDao;
 	
 	@Autowired( required = false )
 	protected ImageDao imageDao;
@@ -186,7 +188,24 @@ extends AbstractService
 		final MissionPoetry missionPoet
 	)
 	{
-		missionPoetDao.addMissionPoet( missionPoet );
+		missionPoetDao.addMissionPoetry( missionPoet );
+	}
+	
+	public List<Poetry>
+	getMissionPoetry(
+		final Date date,
+		final String start
+	)
+	{
+		if ( null == start )
+		{
+			return missionPoetDao.getMissionPoetry( date );
+		}
+		else
+		{
+			return missionPoetDao.getMissionPoetry( date, start );
+		}
+		
 	}
 
 	

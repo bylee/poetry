@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
-import com.poetry.dao.MissionPoetDao;
+import com.poetry.dao.MissionPoetryDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
@@ -46,7 +46,7 @@ extends AbstractService
 	protected StarDao starDao;
 	
 	@Autowired( required = false )
-	protected MissionPoetDao missionPoetDao;
+	protected MissionPoetryDao missionPoetDao;
 	
 	@Autowired( required = false )
 	protected BookmarkDao bookmarkDao;
@@ -72,7 +72,7 @@ extends AbstractService
 	)
 	{
 		addNewPoetry( poetry );
-		missionPoetDao.addMissionPoet( new MissionPoetry( poetry.getId() ) );
+		missionPoetDao.addMissionPoetry( new MissionPoetry( poetry.getId() ) );
 		
 		return poetry;
 	}

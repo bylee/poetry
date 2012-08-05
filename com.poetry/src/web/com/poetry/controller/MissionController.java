@@ -17,12 +17,16 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.poetry.model.Binary;
 import com.poetry.model.Mission;
+import com.poetry.model.MissionPoetry;
+import com.poetry.model.Poetry;
 import com.poetry.service.MissionService;
+import com.poetry.service.PoetryService;
 
 import escode.util.CollectionUtils;
 
@@ -32,7 +36,7 @@ MissionController
 extends AbstractController
 {
 	@Autowired
-	protected MissionService binaryService;
+	protected MissionService missionService;
 	
 	@InitBinder
 	protected void initBinder(
@@ -80,11 +84,11 @@ extends AbstractController
 			binary.getName(),
 			CollectionUtils.size( binary.getContents() )
 		);
-		binaryService.upload( binary );
+		missionService.upload( binary );
 		mission.setImageId( binary.getId() );
 
 		logger.trace( "trying upload :{}", mission );
-		binaryService.upload( mission );
+		missionService.upload( mission );
 		return "success";
 	}
 	
@@ -112,9 +116,30 @@ extends AbstractController
 	)
 	{
 		logger.trace( "trying get {}'s mission", date );
-		final Mission mission = binaryService.getMission( date );
+		final Mission mission = missionService.getMission( date );
 		logger.info( "{}'s mission :{}", date, mission );
 		return mission;
 	}
+	
+	
+	@RequestMapping(
+		value = "/missionpoetry/{date}",
+		method = GET
+	)
+	public
+	@ResponseBody
+	List<Poetry>
+	getMissionPoetry(
+		@PathVariable( "date" ) final Date date,
+		@RequestParam( value = "start", required = false )
+		final String start
+	)
+	{
+		logger.trace( "trying get {}'s mission", date );
+		return missionService.getMissionPoetry( date, start );
+		
+	}
+	
+	
 
 }

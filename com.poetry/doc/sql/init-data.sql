@@ -31,7 +31,7 @@ select * from missionpoetry;
 
 select * from Star;
 
-
+select * from missionpoetry, poetry where missionpoetry.poetryid = poetry.id and missionpoetry.date = ? order by poetry.id
 
 select poetry.id, count( * ) rank
 from poetry, star
