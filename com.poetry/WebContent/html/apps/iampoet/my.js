@@ -67,15 +67,12 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 			url: '/poet/' + name,
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
-
-					var mpc = scene.getComponent('myPoemCount');
-					mpc.setText(resp.data.theNumberOfPoetries);
-					var cpc = scene.getComponent('myClipPoemCount');
-					cpc.setText(resp.data.theNumberOfBookmarks);
-					var cpc = scene.getComponent('followingCount');
-					cpc.setText(resp.data.theNumberOfFollowings);
-					var cpc = scene.getComponent('followerCount');
-					cpc.setText(resp.data.theNumberOfFollowers);
+					scene.getComponent('myName').setText(resp.data.username);
+					scene.getComponent('myPenName').setText(resp.data.penName);
+					var mpc = scene.getComponent('myPoemCount').setText(resp.data.theNumberOfPoetries);
+					var cpc = scene.getComponent('myClipPoemCount').setText(resp.data.theNumberOfBookmarks);
+					var cpc = scene.getComponent('followingCount').setText(resp.data.theNumberOfFollowings);
+					var cpc = scene.getComponent('followerCount').setText(resp.data.theNumberOfFollowers);
 					
 				} else { tau.alert("에러")};
 			}

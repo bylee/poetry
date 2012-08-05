@@ -1,23 +1,17 @@
 function initScene() {
 	var scene = this.getScene();
-
-
-	var myPoemScrollPanel = new tau.ui.ScrollPanel({
-		id : 'myPoemPanel',
+	
+	var myFollowingScrollPanel = new tau.ui.ScrollPanel({
+		id : 'myFollowingPanel',
 	    styles : {
 	        position : ''
 	    }
 	});
-	scene.add(myPoemScrollPanel);
+	scene.add(myFollowingScrollPanel);
 
-	var myInfoPanel = new tau.ui.Panel({
-		id : 'myInfoPanel',
-		styles : {
-			backgroundColor : 'transparent',
-			//height : '32px',
-			width : '100%'
-		}
+	var table = new tau.ui.Table({
+		id : 'followingTable'
 	});
-	myPoemScrollPanel.add(myInfoPanel);
-			
+	myFollowingScrollPanel.add(table);
+
 }

@@ -31,9 +31,18 @@ function initScene() {
 	var myInfoImage = new tau.ui.ImageView({
 		src : '/image/my-page_09.png',
 	});	
-	
 	myInfoPanel.add(myInfoImage);
 
+	var myNameLabel = new tau.ui.Label({
+		id : 'myName'
+	});
+	myInfoPanel.add(myNameLabel);
+	
+	var myPenNameLabel = new tau.ui.Label({
+		id : 'myPenName'
+	});
+	myInfoPanel.add(myPenNameLabel);
+	
 	var myInfoPanel2 = new tau.ui.Panel({
 		id : 'myInfoPanel2',
 		styles : {
