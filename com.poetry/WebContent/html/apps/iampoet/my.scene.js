@@ -14,7 +14,8 @@ function initScene() {
 		id : 'myPanel',
 	    styles : {
 	        position : ''
-	    }
+	    },
+	    hScroll: false
 	});
 	scene.add(myScrollPanel);
 

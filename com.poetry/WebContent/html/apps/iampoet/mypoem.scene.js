@@ -9,7 +9,8 @@ function initScene() {
 		id : 'myPoemPanel',
 	    styles : {
 	        position : ''
-	    }
+	    },
+	    hScroll: false
 	});
 	scene.add(myPoemScrollPanel);
 

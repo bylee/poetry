@@ -5,7 +5,8 @@ function initScene() {
 		id : 'myFollowerPanel',
 	    styles : {
 	        position : ''
-	    }
+	    },
+	    hScroll: false
 	});
 	scene.add(myFollowerScrollPanel);
 

@@ -215,6 +215,9 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 					                borderTop : '1px solid black'
 					    	}
 					    });
+					    content.poem = poet;
+					    content.onEvent('tap', that.detailPoetry, that);
+
 					    poetPanel.add(content);
 
 					    Ttablecell.setContentItem(poetPanel);
@@ -233,5 +236,17 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 //		tau.alert(comp + ' : move : ' + comp.username);
 		var seqNavi = this.getParent();
 		seqNavi.pushController(new iampoet.MyController({name:comp.username}));			
-	}
+	},
+
+	detailPoetry : function(event) {
+		var comp = event.getSource();
+		var seqNavi = this.getParent();
+		seqNavi.pushController(
+			new iampoet.PoemController({
+				poem :comp.poem,
+				seqCtrl : seqNavi 
+			}),{hideNavigationBar: false}
+		);
+	}	
+	
 });
