@@ -4,10 +4,14 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		this.poem = opts.poem;
 		this.seqCtrl = opts.seqCtrl;
 		this.setTitle(this.poem.title);
+		this.status = {
+		    star : opts.star,
+		    bookmark : opts.bookmark,
+		    following : opts.following
+		}; 
 	},
  
 	init: function (){
-		
 	},
 	
 	destroy: function (){
@@ -15,25 +19,35 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	},
 	
 	sceneLoaded: function (){
-		var scene = this.getScene();
+	  //loading Comment
+    tau.wreq({
+      type: 'GET',
+      url: '/reply/' + this.poem.id,
+      callbackFn : this.handleLoadComment,
+      callbackCtx : this
+    });
+	  var scene = this.getScene();
+		
 		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		
 		var starNum = scene.getComponent('starNum');
 		var commentNum = scene.getComponent('commentNum');
 		var authorName = scene.getComponent('author');
 		var poemPanel = scene.getComponent('poemPanel');
+		var poemContent = scene.getComponent('content');
+		var starBtn = scene.getComponent('star');
 		
-		starNum.setText(this.poem.star);
-		commentNum.setText(this.poem.reply);
+		if (this.status.star) {
+		  starBtn.setBackgroundImage('/image/star-red.png');
+		}
+		
+		starNum.setText(this.poem.stars);
+		commentNum.setText(this.poem.replys);
 		authorName.setLabel('by '+this.poem.author.penName);
 		poemPanel.setStyle('background','url('+rootURL + '/binary/' + this.poem.image+') no-repeat');
-		//insert Comment
-		tau.wreq({
-			type: 'GET',
-			url: '/reply/' + this.poem.id,
-			callbackFn : this.handleLoadComment,
-			callbackCtx : this
-		});
+		poemContent.setText(this.poem.contents);
+		
+		
 		
 	},
 	
@@ -117,17 +131,40 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleStar : function () {
-		tau.wreq({
-			type : 'POST',
-			url : '/star/' + this.poem.id,
-			callbackFn : function (resp) {
-				if (resp.status === 200) {
-						tau.alert("별이 등록 되었습니다.");
-						//TODO 별 모양 바꾸기.
-				}
-			},
-			callbackCtx : this
-		});
+	  var scene = this.getScene();
+	  var starBtn = scene.getComponent('star');
+    
+    if (this.status.star) {
+      tau.wreq({
+        type : 'DELETE',
+        url : '/star/' + this.poem.id,
+        callbackFn : function (resp) {
+          if (resp.status === 200) {
+              tau.alert("별등록이 해제 되었습니다.");
+              starBtn.setBackgroundImage('/image/star.png');
+              this.status.star = false;
+          } else {tau.alert('별등록이 해제 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+      
+    } else {
+      tau.wreq({
+        type : 'POST',
+        url : '/star/' + this.poem.id,
+        callbackFn : function (resp) {
+          if (resp.status === 200) {
+              tau.alert("별이 등록 되었습니다.");
+              starBtn.setBackgroundImage('/image/star-red.png');
+              this.status.star = true;
+          } else {tau.alert('별이 등록 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+      
+    }
+	  
+		
 	},
 	
 	handleReply : function () {
@@ -137,33 +174,75 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleBookmark : function () {
-		tau.wreq({
-			type : 'POST',
-			url : '/bookmark/' + this.poem.id,
-			callbackFn : function (resp) {
-				//TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
-				if (resp.status === 200) {
-					tau.alert('북마크가 등록 되었습니다.');
-					//TODO 북마크 표시.
-				} else {tau.alert('북마크가 등록 되지 못했습니다. 다시 시도해 주세요.');}
-			},
-			callbackCtx : this
-		});
+	  
+	  var scene = this.getScene();
+    var bookmarkBtn = scene.getComponent('bookmark');
+    
+    if (this.status.bookmark) {
+      tau.wreq({
+        type : 'DELETE',
+        url : '/bookmark/' + this.poem.id,
+        callbackFn : function (resp) {
+          //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
+          if (resp.status === 200) {
+            tau.alert('북마크가 해제 되었습니다.');
+            bookmarkBtn.setBackgroundImage('/image/bookmark.png');
+            this.status.bookmark = false; 
+          } else {tau.alert('북마크가 해제 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+    } else {
+      tau.wreq({
+        type : 'POST',
+        url : '/bookmark/' + this.poem.id,
+        callbackFn : function (resp) {
+          //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
+          if (resp.status === 200) {
+            tau.alert('북마크가 등록 되었습니다.');
+            bookmarkBtn.setBackgroundImage('/image/bookmark-red.png');
+            this.status.bookmark = true;
+          } else {tau.alert('북마크가 등록 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+    }
+		
 	},
 	
 	handleFollow : function () {
-		tau.wreq({
-			type : 'POST',
-			url : '/following/' + this.poem.author.username,
-			callbackFn : function (resp) {
-				if (resp.status === 200) {
-					//TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
-					tau.alert('팔로워가 등록 되었습니다.');
-					//TODO 팔로워 표시.
-				} else {tau.alert('팔로워가 등록 되지 못했습니다. 다시 시도해 주세요.');}
-			},
-			callbackCtx : this
-		});
+	  var scene = this.getScene();
+    var followingBtn = scene.getComponent('following');
+    if (this.status.following) {
+      tau.wreq({
+        type : 'DELETE',
+        url : '/following/' + this.poem.author.username,
+        callbackFn : function (resp) {
+          if (resp.status === 200) {
+            //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
+            tau.alert('팔로워가 해제 되었습니다.');
+            followingBtn.setBackgroundImage('/image/bookmark.png');
+            this.status.following = false;
+          } else {tau.alert('팔로워가 해제 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+    } else {
+      tau.wreq({
+        type : 'POST',
+        url : '/following/' + this.poem.author.username,
+        callbackFn : function (resp) {
+          if (resp.status === 200) {
+            //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
+            tau.alert('팔로워가 등록 되었습니다.');
+            followingBtn.setBackgroundImage('/image/bookmark-red.png');
+            this.status.following = true;
+          } else {tau.alert('팔로워가 등록 되지 못했습니다. 다시 시도해 주세요.');}
+        },
+        callbackCtx : this
+      });
+    }
+		
 	}
 	
 });

@@ -15,8 +15,9 @@ function initScene() {
 				id : 'poemPanel',
 				styles : {
 					backgroundColor : 'transparent',
-					//height : '32px',
-					width : '100%'
+					height : '480px',
+					width : 'auto',
+					backgroundSize : '480px auto'
 				}
 	});
 	
@@ -44,21 +45,39 @@ function initScene() {
 	});
 	authorPanel.add(button1);
 	var starImage = new tau.ui.ImageView({
-		src : '/image/star.jpeg'
+		src : '/image/star.png',
+		styles: {
+		  width : '35px'
+		}
+		  
 	});
 	authorPanel.add(starImage);
 	var starLabel = new tau.ui.Label({
 		id : 'starNum',
-		text : '17'
+		text : '17',
+		styles : {
+		  color : 'white',
+      fontSize : '20px',
+      paddingTop  : '6px'
+		}
 	});
 	authorPanel.add(starLabel);
 	var commentImage = new tau.ui.ImageView({
-		src : '/image/comment.jpeg'
+		src : '/image/comment.png',
+    styles: {
+      width : '35px'
+    }
+
 	});
 	authorPanel.add(commentImage);
 	var commentLabel = new tau.ui.Label({
 		id : 'commentNum',
-		text : '2'
+		text : '2',
+		styles : {
+      color : 'white',
+      fontSize : '20px',
+      paddingTop  : '6px'
+    }
 	});
 	authorPanel.add(commentLabel);
 	/*
@@ -93,14 +112,66 @@ function initScene() {
 			});
 	poemPanel.add(textView1);
 	scrollPanel1.add(poemPanel);
-	var starBtn = new tau.ui.Button({id : 'star', label: '별'});
+	var starBtn = new tau.ui.Button({
+	  id : 'star',
+	  styles: {
+	    background: 'url(/image/star.png) transparent  no-repeat',
+	    backgroundSize: '30px',
+	    border: 'none',
+	    width: '50px',
+	    height: '50px'
+	  },
+	  backgroundImage: {
+      highlighted: '/image/star-sel.png'
+    }
+  });
 	starBtn.onEvent('tap',this.handleStar, this);
-    var replyBtn = new tau.ui.Button({id : 'reply', label: '답글'});
-    replyBtn.onEvent('tap',this.handleReply, this);
-    var bookmarkBtn = new tau.ui.Button({id : 'bookmark', label: '북마크'});
-    bookmarkBtn.onEvent('tap',this.handleBookmark, this);
-    var followBtn = new tau.ui.Button({id : 'follow', label: '팔로잉'});
-    followBtn.onEvent('tap',this.handleFollow, this);
+	
+  var replyBtn = new tau.ui.Button({
+    id : 'reply',
+    styles: {
+      background: 'url(/image/comment.png) transparent  no-repeat',
+      backgroundSize: '30px',
+      border: 'none',
+      width: '50px',
+      height: '50px'
+    },
+    backgroundImage: {
+      highlighted: '/image/comment-sel.png'
+    }
+  });
+  replyBtn.onEvent('tap',this.handleReply, this);
+  
+  var bookmarkBtn = new tau.ui.Button({
+    id : 'bookmark',
+    styles: {
+      background: 'url(/image/bookmark.png) transparent no-repeat',
+      backgroundSize: '30px',
+      border: 'none',
+      width: '50px',
+      height: '50px'
+    },
+    backgroundImage: {
+      highlighted: '/image/bookmark-sel.png'
+    }
+  });
+  bookmarkBtn.onEvent('tap',this.handleBookmark, this);
+  
+  var followBtn = new tau.ui.Button({
+    id : 'following',
+    styles: {
+      background: 'url(/image/following.png) transparent  no-repeat',
+      backgroundSize: '40px',
+      border: 'none',
+      width: '50px',
+      height: '50px'
+    },
+    backgroundImage: {
+      highlighted: '/image/following-sel.png'
+    }
+  });
+  followBtn.onEvent('tap',this.handleFollow, this);
+  
 	var toolbar = new tau.ui.ToolBar({
 		dock : tau.ui.ToolBar.BOTTOM_DOCK,
 		components: [starBtn, replyBtn, bookmarkBtn, followBtn]
