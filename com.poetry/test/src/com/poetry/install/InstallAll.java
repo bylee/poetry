@@ -1,10 +1,8 @@
-package com.poetry;
+package com.poetry.install;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
-
-import javax.sql.DataSource;
+import java.util.Map;
 
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
@@ -13,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.orm.hibernate4.SessionHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import com.poetry.dao.BinaryDao;
+import com.poetry.AbstractTestCase;
 import com.poetry.dao.FollowingDao;
 import com.poetry.dao.MissionDao;
-import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
@@ -30,21 +28,19 @@ import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
 import com.poetry.model.Star;
 
+@Component
 public class
-Install
+InstallAll
 extends AbstractTestCase
 {
-	@Autowired
-	DataSource dataSource;
-
 	@Autowired
 	protected SessionFactory sessionFactory;
 	
 	@Autowired
-	protected PoetDao userDao;
-	
+	InstallUser user;
+
 	@Autowired
-	protected BinaryDao binaryDao;
+	InstallBinary binary;
 	
 	@Autowired
 	protected PoetryDao poetryDao;
@@ -54,6 +50,11 @@ extends AbstractTestCase
 	
 	@Autowired
 	protected StarDao starDao;
+	
+	protected Poet bylee, anjong, csoonoosc, hellojintae, hanseoung82;
+	
+	protected Binary image1, image2_1, image2_2, image3_1, image3_2, missionImage;
+
 
 	public static
 	void
@@ -63,9 +64,9 @@ extends AbstractTestCase
 	throws Exception
 	{
 		final GenericXmlApplicationContext context =
-			new GenericXmlApplicationContext( "classpath:com/poetry/install.xml" );
+			new GenericXmlApplicationContext( "classpath:com/poetry/install/install.xml" );
 		
-		Install instance = context.getBean( Install.class );
+		InstallAll instance = context.getBean( InstallAll.class );
 		instance.run();
 	}
 	
@@ -79,51 +80,21 @@ extends AbstractTestCase
 		
 		try
 		{
-			Poet bylee = new Poet( "bylee", "Bon-Yong Lee", "bylee", "ROLE_ADMIN,ROLE_USER" );
-			Poet anjong = new Poet( "anjong", "Jong-Hyun Kwon", "anjong" );
-			Poet csoonoosc = new Poet( "csoonoosc", "Choong-Soon Park", "csoonoosc" );
-			Poet hellojintae = new Poet( "hellojintae", "Jin-Tae Jung", "hellojintae" );
-			Poet hanseoung82 = new Poet( "hanseoung82", "Han-Seoung Sung", "hanseoung82" );
-			userDao.addNewPoet( bylee );
-			userDao.addNewPoet( anjong );
-			userDao.addNewPoet( csoonoosc );
-			userDao.addNewPoet( hellojintae );
-			userDao.addNewPoet( hanseoung82 );
 			
-			final Binary image1 = new Binary();
-			image1.setName( "mainimage.jpeg" );
-			image1.setOwner( bylee.getUsername() );
-			image1.setMime( "image/jpg" );
-			image1.setContents( load( image1.getName() ) );
-			binaryDao.addBinary( image1 );
+			final Map<String, Poet> users = user.install();
+			bylee = users.get( "bylee" );
+			anjong = users.get( "anjong" );
+			csoonoosc = users.get( "csoonoosc" );
+			hellojintae = users.get( "hellojintae" );
+			hanseoung82 = users.get( "hanseoung82" );
 			
-			final Binary image2_1 = new Binary();
-			image2_1.setName( "image2-1.jpeg" );
-			image2_1.setOwner( bylee.getUsername() );
-			image2_1.setMime( "image/jpg" );
-			image2_1.setContents( load( image2_1.getName() ) );
-			binaryDao.addBinary( image2_1 );
-			
-			final Binary image2_2 = new Binary();
-			image2_2.setName( "image2-2.jpeg" );
-			image2_2.setOwner( bylee.getUsername() );
-			image2_2.setMime( "image/jpg" );
-			image2_2.setContents( load( image2_2.getName() ) );
-			binaryDao.addBinary( image2_2 );
-			
-			final Binary image3_1 = new Binary();
-			image3_1.setName( "image3-1.jpeg" );
-			image3_1.setOwner( bylee.getUsername() );
-			image3_1.setMime( "image/jpg" );
-			image3_1.setContents( load( image3_1.getName() ) );
-			binaryDao.addBinary( image3_1 );
-			
-			final Binary image3_2 = new Binary();
-			image3_2.setName( "image3-2.jpeg" );
-			image3_2.setOwner( bylee.getUsername() );
-			image3_2.setMime( "image/jpg" );
-			image3_2.setContents( load( image3_2.getName() ) );
-			binaryDao.addBinary( image3_2 );
+			final Map<String, Binary> binaries = binary.install();
+			image1 = binaries.get( "mainimage.jpeg" );
+			image2_1 = binaries.get( "image2-1.jpeg" );
+			image2_2 = binaries.get( "image2-2.jpeg" );
+			image3_1 = binaries.get( "image3-1.jpeg" );
+			image3_2 = binaries.get( "image3-2.jpeg" );
+			missionImage = binaries.get( "fallroad.jpeg" );
 			
 			final Poetry poetry1 = new Poetry( "My First Poem", bylee, "contents1", image1.getId() );
 			poetryDao.addPoetry( poetry1 );
@@ -161,7 +132,6 @@ extends AbstractTestCase
 			starDao.addStar( new Star( poetry2.getId(), bylee.getUsername() ) );
 			starDao.addStar( new Star( poetry2.getId(), hellojintae.getUsername() ) );
 
-			installMission();
 			installFollowing( bylee, hanseoung82 );
 			installFollowing( bylee, anjong );
 			installFollowing( anjong, bylee );
@@ -169,6 +139,10 @@ extends AbstractTestCase
 			installFollowing( csoonoosc, hanseoung82 );
 			installFollowing( hanseoung82, hellojintae );
 			installFollowing( hellojintae, bylee );
+			
+			final Mission mission = new Mission( new Date(), missionImage.getId(), "이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다." );
+			missionDao.addNewMission( mission );
+
 		}
 		finally
 		{
@@ -177,24 +151,11 @@ extends AbstractTestCase
 			SessionFactoryUtils.closeSession( session );
 		}
 	}
+	
+	
 
 	@Autowired
 	protected MissionDao missionDao;
-	
-	protected
-	void
-	installMission()
-	throws IOException
-	{
-		final Binary binary = new Binary();
-		binary.setName( "fallroad.jpeg" );
-		binary.setOwner( "bylee" );
-		binary.setMime( "image/jpg" );
-		binary.setContents( load( binary.getName() ) );
-		binaryDao.addBinary( binary );
-		final Mission mission = new Mission( new Date(), binary.getId(), "이 사진은 강원도 지역의 시골길을 찍은 것이며, 멀리 보이는 길을 가르쳐주는 가을 나무들이 있는 풍경입니다. 날짜는 2002년 10월경입니다." );
-		missionDao.addNewMission( mission );
-	}
 	
 	@Autowired
 	protected FollowingDao followingDao;

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poetry;
+import com.poetry.util.SignUtils;
+
+import escode.util.Assert;
 
 @Controller
 public class
@@ -20,6 +23,8 @@ NewsFeedController
 	List<Poetry>
 	getPoetries()
 	{
+		Assert.isTrue( SignUtils.isSignIn() );
+		
 		return null;
 	}
 
