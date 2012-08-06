@@ -48,8 +48,8 @@ extends AbstractDao
 		return extract(
 			(List<Object[]>) find(
 				"from Poetry p, MissionPoetry mp " +
-				"where p.id = mp.poetryId and mp.date = ? order by p.id",
-				date
+				"where p.id = mp.poetryId and mp.date = ? and mp.poetryId > ? order by p.id",
+				date, start
 			),
 			0
 		);
