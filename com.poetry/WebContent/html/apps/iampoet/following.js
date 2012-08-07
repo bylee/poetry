@@ -44,21 +44,21 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 				        }						
 						var Ttablecell = new tau.ui.TableCell({
 							styles : {
-								height : '80px',
-					            margin : '5px auto 0px auto'
+								height : '60px',
+					            margin : '5px 0px 5px 0px'
 							}
 						});
 						
 						var userPanel = new tau.ui.Panel({
 							styles : {
-					            backgroundColor : '#FFFFFF',
-					            border : '1px solid rgb(102,102,102)',
-					            padding : '5px',
-					            'box-shadow': '2px 2px 5px #888888',
+//					            backgroundColor : '#FFFFFF',
+//					            border : '1px solid rgb(102,102,102)',
+//					            padding : '5px',
+//					            'box-shadow': '2px 2px 5px #888888',
 					            width : '100%',
 					            height : '100%',
 //					            margin : '20px auto 0px auto',
-					            '-webkit-border-radius' : '7px'
+//					            '-webkit-border-radius' : '7px'
 							}							
 						});
 						
@@ -89,7 +89,9 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 					    		backgroundColor : 'transparent',
 					    		backgroundImage : 'none',
 					    		borderStyle : 'none',
-					    		width: '150px',
+					    		width: '180px',
+					    		'font-family' : 'YDIYGO330',
+					    		color : '#414143',
 					    		'text-align': 'left',
 					    		display : 'block',
 					    		height : '30px',
@@ -108,7 +110,8 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 					    	styles : {
 					    		display : 'block',
 					    		fontSize : '15px',
-					    		color : 'black',
+					    		'font-family' : 'YDIYGO310',
+					    		color : '#acacac',
 					    		paddingLeft : '15px'
 					    	}
 					    });
@@ -119,22 +122,25 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 					    		backgroundColor : 'transparent',
 					    		backgroundImage : 'url(/image/my-page-remove.png)',
 					    		borderStyle : 'none',
-					    		width: '104px',
+					    		width: '78px',
 					    		'text-align': 'left',
 					    		display : 'block',
-					    		height : '52px',
+					    		height : '39px',
 					    		paddingLeft : '5px',
 					    		display : 'inline',
 					    		position : 'absolute',
 					    		right : '5px',
 					    		'background-size' : '100%',
 					    		margin : '5px 0px 0px 0px',
-					    	}
+					    	},
+					    	flag : 0,
+					    	poetId : user.username
 					    });
+					    addRemoveButton.poetId=user.username;
 					    userPanel.add(addRemoveButton);
+					    addRemoveButton.onEvent('tap', that.followingAction, that);
 					    
-					    Ttablecell.setContentItem(userPanel);						
-						
+					    Ttablecell.setContentItem(userPanel);												
 						followingsT.add(Ttablecell);
 					}
 					followingsT.render();
@@ -148,6 +154,33 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 //		tau.alert(comp + ' : move : ' + comp.username);
 		var seqNavi = this.getParent();
 		seqNavi.pushController(new iampoet.MyController({name:comp.username}));			
+	},
+	
+	followingAction : function(event) {
+		var comp = event.getSource();
+		if (comp.flag == 0) {
+			tau.wreq({
+				type: 'DELETE',
+				url: '/following/' + comp.poetId ,
+				callbackFn : function (resp) {	
+					if (resp.status === 200) {
+						comp.flag = 1;
+						comp.setStyle('backgroundImage', 'url(/image/my-page-add.png)');						
+					}
+				}
+			});
+		} else {
+			tau.wreq({
+				type: 'POST',
+				url: '/following/' + comp.poetId ,
+				callbackFn : function (resp) {	
+					if (resp.status === 200) {
+						comp.flag = 0;
+						comp.setStyle('backgroundImage', 'url(/image/my-page-remove.png)');
+					}
+				}
+			});
+		}
 	}
 	
 });
