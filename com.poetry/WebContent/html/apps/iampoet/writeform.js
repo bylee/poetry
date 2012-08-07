@@ -2,12 +2,11 @@ $require('/poemstyle.js');
 $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	WriteformController: function (opts){
 		this.setTitle("Write");
-		this.writeType = opts.mission;
+		this.writeType = opts.mission.type;
+		this.imageId = opts.mission.imageId;
 	},
  
 	init: function (){
-		var that = this;
-
 		this.stylingCtrl = new iampoet.PoemStyleController();
 		this.stylingCtrl.onEvent('cancelStyling', function () {this.dismissModal();});
 		this.stylingCtrl.onEvent('applyStyling', this.handleApplyStyling, this);
@@ -53,73 +52,33 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleSummit: function () {
-		/*
-		tau.wreq({
-			type: 'POST',
-			url: '/poetry',
-			contentType: 'multipart/form-data',
-			params: {
-				file: this.imageFile,
-				title: title.getText(),
-				contents: contents.getText(),
-				callbackFn: function (resp) {
-					if (resp.status === 200) {
-						//TODO : 성공 실패 테스트 
-						tau.alert("시가 등록 되었습니다.");
-					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
-				},
-				callbackCtx: this
-			}
-		});
-		*/
-		/*
-		tau.wreq({
-			type: 'POST',
-			url: '/binary',
-			contentType: 'multipart/form-data',
-			params: {
-				file: this.imageFile,
-				//title: title.getText(),
-				//contents: contents.getText(),
-				callbackFn: function (resp) {
-					if (resp.status === 200) {
-						//TODO : 성공 실패 테스트 
-						//tau.alert("시가 등록 되었습니다.");
-						this.handlePoetry(resp.data);
-					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
-				},
-				callbackCtx: this
-			}
-		});
-		*/
 		var config = tau.getConfig();
   	  	var rootURL = config.rootURL;
   	  	var params = {'param1':'param1 value'};
+  	    var files = {'uploadFile' : this.imageFile};
   	  	var that = this;
 		//ax.ext.ui.showProgress('Loading...');
-  	/*  	
-		ax.ext.net.upload(
-				rootURL + '/binary',
-				params,
-				this.imageFile.fullPath,
-				function (resp) {
-					if (resp.status === 200) {
-						console.log('successCB:', o.status, o.data);
-						//TODO : 성공 실패 테스트 
-						tau.alert("여기..");
-						that.handlePoetry(resp.data);
-					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
-				},
-				function (e) {
-					tau.alert('errorCB:', e.message, e.code);
-				},
-				function (progress) {
-					tau.alert('progressCB:', progress[0], progress[1]);
-				}
-		);
-		
-		*/
-  	this.handlePoetry({id :12345667890});
+  	  if (this.writeType == 'mission') {
+  		that.handlePoetry({id : this.imageId});
+  	  } else {
+  		if (this.imageFile != null) {
+  			ax.ext.net.upload(
+  	  	  			rootURL + '/binary',
+  	  	  			params,
+  	  	  			files,
+  	  	  			function (resp) {
+  				  	  	if (resp.status === 200) {
+  							that.handlePoetry(tau.parse(resp.data));
+  						} else {tau.alert("시의 사진이 등록 되지 못했습니다. 다시 시도해 주세요");}
+  	  	  			},
+  	  	  			function (e) {
+  	  	  				tau.alert("시의 사진이 등록 되지 못했습니다. 다시 시도해 주세요.");
+  	  	  			}
+  			);
+  		} else { tau.alert('사진을 업로드 해주세요~! ');}
+  		
+  	  }
+  	  	
 	},
 	
 	handlePoetry: function (image) {
@@ -134,7 +93,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 				//file: this.imageFile,
 				title: encodeURIComponent(title.getText()),
 				contents: encodeURIComponent(contents.getText()),
-				imageId: image.id,
+				image: image.id,
 				where: this.writeType
 			},
 			callbackFn: function (resp) {
@@ -152,31 +111,23 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	
 	handlePickImage: function (){
 		var that = this;
-		var scb = function(file){
-		   
-		    window.deviceapis.filesystem.resolve( 
-		        function(file){
-		        	that.imageFile = file;
-		        	tau.alert(that.imageFile.fullPath);
-		        	//tau.alert(that.getScene().getComponent('mainPanel').getId());
-		        	that.getScene().getComponent('mainImage')
-		        	.getDOM().setAttribute('src', file.toURI());
-		            //document.body.innerHTML = '<img src="' + file.toURI() + '">';  
-		        }, function(e){ 
-		            console.log('resolve err:' + e.message);
-		        },
-		        file,
-		        "r"
-		    );
+		var successFn = function (file) {
+			that.imageFile = file;
+			window.deviceapis.filesystem.resolve( 
+			        function(file){
+			        	that.getScene().getComponent('mainImage')
+			        	.getDOM().setAttribute('src', file.toURI());
+			        }, function(e){ 
+			            console.log('resolve err:' + e.message);
+			        },
+			        file,
+			        "r"
+			    );
 		};
-		var ecb = function(e){
-		    tau.log(e.message);
+		var errorFn = function(e){
+		    tau.alert("사진이 선택되지 못했습니다. 다시 선택해주세요. [" + e.message + "]");
 		};
-		// for android - 안드로이드는 removable만 지원합니다.
-		// var opts = {'crop':true, 'out': 'removable/pickedImage.jpg'};
-		var opts = {'out': 'images/pickedImage'+ tau.genId('') +'.jpg'};
-		//ax.ext.media.pickImage(scb, ecb, opts);
-		//ax.ext.media.pickImage(scb, ecb);
+		ax.ext.media.pickImage(successFn, errorFn);
 	},
 	
 	handleLayout: function (event){

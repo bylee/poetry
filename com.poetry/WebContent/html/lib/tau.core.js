@@ -1040,18 +1040,45 @@
     	  var rootURL = config.rootURL;
     	  
     	  var convertingOpts = {};
+    	  if (opts.type == 'GET') {
+    		  if (opts.params != null) {
+    			  opts.url += '?';
+    			  for (var param in opts.params) {
+        			  opts.url += param + '=' + opts.params[param] + ';';
+        		  }
+    		  }
+  	  	  }
     	  
     	  switch (reqType){
     	  case "appspresso":
     		  if (rootURL == undefined) { tau.alert("rootURL 설정이 안되었습니다."); return;}
     		  convertingOpts.method = opts.type;
     		  convertingOpts.url = rootURL + opts.url;
-    		  convertingOpts.headers = { 'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded'};
+    		  
+    		  var name = tau.util.getCookie('name');
+			  var sessionid = tau.util.getCookie('session');
+			  
+			  if (name != null && sessionid != null) {
+				  convertingOpts.headers = { 
+						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded',
+							Cookie : 'name='+name+';JSESSIONID='+sessionid  
+				  };
+			  } else {
+				  convertingOpts.headers = { 
+						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded',
+	    		  };  
+			  }
+    		  
+    		  
     		  if (opts.params) convertingOpts.params = opts.params;
     		  convertingOpts.success = function (resp) {
     			  var response = {};
     	  		  response.status = resp.status;
-    	  		  response.data = tau.parse(resp.data);
+    	  		  if (tau.isJSON(resp.data)) {
+    	  			response.data = tau.parse(resp.data);  
+    	  		  } else {
+    	  			response.data = resp.data;
+    	  		  }
     	  		  opts.callbackFn.call(opts.callbackCtx, response);
     		  }; 
     		  convertingOpts.error = function (e) { tau.alert('['+e.code+']' + e.message);};
@@ -1059,25 +1086,18 @@
     			  ax.ext.net.curl(convertingOpts);
     		  } else { tau.alert('appspresso library가 없습니다.');};
     		  break;
-    	  default:
+    	  default :
     		  opts.url = ".." + opts.url; //TODO poem을 위해서 작성된 코드 수정해야 함.
-    	    opts.encoding = 'UTF-8';
-    	    opts.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
-  	      var callback = opts.callbackFn;
-  	  	  opts.callbackFn = function (resp) {
-  	  		  var response = {};
-  	  		  response.status = resp.status;
-  	  		  response.data = resp.responseJSON;
-  	  		  callback.call(opts.callbackCtx, response);
-  	  	  };
-  	  	  if (opts.type == 'GET') {
-  	  	    if (opts.params != null) {
-              opts.url += '?';
-            }
-            for (var param in opts.params) {
-              opts.url += param + '=' + opts.params[param] + ';'
-            }
-  	  	  }
+    	  	  opts.encoding = 'UTF-8';
+    	  	  opts.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+    	  	  var callback = opts.callbackFn;
+    	  	  opts.callbackFn = function (resp) {
+		  		  var response = {};
+		  		  response.status = resp.status;
+		  		  response.data = resp.responseJSON;
+		  		  callback.call(opts.callbackCtx, response);
+    	  	  };
+	  	  	  
     		  var req = tau.req(opts);
     		  var id = req.send();
     		  return { req : req , reqid : id};
