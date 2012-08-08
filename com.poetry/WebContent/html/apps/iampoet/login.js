@@ -42,25 +42,69 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		
 		req.send();
 		*/
-		
-		tau.wreq({
-			type: 'POST',
-			url: '/service/signin',
-			params: { 
-		    	j_username: id,
-		    	j_password: pw 
-	    	},
-	    	callbackFn: this.handleLoginCallBack,
-	    	callbackCtx : this
+		var config = tau.getConfig();
+   	  	var reqType = config.reqType;
+   	  	var rootURL = config.rootURL;
+   	  	var that = this;
+		switch (reqType) {
+		case "appspresso" :
 			
-		});
+			var req = tau.req(
+					{
+						type: 'JSONP',
+						url: rootURL+'/service/signin?j_username='+id+'&j_password='+pw,
+						jsonpCallback: 'callbackFn',
+						timeout: 500000,
+						callbackFn: function (resp) {
+							var response = {
+									status : resp.status,
+									data : resp.responseJSON
+							};
+							that.handleLoginCallBack(response);
+						}
+					}
+			);
+			req.send();
+			
+			/*
+			tau.wreq({
+				type: 'POST',
+				url: '/service/signin',
+				params: { 
+			    	j_username: id,
+			    	j_password: pw 
+		    	},
+		    	callbackFn: this.handleTest,
+		    	callbackCtx : this
+				
+			});
+			*/
+			break;
+		default :
+			tau.wreq({
+				type: 'POST',
+				url: '/service/signin',
+				params: { 
+			    	j_username: id,
+			    	j_password: pw 
+		    	},
+		    	callbackFn: this.handleLoginCallBack,
+		    	callbackCtx : this
+				
+			});
+		}
+	},
+	
+	handleTest: function () {
 		
 	},
 	
 	handleLoginCallBack: function (resp) {
 		if (resp.status === 200) {
 			if (resp.data.status === 'success'){
+				//tau.util.setCookie('jsessionid', resp.data);
 				tau.util.setCookie('name', resp.data.username);
+				tau.util.setCookie('session', resp.data.jsessionid);
 				var dateObj = new Date();
 				var dateStr = dateObj.getFullYear() + '-' +(dateObj.getMonth()+1) + '-' + dateObj.getDate();
 				tau.wreq({

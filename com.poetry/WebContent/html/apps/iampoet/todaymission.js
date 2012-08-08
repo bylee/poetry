@@ -24,38 +24,40 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		
 		tau.wreq({
-      type: 'GET',
-      url : '/mission/' + poetutil.getPoetDate(),
-      callbackFn : function (resp) {
-        if (resp.status === 200) {
-          if (resp.data != null) {
-            this.missionData = resp.data;
-            missionInfoText.setText(this.missionData.description);
-            missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
-          }
-        } else {
-          tau.alert('초기 데이타 로딩 실패'); 
-        }
-      },
-      callbackCtx : this
-    }); 
+	      type: 'GET',
+	      url : '/mission/' + '2012-08-05',//poetutil.getPoetDate(),
+	      callbackFn : function (resp) {
+	        if (resp.status === 200) {
+	          if (resp.data != null) {
+	            this.missionData = resp.data;
+	            missionInfoText.setText(this.missionData.description);
+	            missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
+	          } else {
+	        	  tau.alert('미션 데이터 로딩 실패');
+	          }
+	        } else {
+	          tau.alert('미션 데이타 로딩 실패'); 
+	        }
+	      },
+	      callbackCtx : this
+		}); 
     
 		tau.wreq({
-      type: 'GET',
-      url : '/missionpoetry/' + poetutil.getPoetDate(),
-      callbackFn : function (resp) {
-        if (resp.status === 200) {
-          if (this.lastId == null && resp.data.length == 0) {
-            tau.alert('현재 미션시가 없습니다. 첫 도전을 해주세요~');
-          } else {
-            this.loadingMissionPoet(resp.data);
-          }
-        } else {
-          tau.alert('초기 데이타 로딩 실패'); 
-        }
-      },
-      callbackCtx : this
-    });
+	      type: 'GET',
+	      url : '/missionpoetry/' + poetutil.getPoetDate(),
+	      callbackFn : function (resp) {
+	        if (resp.status === 200) {
+	          if (this.lastId == null && resp.data.length == 0) {
+	            tau.alert('현재 미션시가 없습니다. 첫 도전을 해주세요~');
+	          } else {
+	            this.loadingMissionPoet(resp.data);
+	          }
+	        } else {
+	          tau.alert('초기 데이타 로딩 실패'); 
+	        }
+	      },
+	      callbackCtx : this
+		});
 		
 	},
 	
@@ -275,7 +277,14 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	
 	handleWrite: function (){
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.WriteformController({mission : 'mission'}));
+		seqNavi.pushController(
+				new iampoet.WriteformController({
+					mission : {
+						type : 'mission',
+						imageId : this.missionData.imageId
+					}
+				})
+		);
 	},
 	
 	handleScrollStopPropagation: function (event){

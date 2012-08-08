@@ -7,7 +7,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
  
 	init: function (){
 		
-
+		this.onEvent('changeData',this.handleDataEvent, this);
 		if(!tau.util.getCookie('name')) {
 			this.modalCtrl = new iampoet.LoginController();
 			this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
@@ -361,10 +361,9 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		seqCtrl.pushController(
 				new iampoet.PoemController(
 						{
-						  dataref : this.mainpoem,
-						  datarefNo : index,
-							poem :targetpoem,
-							seqCtrl : seqCtrl 
+						  dataref : this,
+						  poem :targetpoem,
+						  seqCtrl : seqCtrl 
 						}
 				) 
 				,{ hideNavigationBar: false}
@@ -374,42 +373,14 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	handleDismiss: function (){
 		this.dismissModal(true);
 	},
-	/*
-	handleToday: function (event, param){
-	  var scene = this.getScene();
-	  this.mainpoem = param;
-	  var poetryIndex = [{
-	    imageId : 'mainImage',
-	    titleId : 'mainTitle',
-	    authorId : 'mainAuthor'
-	  },{
-	    imageId : 'sub1Image',
-	    titleId : 'sub1Title',
-	    authorId : 'sub1Author'
-	  },{
-      imageId : 'sub2Image',
-      titleId : 'sub2Title',
-      authorId : 'sub2Author'
-    },{
-      imageId : 'sub3Image',
-      titleId : 'sub3Title',
-      authorId : 'sub3Author'
-    },{
-      imageId : 'sub4Image',
-      titleId : 'sub4Title',
-      authorId : 'sub4Author'
-    }];
-	  var index = 0;
-	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
-	  for(var poetry in this.mainpoem) {
-	    var imagePanel = scene.getComponent(poetryIndex[index].imageId);
-	    var titleLabel = scene.getComponent(poetryIndex[index].titleId);
-	    var authorLabel = scene.getComponent(poetryIndex[index].authorId);
-	    imagePanel.setSrc(rootURL+"/binary/"+this.mainpoem[poetry].image);
-	    titleLabel.setText(this.mainpoem[poetry].title);
-	    authorLabel.setText(this.mainpoem[poetry].author.penName);
-	    index++;
-	  }
+	
+	handleDataEvent: function (event, payload) {
+		var targetPoem = null;
+		for (var index in this.mainpoem) {
+			if (payload.id == this.mainpoem[index].id) {
+				targetPoem = this.mainpoem[index];
+			}
+		}
+		targetPoem[payload.type] = payload.value;
 	}
-	*/
 });
