@@ -9,8 +9,9 @@ public class
 BinaryDao
 extends AbstractDao
 {
-	public String
-	addBinary(
+	public
+	String
+	addNewBinary(
 		final Binary binary
 	)
 	{
@@ -19,8 +20,11 @@ extends AbstractDao
 		
 		return binary.getId();
 	}
-	public Binary
-	get( final String id )
+	public
+	Binary
+	get(
+		final String id
+	)
 	{
 		return get( Binary.class, id );
 	}

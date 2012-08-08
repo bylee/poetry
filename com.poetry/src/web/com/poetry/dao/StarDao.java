@@ -1,7 +1,6 @@
 package com.poetry.dao;
 
-import java.text.MessageFormat;
-
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Star;
@@ -11,12 +10,12 @@ public class
 StarDao
 extends AbstractDao
 {
-	public int getTheNumberOfStar( final String poetId )
+	public int getTheNumberOfStar( final String poetryId )
 	{
 		getSession().flush();
-		final String query = 
-			MessageFormat.format( "select count(star.poetId) from Star star where star.poetId = ''{0}''" , poetId );
-		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+		Query q = getSession().createQuery( "select count(star.poetId) from Star star where star.poetryId = ?" );
+		bind( q, poetryId );
+		return ( (Long) q.uniqueResult() ).intValue();
 	}
 	
 	public

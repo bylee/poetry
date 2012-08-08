@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -47,7 +48,7 @@ PoetryDaoTest
 			new Object[] { "e6e4aa26ac156ff551af4309b958f5d7", 2L }
 		} ) );
 		
-		final List<String> poetries = poetryDao.getTodayPoetryCandidates();
+		final List<String> poetries = poetryDao.getTodayPoetryCandidates( new Date() );
 		assertEquals( 1, poetries.size() );
 		assertEquals( "e6e4aa28ac156ff528294f626e4d4ef1", poetries.get( 0 ) );
 	}

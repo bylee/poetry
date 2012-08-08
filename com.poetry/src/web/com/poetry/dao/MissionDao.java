@@ -12,19 +12,28 @@ extends AbstractDao
 {
 	public
 	void
-	addNewMission( final Mission mission )
+	addNewMission(
+		final Mission mission
+	)
 	{
 		mission.setId( generateId( mission ) );
-		delete( "delete from Mission mission where mission.date = ?", mission.getDate() );
+		delete(
+			"delete from Mission mission where mission.date = ?",
+			mission.getDate()
+		);
 		insert( mission );
 	}
+	
 	public
 	Mission
 	getMission(
 		final Date date
 	)
 	{
-		return findOne( "from Mission mission where mission.date = ?", date );
+		return findOne(
+			"from Mission mission where mission.date = ?",
+			date
+		);
 	}
 
 }

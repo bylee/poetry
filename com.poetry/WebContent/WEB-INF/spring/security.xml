@@ -22,6 +22,7 @@
 		<security:intercept-url pattern="/html/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 		<security:intercept-url pattern="/js/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 		<security:intercept-url pattern="/css/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/reply" access="ROLE_USER"/>
 		<security:intercept-url pattern="/**" access="ROLE_USER"/>
 		<security:form-login login-page="/html/launcher.html?app=iampoet"/>
 	</security:http>

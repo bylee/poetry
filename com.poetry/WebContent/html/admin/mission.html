@@ -18,7 +18,7 @@
 	</div>
 	<div class="row">
 	    <div class="span6 fileupload-buttonbar" id="imageContainer">
-			<img id="image" alt="" src="" width="100%" height="300">
+			<img width="100%" height="300">
 		</div>
 	</div>
 	<div class="row">
@@ -37,22 +37,13 @@
 </form>
 </body>
 	<script id="date-template" type="template/jquery">
-		<input name="{{cid}}" type="text">
-	</div>
+		<input name="date" type="text">
 	</script>
 	
-	<script id="imageUpload-template" type="template/jquery">
-	    <div class="span6 fileupload-buttonbar">
-			<img width="100%" height="300">
-		</div>
-	</script>
-	
-	
-
 <script type="text/javascript">
-function load( date ) {
-	url = "../../mission/" + convert( date );
-	console.log( "trying "+url + " for " + date );
+function load( calendar ) {
+	url = "../../mission/" + DPGlobal.formatDate( calendar.getDate(), DPGlobal.parseFormat( "yyyy-mm-dd" ) );
+	console.log( "trying "+url );
 	$.ajax( {
 		type : "GET",
 		dataType: "json",
@@ -60,15 +51,15 @@ function load( date ) {
 		success: function( json )  
 		{
 			var id = "";
-			image = $( "#imageContainer>img" );
+			container = $( "#imageContainer" );
 			if ( json ) {
 				id = json.imageId;
-				image.attr( "src", "../../binary/" + id );
+				container.children().replaceWith( $( "<img width='100%' src='../../binary/" + id + "'></img>" ) );
 				$( "#imageId" ).val( json.id );
 				$( "#description" ).val( json.description );
 				$( "#send" ).removeAttr( "disabled" );
 			} else {
-				image.attr( "src", "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" );
+				container.children().replaceWith( $( "<img width='100%' height='300'></img>" ) );
 				$( "#imageId" ).val( "" );
 				$( "#send" ).attr( "disabled", "disabled" );
 				$( "#description" ).val( "" );
@@ -83,31 +74,14 @@ function load( date ) {
 		}
 		
 	} );
-	if ( date.valueOf() < new Date() ) {
+	if ( calendar.getDate().valueOf() < new Date() ) {
 		alert( "수정할 수 없는 미션의 날짜입니다." );
 	}
 }
-function convert( date ) 
-{
-	var d = date.getDate();
-	var m = date.getMonth() + 1;
-	var dd = ( d < 10 ? '0' : '') + d;
-	var mm = ( m < 10 ? '0' : '') + m;
-	
-	return date.getFullYear() + "-" + mm + "-" + dd;
-};
 $( function() {
-	
-	var now = new Date();
-	var tomorrow = new Date( now.getTime() + (24 * 60 * 60 * 1000))
-	
-	var date = new Calendar( {
-		date : tomorrow,
-		changeDate: function( ev ) {
-			load( ev.date );
-		}
-	} );
-	new CalendarView( { el: $( "#dateContainer" ), model: date, format: "yyyy-mm-dd" } ).render();
+	calendar = new Calendar( { date : new Date( new Date().getTime() + (24 * 60 * 60 * 1000) ) } );
+	calendarView = new CalendarView( { el: $( "#dateContainer" ), model: calendar } ).render();
+	calendar.bind( "change:date", _.bind( load, calendarView ) );
 	
     var result = $( '#imageContainer' ),
     loadImage = function (e) {
@@ -127,11 +101,6 @@ $( function() {
         );
     };
 	
-	$( '#date' ).val( convert( tomorrow ) );
-	$( '#date' ).datepicker( { "format" : "yyyy-mm-dd" } ).on( "changeDate", function( ev ) {
-		load( ev.date );
-	} );
-
 	$( "#imageContainer" ).click( function(){ $( "#uploadFile" ).click(); } );
 	$( "#uploadFile" ).change( loadImage );
 
@@ -145,22 +114,11 @@ $( function() {
 		
 	} );
 	
-	$( "#fileupload" ).ajaxForm( {
-		dataType : "json",
-		success : function( json ) {
-			console.log( "Request image :%s", json.id );
-			$( "#imageContainer>img" ).attr( "src", "../../binary/" + json.id );
-			$( "#imageId" ).val( json.id );
-		}
-	} );
-	
-	
 	$(document).on( 'dragover', function (e) {
         e = e.originalEvent;
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
     } ).on('drop', loadImage );
-	load( tomorrow );
 });
 </script>
 </html>

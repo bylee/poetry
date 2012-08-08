@@ -132,6 +132,7 @@ extends AbstractController
 		final Reply reply
 	)
 	{
+		reply.setWriter( poetService.getPoetDetail( SignUtils.getSignedInUsername() ) );
 		poetryService.addReply( reply );
 		return "success";
 	}

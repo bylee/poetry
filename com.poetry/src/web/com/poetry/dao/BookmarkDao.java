@@ -1,7 +1,5 @@
 package com.poetry.dao;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -57,25 +55,38 @@ extends AbstractDao
 	getTheNumberOfBookmarks( final String username )
 	{
 		logger.trace( "trying the number of {}'s bookmark", username );
-		final String query = 
-			MessageFormat.format( "select count( bookmark.poetId ) from Bookmark bookmark where bookmark.poetId = ''{0}''" , username );
-		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+		return ( (Long) findOne(
+			"select count( bookmark.poetId ) " +
+			"from Bookmark bookmark " +
+			"where bookmark.poetId = ?",
+			username
+		) ).intValue();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Poetry> getBookmarksOf( String poetId )
 	{
-		final List<Object[]> list =
-			(List<Object[]>) find(  "from Poetry poetry, Bookmark bookmark where poetry.id = bookmark.poetryId and bookmark.poetId = ?", poetId );
-		
-		ArrayList<Poetry> poetries = new ArrayList<Poetry>();
-		for ( final Object[] row : list )
-		{
-			poetries.add( (Poetry) row[0] );
-		}
-		
-		return poetries;
+		return extract( (List<Object[]>) find(
+			"from Poetry poetry, Bookmark bookmark " +
+			"where poetry.id = bookmark.poetryId and bookmark.poetId = ? " +
+			"order by poetry.id desc",
+			poetId
+		), 0 );
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Poetry> getBookmarksOf(
+		final String poetId,
+		final String start
+	)
+	{
+		return extract( (List<Object[]>) find(
+			"from Poetry poetry, Bookmark bookmark " +
+			"where poetry.id = bookmark.poetryId and bookmark.poetId = ? and poetry.id < ?" +
+			"order by poetry.id desc",
+			poetId, start
+		), 0 );
 	}
 
 }

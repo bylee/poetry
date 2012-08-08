@@ -3,9 +3,11 @@ package com.poetry.controller;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,12 +38,12 @@ extends AbstractControllerTest
 	test_getTodayPoetry()
 	throws Exception
 	{
-		when( poetryService.getTodayPoetries() )
+		when( poetryService.getTodayPoetries( Matchers.<Date>any() ) )
 		.thenReturn( Arrays.asList(
 			new Poetry( "Poetry1", new Poet( "bylee", "Bon-Yong Lee" ), "Hello, world", "aaaaa" )
 		) );
 		final Object[][] TEST_CASES = new Object[][] {
-			new Object[] { "/today/20120718", "GET", null, "\"title\"" },
+			new Object[] { "/today/2012-07-18", "GET", null, "\"title\"" },
 		};
 		
 		for ( final Object[] TEST_CASE : TEST_CASES )

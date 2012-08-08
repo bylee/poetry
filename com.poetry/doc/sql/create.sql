@@ -16,7 +16,7 @@ create table Poet
 
 create table File
 (
-	id varchar( 32 ) primary key,
+	id varchar( 40 ) primary key,
 	name varchar( 256 ),
 	owner varchar( 32 ),
 	mime varchar( 64 ),
@@ -25,71 +25,75 @@ create table File
 
 create table Poetry
 (
-	id varchar( 32 ) primary key,
+	id varchar( 40 ) primary key,
 	title varchar( 256 ),
-	author varchar( 32 ),
+	titleFont varchar( 16 ),
+	titleSize varchar( 4 ),
+	titleColor varchar( 16 ),
+	author varchar( 40 ),
 	image varchar( 64 ),
 	createdDate date,
-	contents TEXT
+	contents TEXT,
+	contentsFont varchar( 16 ),
+	contentsSize varchar( 4 ),
+	contentsColor varchar( 16 )
 );
 
 create table Reply
 (
-	id varchar( 32 ) primary key,
-	targetId varchar( 32 ),
-	writer varchar( 128 ),
+	id varchar( 40 ) primary key,
+	targetId varchar( 40 ),
+	writer varchar( 40 ),
 	contents varchar( 256 ),
 	createdDate date
 );
 
 create table Following
 (
-	following varchar( 32 ),
-	follower varchar( 32 ),
+	following varchar( 40 ),
+	follower varchar( 40 ),
 	constraint following_unique primary key ( following, follower )
 );
 
 create table Star
 (
-	poetryId varchar( 32 ),
-	poetId varchar( 32 ),
+	poetryId varchar( 40 ),
+	poetId varchar( 40 ),
 	constraint star_unique primary key( poetryId, poetId )
 );
 
 create table Bookmark
 (
-	poetryId varchar( 32 ),
-	poetId varchar( 32 ),
+	poetryId varchar( 40 ),
+	poetId varchar( 40 ),
 	constraint bookmark_unique primary key( poetryId, poetId )
 );
 
 create table Mission
 (
-	id varchar( 32 ) primary key,
+	id varchar( 40 ) primary key,
 	date date,
-	imageId varchar( 32 ),
+	imageId varchar( 40 ),
 	description TEXT
-);
-create table Image
-(
-	id varchar( 32 ) primary key,
-	red numeric,
-	green numeric,
-	blue numeric,
-	intensity numeric
 );
 
 create table Today
 (
 	date date primary key,
-	target varchar( 32 ),
+	target varchar( 40 ),
 	poet varchar( 64 )
 );
 
 create table MissionPoetry
 (
-	id varchar( 32 ) primary key,
+	id varchar( 40 ) primary key,
 	date date,
-	poetryId varchar( 32 )
+	poetryId varchar( 40 )
 );
 
+create table Block
+(
+	following varchar( 40 ),
+	follower varchar( 40 ),
+	constraint block_unique primary key ( following, follower )
+);

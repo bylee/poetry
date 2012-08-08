@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poetry.model.Poet;
@@ -48,10 +49,11 @@ extends AbstractController
 	@ResponseBody
 	List<Poetry>
 	getMyPoetries(
-		@PathVariable( "username" ) final String poetId
+		@PathVariable( "username" ) final String poetId,
+		@RequestParam( value = "start", required = false ) final String start
 	)
 	{
-		return poetryService.getPoetiesOf( poetId );
+		return poetryService.getPoetiesOf( poetId, start );
 		
 	}
 
@@ -64,10 +66,11 @@ extends AbstractController
 	@ResponseBody
 	List<Poetry>
 	getMyBookmarks(
-		@PathVariable( "username" ) final String poetId
+		@PathVariable( "username" ) final String poetId,
+		@RequestParam( value = "start", required = false ) final String start
 	)
 	{
-		return poetryService.getBookmarksOf( poetId );
+		return poetryService.getBookmarksOf( poetId, start );
 		
 	}
 

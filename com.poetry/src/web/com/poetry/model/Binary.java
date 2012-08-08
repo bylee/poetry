@@ -35,8 +35,22 @@ Binary
 	@Transient
 	protected String tag;
 	
-	public Binary() {}
-	public Binary(
+	public
+	Binary() {}
+	
+	public
+	Binary(
+		final String name,
+		final String owner,
+		final String mime,
+		final byte[] contents
+	)
+	{
+		this( null, name, owner, mime, contents );
+	}
+	
+	public
+	Binary(
 		final String id,
 		final String name,
 		final String owner,
@@ -54,7 +68,9 @@ Binary
 	/**
 	 * @return the id
 	 */
-	public String getId()
+	public
+	String
+	getId()
 	{
 		return id;
 	}
@@ -62,7 +78,11 @@ Binary
 	/**
 	 * @param id the id to set
 	 */
-	public void setId( String id )
+	public
+	void
+	setId(
+		final String id
+	)
 	{
 		this.id = id;
 	}
@@ -70,7 +90,9 @@ Binary
 	/**
 	 * @return the name
 	 */
-	public String getName()
+	public
+	String
+	getName()
 	{
 		return name;
 	}
@@ -78,12 +100,18 @@ Binary
 	/**
 	 * @param name the name to set
 	 */
-	public void setName( String name )
+	public
+	void
+	setName(
+		final String name
+	)
 	{
 		this.name = name;
 	}
 	
-	public String getOwner()
+	public
+	String
+	getOwner()
 	{
 		return this.owner;
 	}
@@ -100,7 +128,9 @@ Binary
 	/**
 	 * @return the mime
 	 */
-	public String getMime()
+	public
+	String
+	getMime()
 	{
 		return mime;
 	}
@@ -108,7 +138,11 @@ Binary
 	/**
 	 * @param mime the mime to set
 	 */
-	public void setMime( String mime )
+	public
+	void
+	setMime(
+		final String mime
+	)
 	{
 		this.mime = mime;
 	}
@@ -116,7 +150,8 @@ Binary
 	/**
 	 * @return the contents
 	 */
-	public byte[] getContents()
+	public
+	byte[] getContents()
 	{
 		return contents;
 	}
@@ -124,12 +159,18 @@ Binary
 	/**
 	 * @param contents the contents to set
 	 */
-	public void setContents( byte[] contents )
+	public
+	void
+	setContents(
+		final byte[] contents
+	)
 	{
 		this.contents = contents;
 	}
 	
-	public CommonsMultipartFile getUploadFile()
+	public
+	CommonsMultipartFile
+	getUploadFile()
 	{
 		return this.uploadFile;
 	}
@@ -150,7 +191,8 @@ Binary
 		return this.tag;
 	}
 	
-	public void
+	public
+	void
 	setTag(
 		final String tag
 	)
@@ -159,12 +201,21 @@ Binary
 	}
 	
 
-	public int hashCode()
+	public
+	int
+	hashCode()
 	{
 		return new HashCodeBuilder().append( id ).toHashCode();
 	}
 	
-	public boolean equals( Object obj )
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public
+	boolean
+	equals(
+		final Object obj
+	)
 	{
 		if ( !( obj instanceof Binary ) )
 		{

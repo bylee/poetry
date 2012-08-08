@@ -5,7 +5,18 @@ function initScene() {
 //	dom1.innerHTML = "<img src='/html/apps/iampoet/image/splash.png' width='180' height='240' />";
 //	scene.add(panel1);
 	
-	var button_write = new tau.ui.Button({id : 'write' , label : {normal: 'write'}});
+	var button_write = new tau.ui.Button({
+		id : 'write', 
+//		label : {normal: 'write'}
+		styles : {
+    		backgroundColor : 'transparent',
+    		backgroundImage : 'url(/image/write.png)',
+            border : '1px solid rgb(102,102,102)',
+	        backgroundPosition : 'center',
+	        'background-size' : '100%',
+            'box-shadow': '2px 2px 5px #888888',    		
+		}
+	});
 	scene.add(button_write);
 	button_write.onEvent('tap', this.handleWrite, this);
 
@@ -76,8 +87,9 @@ function initScene() {
     		display : 'block',
     		fontSize : '15px',
     		color : 'black',
+    		'font-family' : 'YDIYGO310',
     		paddingLeft : '10px',
-    		paddingTop : '5px',
+    		paddingTop : '8px',
     	}
     });
     namePanel.add(levelName);	
@@ -86,7 +98,7 @@ function initScene() {
 		id : 'myInfoPanel2',
 		styles : {
 			backgroundColor : 'transparent',
-			height : '95px',
+			height : '110px',
 			width : '100%'
 		}
 	});	
@@ -97,7 +109,7 @@ function initScene() {
 		styles : {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
-			height : '70px',
+			height : '80px',
 			width : '45%',
 		    border : '1px solid rgb(102,102,102)',
             'box-shadow': '2px 2px 5px #888888',
@@ -113,9 +125,9 @@ function initScene() {
 	var myPoemCount = new tau.ui.Label({
 		id: 'myPoemCount',
 		styles : {
-			margin : '3px 5px 0px 0px',
+			margin : '2px 5px 0px 0px',
 			display : 'block',
-			'font-size' : '30px',
+			'font-size' : '40px',
 			'font-weight' : 'bold', 
 //			'font-style' : 'italic',
 			'font-family' : 'Monotype Corsiva',
@@ -131,7 +143,7 @@ function initScene() {
 			margin : '5px 0px 0px 0px',
 			display : 'block',
 			'font-size' : '20px',
-//			'font-weight' : 'bold', 
+			'font-weight' : 'bold', 
 			'font-family' : 'Monotype Corsiva',
 			'text-align' : 'right'
 		}
@@ -143,7 +155,7 @@ function initScene() {
 		styles : {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
-			height : '70px',
+			height : '80px',
 			width : '45%',
 		    border : '1px solid rgb(102,102,102)',
             'box-shadow': '2px 2px 5px #888888',
@@ -158,9 +170,9 @@ function initScene() {
 	var myClipPoemCount = new tau.ui.Label({
 		id: 'myClipPoemCount',
 		styles : {
-			margin : '3px 5px 0px 0px',
+			margin : '2px 5px 0px 0px',
 			display : 'block',
-			'font-size' : '30px',
+			'font-size' : '40px',
 			'font-weight' : 'bold', 
 //			'font-style' : 'italic',
 			'font-family' : 'Monotype Corsiva',
@@ -176,7 +188,7 @@ function initScene() {
 			margin : '5px 0px 0px 0px',
 			display : 'block',
 			'font-size' : '20px',
-//			'font-weight' : 'bold', 
+			'font-weight' : 'bold', 
 			'font-family' : 'Monotype Corsiva',
 			'text-align' : 'right'
 		}
@@ -187,7 +199,7 @@ function initScene() {
 		id : 'myInfoPanel3',
 		styles : {
 			backgroundColor : 'transparent',
-			height : '100px',
+			height : '110px',
 			width : '100%',
 			margin : '0px 0px 30px 0px'
 		}
@@ -199,7 +211,7 @@ function initScene() {
 		styles : {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
-			height : '70px',
+			height : '80px',
 			width : '45%',
 		    border : '1px solid rgb(102,102,102)',
             'box-shadow': '2px 2px 5px #888888',
@@ -214,9 +226,9 @@ function initScene() {
 	var followingCount = new tau.ui.Label({
 		id: 'followingCount',
 		styles : {
-			margin : '3px 5px 0px 0px',
+			margin : '2px 5px 0px 0px',
 			display : 'block',
-			'font-size' : '30px',
+			'font-size' : '40px',
 			'font-weight' : 'bold', 
 //			'font-style' : 'italic',
 			'font-family' : 'Monotype Corsiva',
@@ -234,7 +246,6 @@ function initScene() {
 			'font-size' : '25px',
 //			'font-weight' : 'bold', 
 			'font-family' : 'Monotype Corsiva',
-			'height' : '30px',
 			'text-align' : 'right'			
 		}
 	});
@@ -245,7 +256,7 @@ function initScene() {
 		styles : {
 	        WebkitBorderRadius : '7px',
 			backgroundColor : 'transparent',
-			height : '70px',
+			height : '80px',
 			width : '45%',
 		    border : '1px solid rgb(102,102,102)',
             'box-shadow': '2px 2px 5px #888888',
@@ -261,9 +272,9 @@ function initScene() {
 	var followerCount = new tau.ui.Label({
 		id: 'followerCount',
 		styles : {
-			margin : '3px 5px 0px 0px',
+			margin : '2px 5px 0px 0px',
 			display : 'block',
-			'font-size' : '30px',
+			'font-size' : '40px',
 			'font-weight' : 'bold', 
 //			'font-style' : 'italic',
 			'font-family' : 'Monotype Corsiva',
@@ -281,6 +292,7 @@ function initScene() {
 			'font-size' : '25px',
 //			'font-weight' : 'bold', 
 			'font-family' : 'Monotype Corsiva',
+			'height' : '35px',
 			'text-align' : 'right'			
 		}
 	});
@@ -298,16 +310,23 @@ function initScene() {
 
 	var logoutImage = new tau.ui.Button({
 		label : {
+			normal : 'Log out',
 		},
 		id : 'logout',
 		styles : {
 			width : '160px',
-			height : '40px',
+			height : '55px',
 			marginLeft : '80px',
 			marginRight : '80px',
-			background : 'url(/image/my-page_49.png) no-repeat center transparent',
-			'background-size' : '100%',
-			border : 'none'
+//			background : 'url(/image/my-page_49.png) no-repeat center transparent',
+//			'background-size' : '100%',
+//			border : 'none'
+		    border : '1px solid rgb(102,102,102)',
+            'box-shadow': '2px 2px 5px #888888',
+			'font-size' : '40px',
+//			'font-weight' : 'bold', 
+			'font-family' : 'Monotype Corsiva',
+			color : 'black',
 		}
 	});	
 

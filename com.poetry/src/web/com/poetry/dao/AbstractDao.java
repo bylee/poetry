@@ -104,7 +104,8 @@ AbstractDao
 	)
 	{
 		getSession().delete( obj );
-		getSession().save( obj );
+		getSession().flush();
+		getSession().evict( obj );
 	}
 	
 	public
@@ -211,6 +212,7 @@ AbstractDao
 		for ( int i = 0, n = args.length ; i<n ; ++i )
 		{
 			final Object arg = args[i];
+			logger.debug( "Arg {} : {}", new Object[] { i, (args[i]==null)?null:args[i].getClass() } );
 			if ( arg instanceof String )
 			{
 				query.setString( i, (String) args[i] );
