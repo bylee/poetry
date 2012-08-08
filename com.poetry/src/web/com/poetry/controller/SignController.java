@@ -144,7 +144,7 @@ extends AbstractController
 			final Cookie ucookie = new Cookie("username", username);
 			jcookie.setMaxAge(0);
 			ucookie.setMaxAge(0);
-			//response.addCookie(jcookie);
+			response.addCookie(jcookie);
 			response.addCookie(ucookie);
 			SignStatus sign= new SignStatus( auth.getName(), "success" );
 			response.setContentType("text/javascript; charset=UTF-8");

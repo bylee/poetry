@@ -48,6 +48,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
    	  	var that = this;
 		switch (reqType) {
 		case "appspresso" :
+			
 			var req = tau.req(
 					{
 						type: 'JSONP',
@@ -64,6 +65,20 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 					}
 			);
 			req.send();
+			
+			/*
+			tau.wreq({
+				type: 'POST',
+				url: '/service/signin',
+				params: { 
+			    	j_username: id,
+			    	j_password: pw 
+		    	},
+		    	callbackFn: this.handleTest,
+		    	callbackCtx : this
+				
+			});
+			*/
 			break;
 		default :
 			tau.wreq({
@@ -78,6 +93,10 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 				
 			});
 		}
+	},
+	
+	handleTest: function () {
+		
 	},
 	
 	handleLoginCallBack: function (resp) {

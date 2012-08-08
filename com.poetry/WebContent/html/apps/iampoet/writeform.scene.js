@@ -6,7 +6,8 @@ function initScene() {
 			top : '0px',
 			left : '0px',
 			position : 'absolute',
-			'z-index' : '0'
+			'z-index' : '0',
+			height : '100%'
 		},
 		id : 'mainImage'
 	});
