@@ -22,14 +22,17 @@ select * from Bookmark;
 
 select * from File;
 
-select * from Reply;
+select * from Reply order by id desc;
 
-select * from poetry;
-select * from image;
+select * from poetry where author = 'bylee';
+
 select * from Mission;
+
 select * from missionpoetry;
 
 select * from Star;
+
+select * from today
 
 select * from missionpoetry, poetry where missionpoetry.poetryid = poetry.id and missionpoetry.date = ? order by poetry.id
 
@@ -44,3 +47,8 @@ where poetry.author = following.following
 and following.follower = 'bylee'
 order by poetry.id;
 
+select poetry.id, count( poetry.id ) as rank
+from poetry, star, missionpoetry
+where missionpoetry.poetryid = poetry.id and poetry.id = star.poetryId 
+group by poetry.id 
+order by rank, id desc

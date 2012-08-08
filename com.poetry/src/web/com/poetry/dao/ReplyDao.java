@@ -38,9 +38,24 @@ extends AbstractDao
 		final String id
 	)
 	{
-		final String query =
-			MessageFormat.format( "from Reply reply where reply.targetId = ''{0}''", id );
-		return (List<Reply>) find( query );
+		return (List<Reply>) find( "from Reply reply where reply.targetId = ? order by reply.id desc", id );
+	}
+
+	@SuppressWarnings("unchecked")
+	public
+	List<Reply>
+	list(
+		final String id,
+		final String start
+	)
+	{
+		return (List<Reply>) find(
+			"from Reply reply " +
+			"where reply.targetId = ? " +
+			"and reply.id < ? " +
+			"order by reply.id desc",
+			id, start
+		);
 	}
 
 	public

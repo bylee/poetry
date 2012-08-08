@@ -17,6 +17,24 @@ implements KeyedFactory<Object, String>
 
 	// 16진수화한 IP
 	private static String hexServerIP = null;
+	
+	public static
+	String
+	hexFormat(
+		final long i,
+		final int j
+	)
+	{
+		final String s = Long.toHexString( i );
+		final StringBuilder buffer = new StringBuilder();
+		for( long k=0, n=j-s.length() ; k<n ; ++k )
+		{
+			buffer.append( '0' );
+		}
+		buffer.append( s );
+		return buffer.toString();
+	}
+
 
 	/* (non-Javadoc)
 	 * @see escode.KeyedFactory#create(java.lang.Object)
@@ -31,8 +49,7 @@ implements KeyedFactory<Object, String>
 
 		// 시간값
 		long timeNow = System.nanoTime();
-		int timeLow = (int) timeNow& 0xFFFFFFFF;
-		guid.append( ObjectUtils.hexFormat( timeLow, 8 ) );
+		guid.append( hexFormat( timeNow, 16) );
 
 		// 서버 IP
 		if ( null == hexServerIP )

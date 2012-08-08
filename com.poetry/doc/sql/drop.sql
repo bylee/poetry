@@ -6,9 +6,9 @@ delete from Following;
 delete from Star;
 delete from Bookmark;
 delete from Mission;
-delete from Image;
 delete from Today;
 delete from MissionPoetry;
+delete from Block;
 
 drop table Poet;
 drop table File;
@@ -18,7 +18,6 @@ drop table Following;
 drop table Star;
 drop table Bookmark;
 drop table Mission;
-drop table Image;
 drop table Today;
 drop table MissionPoetry;
-
+drop table Block;

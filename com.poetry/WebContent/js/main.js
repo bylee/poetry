@@ -3,7 +3,13 @@ window.Model = Backbone.Model.extend( {
 } );
 window.View = Backbone.View.extend( {
 	template: function( model ) {
-		var temp = $(this.templateId).html();
+		var temp = this.defaultTemplate;
+		if ( this.templateId ) {
+			temp = $(this.templateId).html();
+			if ( !temp ) {
+				temp = this.defaultTemplate;
+			}
+		}
 		if ( !model ) {
 			return temp;
 		}
@@ -81,20 +87,49 @@ window.ImageUploadView = View.extend( {
 
 
 window.Calendar = Model.extend( {
-	changeDate: function( ev ) {
-		
+	defaults: { date: new Date() },
+	initialize: function() {
+		if ( !this.get( "date" ) ) {
+			this.set( { "date": this.defaults.date } );
+		}
+	},
+	setDate: function( date ) {
+		this.set( { "date": date } );
+	},
+	getDate: function() {
+		return this.get( "date" );
 	}
 } );
 
 window.CalendarView = View.extend( {
 	format: "yyyy-mm-dd",
 	templateId: "#date-template",
+	defaultTemplate:'<input name="date" type="text">',
 	initialize: function() {
 		$( this.el ).append( $( this.template( this.model ) ) );
+		_.bindAll( this, "changeDate" );
+		this.model.bind( "change:date", this.changeDate );
+		
+		this.picker = $( 'input' ).datepicker( { "format" : this.format } );
+		
+		this.picker.on( "changeDate", _.bind( function( ev ) {
+			this.model.set( { "date" : ev.date, silent : true } );
+		}, this ) );
+		this.picker.val( this.formatDate( this.model.getDate() ) );
 	},
+	
 	render: function() {
-		$( 'input' ).datepicker( { "format" : this.format } ).on( "changeDate", this.model.changeDate );
+		this.picker.datepicker( "update" );
 		return this;
+	},
+	
+	changeDate: function( model ) {
+		this.picker.val( this.formatDate( this.model.getDate() ) );
+		this.render();
+	},
+	
+	formatDate: function( date ) {
+		return DPGlobal.formatDate( date, DPGlobal.parseFormat( this.format ) );
 	}
 
 } );

@@ -1,8 +1,8 @@
 package com.poetry.dao;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -28,13 +28,17 @@ extends AbstractDao
 	@SuppressWarnings("unchecked")
 	public
 	List<String>
-	getTodayPoetryCandidates()
+	getTodayPoetryCandidates(
+		final Date date
+	)
 	{
 		final Collection<Object[]> results = (Collection<Object[]>) find(
 			"select poetry.id, count( poetry.id ) as rank " +
-			"from Poetry poetry, Star star " +
-			"where poetry.id = star.poetryId " +
-			"group by poetry.id order by rank desc"
+			"from Poetry poetry, Star star, MissionPoetry mp " +
+			"where mp.id = poetry.id and poetry.id = star.poetryId and poetry.createdDate = ? " +
+			"group by poetry.id " +
+			"order by rank desc",
+			date
 		);
 		
 		long max = 0;
@@ -68,20 +72,6 @@ extends AbstractDao
 		return (List<Poetry>) find( query ); 
 	}
 
-	@SuppressWarnings("unchecked")
-	public
-	List<Poetry>
-	listPoetryAfter(
-		final String startId
-	)
-	{
-		final String query =
-			MessageFormat.format( "from Poetry poetry where poetry.id < '{0}' order by poetry.id", startId );
-		
-		return (List<Poetry>) find( query ); 
-	}
-	
-
 	public
 	Poetry
 	getPoetry(
@@ -104,9 +94,12 @@ extends AbstractDao
 		final String username
 	)
 	{
-		final String query = 
-			MessageFormat.format( "select count(poetry.author) from Poetry poetry where poetry.author = ''{0}''" , username );
-		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+		return ((Long) findOne(
+			"select count(poetry.author) " +
+			"from Poetry poetry " +
+			"where poetry.author = ?",
+			username
+		) ).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -116,9 +109,31 @@ extends AbstractDao
 		final String poetId
 	)
 	{
-		return (List<Poetry>) find( "from Poetry poetry where poetry.author =  ?", poetId );
+		return (List<Poetry>) find(
+			"from Poetry poetry " +
+			"where poetry.author =  ? " +
+			"order by poetry.id desc",
+			poetId
+		);
 	}
 
+	@SuppressWarnings("unchecked")
+	public
+	List<Poetry>
+	getPoetryOf(
+		final String poetId,
+		final String start
+	)
+	{
+		return (List<Poetry>) find(
+			"from Poetry poetry " +
+			"where poetry.author =  ? and poetry.id < ? " +
+			"order by poetry.id desc",
+			poetId, start
+		);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public
 	List<Poetry>
 	getNewsfeed(
@@ -137,6 +152,7 @@ extends AbstractDao
 		return extract( result, 0 );
 	}
 
+	@SuppressWarnings("unchecked")
 	public
 	List<Poetry>
 	getNewsfeed(

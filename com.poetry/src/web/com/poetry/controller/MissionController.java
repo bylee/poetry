@@ -3,18 +3,12 @@ package com.poetry.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,19 +29,6 @@ extends AbstractController
 {
 	@Autowired
 	protected MissionService missionService;
-	
-	@InitBinder
-	protected void initBinder(
-		final HttpServletRequest request,
-		final ServletRequestDataBinder binder
-	)
-	throws Exception
-	{
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        CustomDateEditor editor = new CustomDateEditor( dateFormat, true );
-        binder.registerCustomEditor( Date.class, editor );
-      }
-
 	
 	@RequestMapping(
 		value = "/mission",

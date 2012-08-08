@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poetry.dao.BinaryDao;
-import com.poetry.dao.ImageDao;
 import com.poetry.dao.MissionDao;
 import com.poetry.dao.MissionPoetryDao;
 import com.poetry.model.Binary;
@@ -38,9 +37,6 @@ extends AbstractService
 	
 	@Autowired( required = false )
 	protected MissionPoetryDao missionPoetDao;
-	
-	@Autowired( required = false )
-	protected ImageDao imageDao;
 	
 	public Mission getMission() {
 		return getMission( new Date() );
@@ -73,7 +69,7 @@ extends AbstractService
 		)
 		{
 		}
-		return binaryDao.addBinary( binary );
+		return binaryDao.addNewBinary( binary );
 	}
 	
 	public

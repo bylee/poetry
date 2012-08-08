@@ -3,46 +3,49 @@
 <head>
 <meta charset="UTF-8">
 	<title>Admin page</title>
+	<link rel="stylesheet" href="../../css/datepicker.css" />
 	<link rel="stylesheet" href="../../css/bootstrap-combobox.css" />
 	
 	<script type="text/javascript" src="../../js/bootstrap-combobox.js"></script>
+	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+	
 </head>
 <body>
+<form id="fileupload" action="../../mission" method="post" enctype="multipart/form-data">
 	<div class="container">
 	<div class="row">
-		<div class="span4">
-			<input id="date" name="date" type="text">
+		<div class="span4" id="dateContainer">
 		</div>
 	
 	</div>
 	<div class="row">
 	    <div class="span6">
 	    <a class="change" data-toggle="modal" href="#myModal">
-			<img id="image1" width="100%" height="300">
+			<img id="image0" width="100%" height="300">
 		</a>
 		</div>
 	</div>
 	<div class="row">
 	    <div class="span3">
 	    <a class="change" data-toggle="modal" href="#myModal">
-			<img id="image2" width="100%" height="150">
+			<img id="image1" width="100%" height="150">
 	    </a>
 		</div>
+	    <div class="span3">
+	    <a class="change" data-toggle="modal" href="#myModal">
+			<img id="image2" width="100%" height="150">
+		</a>
+		</div>
+	</div>
+	<div class="row">
 	    <div class="span3">
 	    <a class="change" data-toggle="modal" href="#myModal">
 			<img id="image3" width="100%" height="150">
 		</a>
 		</div>
-	</div>
-	<div class="row">
 	    <div class="span3">
 	    <a class="change" data-toggle="modal" href="#myModal">
 			<img id="image4" width="100%" height="150">
-		</a>
-		</div>
-	    <div class="span3">
-	    <a class="change" data-toggle="modal" href="#myModal">
-			<img id="image5" width="100%" height="150">
 		</a>
 		</div>
 	</div>
@@ -55,16 +58,19 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-				<div class="span2">
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Automatic</label>
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Manual</label>
+				<div class="span4">
+					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios1" value="star" checked>가장 많은 별을 받은 시</label>
+					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="bookmark">가장 많은 북마크를 받은 시</label>
+					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="random">오늘 작성된 시 중에서 무작위</label>
+					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="manual">직접 선택</label>
+					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="query">쿼리 작성</label>
 				</div>
 			</div>
 			<div class="row" id="candidates">
-				<div class="offset1 span5">
-				<p style="border: 1; width: 100%">
-					Hello
-					</p>
+				<div class="span6 query">
+				<textarea rows="10" cols="80"></textarea>
+				</div>
+				<div class="offset1 span5 manual">
 				</div>
 			</div>
 		</div>
@@ -73,10 +79,31 @@
 			<a href="#" class="btn btn-primary">OK</a>
 		</div>
 	</div>
+</form>
 </body>
 
 <script type="text/javascript">
+load = function( calendar ) {
+	$.ajax( {
+		url: "../../today/" + DPGlobal.formatDate( calendar.getDate(), DPGlobal.parseFormat( "yyyy-mm-dd" ) ),
+		dataType: "json",
+		success: function( json ) {
+			for ( var i = 0, n = json.length ; i < n ; ++i ) {
+				if ( $( "#image" + i ).data( "poetryId" ) !== json[i].id ) {
+					$( "#image" + i ).data( "poetryId", json[i].id ).attr( "alt", json[i].id );
+				}
+			}
+		}
+	} );
+};
+
 $( function() {
+	calendar =
+		new Calendar( { date: new Date( new Date().getTime() + 24 * 60 * 60 * 1000 ) } );
+	calendarView = new CalendarView( { el: $( "#dateContainer" ), model: calendar } ).render();
+	calendar.bind( "change:date", _.bind( load, calendarView ) );
+
+	
 	$( ".change" ).attr( "data-role", "modal" ).attr( "href", "#modal" );
 	$(document).ready(function(){
 	    $('.combobox').combobox();

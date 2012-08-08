@@ -25,6 +25,7 @@ import com.poetry.model.Today;
 import com.poetry.util.SignUtils;
 
 import escode.util.Assert;
+import escode.util.ObjectUtils;
 
 @Service
 public class
@@ -130,10 +131,14 @@ extends AbstractService
 
 	public
 	List<Poetry>
-	getTodayPoetries()
+	getTodayPoetries(
+		final Date date
+	)
 	{
+		int nPoetry = 5;
+		
 		final List<Poetry> poetries = new ArrayList<Poetry>();
-		final List<String> todayCandidates = poetryDao.getTodayPoetryCandidates();
+		final List<String> todayCandidates = poetryDao.getTodayPoetryCandidates( date );
 		if ( 0 < todayCandidates.size() )
 		{
 			final int nPick = random.nextInt( todayCandidates.size() );
@@ -143,7 +148,8 @@ extends AbstractService
 			poetries.add( poetry );
 		}
 		
-		poetries.addAll( addDetailInformation( poetryDao.listPoetry(), SignUtils.getSignedInUsername() ) );
+		List<Poetry> remains = poetryDao.listPoetry();
+		poetries.addAll( addDetailInformation( remains.subList( 0, Math.min( remains.size(), nPoetry - poetries.size() ) ), SignUtils.getSignedInUsername() ) );
 		
 		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
 	}
@@ -151,10 +157,18 @@ extends AbstractService
 	public
 	List<Poetry>
 	getPoetiesOf(
-		final String poetId
+		final String poetId,
+		final String start
 	)
 	{
-		return addDetailInformation( poetryDao.getPoetryOf( poetId ), null );
+		if ( null == start )
+		{
+			return addDetailInformation( poetryDao.getPoetryOf( poetId ), null );
+		}
+		else
+		{
+			return addDetailInformation( poetryDao.getPoetryOf( poetId, start ), null );
+		}
 	}
 
 	public
@@ -164,14 +178,7 @@ extends AbstractService
 		final String username
 	)
 	{
-		final Poetry poetry = poetryDao.getPoetry( poetryId );
-		
-		final int nReply = replyDao.getTheNumberOfReply( poetryId );
-		poetry.setReplys( nReply );
-		final int nStar = starDao.getTheNumberOfStar( poetryId );
-		poetry.setStars( nStar );
-
-		return addDetailInformation( poetry, username );
+		return addDetailInformation( poetryDao.getPoetry( poetryId ), username );
 
 	}
 	
@@ -182,6 +189,12 @@ extends AbstractService
 	)
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
+		final Poetry poetry = poetryDao.get( Poetry.class, poetryId );
+		if ( ObjectUtils.equals( SignUtils.getSignedInUsername(), poetry.getAuthor().getUsername() ) )
+		{
+			throw new IllegalArgumentException( "자신의 시에 별을 줄 수 없습니다." );
+		}
+		
 		starDao.addStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 	
@@ -202,6 +215,11 @@ extends AbstractService
 	)
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
+		final Poetry poetry = poetryDao.get( Poetry.class, poetryId );
+		if ( ObjectUtils.equals( SignUtils.getSignedInUsername(), poetry.getAuthor().getUsername() ) )
+		{
+			throw new IllegalArgumentException( "자신의 시를 북마크할 수 없습니다." );
+		}
 		bookmarkDao.addBookmark( new Bookmark( poetryId, SignUtils.getSignedInUsername() ) );
 	}
 
@@ -218,6 +236,10 @@ extends AbstractService
 	addFollowing( String poetId )
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
+		if ( ObjectUtils.equals( poetId, SignUtils.getSignedInUsername() ) )
+		{
+			throw new IllegalArgumentException( "자신을 팔로윙할 수 없습니다." );
+		}
 		followingDao.addFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
 	}
 
@@ -226,7 +248,7 @@ extends AbstractService
 	removeFollowing( String poetId )
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
-		followingDao.addFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
+		followingDao.removeFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
 	}
 
 	public 
@@ -247,10 +269,19 @@ extends AbstractService
 
 	public List<Poetry>
 	getBookmarksOf(
-		final String poetId
+		final String poetId,
+		final String start
 	)
 	{
-		return addDetailInformation( bookmarkDao.getBookmarksOf( poetId ), null );
+		if ( null == start )
+		{
+			return addDetailInformation( bookmarkDao.getBookmarksOf( poetId ), null );
+		}
+		else 
+		{
+			return addDetailInformation( bookmarkDao.getBookmarksOf( poetId, start ), null );
+			
+		}
 	}
 	
 
@@ -271,7 +302,15 @@ extends AbstractService
 		final String start
 	)
 	{
-		return replyDao.list( targetId );
+		logger.trace( "Trying list reply for {} from {}", targetId, start );
+		if ( null == start )
+		{
+			return replyDao.list( targetId );
+		}
+		else
+		{
+			return replyDao.list( targetId, start );
+		}
 	}
 
 	public
