@@ -16,11 +16,11 @@ extends AbstractDao
 		final Mission mission
 	)
 	{
-		mission.setId( generateId( mission ) );
 		delete(
 			"delete from Mission mission where mission.date = ?",
 			mission.getDate()
 		);
+		mission.setId( generateId( mission ) );
 		insert( mission );
 	}
 	

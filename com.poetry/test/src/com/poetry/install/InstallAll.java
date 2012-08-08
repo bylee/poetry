@@ -15,7 +15,6 @@ import org.springframework.orm.hibernate4.SessionHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import com.poetry.model.Following;
 import com.poetry.model.Mission;
 import com.poetry.model.Poet;
 import com.poetry.model.Poetry;
@@ -73,8 +72,8 @@ InstallAll
 			logger.info( "Missions :{}", missions );
 			
 			// 사용자간의 관계를 등록한다.
-			final Map<String, Following> followings = following.install();
-			logger.info( "Followings :{}", followings );
+			final Map<String, Object> relations = following.install();
+			logger.info( "Followings :{}", relations );
 			
 			// 시를 등록한다.
 			poetry.setPoets( users );

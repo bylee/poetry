@@ -52,3 +52,9 @@ from poetry, star, missionpoetry
 where missionpoetry.poetryid = poetry.id and poetry.id = star.poetryId 
 group by poetry.id 
 order by rank, id desc
+
+select * from following
+
+select * 
+from following f
+where f.following = 'anjong' and ( f.following, f.follower ) not in ( select b.following, b.follower from block b )

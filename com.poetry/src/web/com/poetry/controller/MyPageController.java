@@ -1,6 +1,8 @@
 package com.poetry.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
@@ -101,5 +103,95 @@ extends AbstractController
 	{
 		return poetService.getFollowers( poetId );
 	}
+
+	/**
+	 * 시인을 팔로우한다.
+	 * 
+	 * @param poetId 시인의 아이디
+	 */
+	@RequestMapping(
+		value = "/following/{poetId}",
+		method = POST
+	)
+	public
+	@ResponseBody
+	String
+	addFollowing(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetService.addFollowing( poetId );
+		return "success";
+	}
+	
+	/**
+	 * 시인을 팔로우하지 않는다.
+	 * 
+	 * @param poetId 시인 아이디
+	 */
+	@RequestMapping(
+		value = "/following/{poetId}",
+		method = DELETE
+	)
+	public
+	@ResponseBody
+	String
+	deleteFollowing(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetService.removeFollowing( poetId );
+		return "success";
+	}
+
+	@RequestMapping(
+		value = "/poet/{poetId}/block",
+		method = GET
+	)
+	public
+	@ResponseBody
+	List<Poet>
+	getBlocks(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		return poetService.getBlocks( poetId );
+	}
+
+	@RequestMapping(
+		value = "/block/{poetId}",
+		method = POST
+	)
+	public
+	@ResponseBody
+	String
+	addBlock(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetService.addBlock( poetId );
+		return "success";
+	}
+	
+	@RequestMapping(
+		value = "/block/{poetId}",
+		method = DELETE
+	)
+	public
+	@ResponseBody
+	String
+	deleteBlock(
+		@PathVariable( "poetId" )
+		final String poetId
+	)
+	{
+		poetService.removeBlock( poetId );
+		return "success";
+	}
+
 
 }

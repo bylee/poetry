@@ -8,15 +8,17 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.poetry.dao.BlockDao;
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
 import com.poetry.dao.MissionPoetryDao;
+import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
 import com.poetry.dao.TodayDao;
+import com.poetry.model.Block;
 import com.poetry.model.Bookmark;
-import com.poetry.model.Following;
 import com.poetry.model.MissionPoetry;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
@@ -33,6 +35,9 @@ PoetryService
 extends AbstractService
 {
 	protected static Random random = new Random( System.currentTimeMillis() );
+	
+	@Autowired( required = false )
+	protected BlockDao blockDao;
 	
 	@Autowired( required = false )
 	protected TodayDao todayDao;
@@ -233,26 +238,6 @@ extends AbstractService
 
 	public 
 	void
-	addFollowing( String poetId )
-	{
-		Assert.isTrue( SignUtils.isSignIn() );
-		if ( ObjectUtils.equals( poetId, SignUtils.getSignedInUsername() ) )
-		{
-			throw new IllegalArgumentException( "자신을 팔로윙할 수 없습니다." );
-		}
-		followingDao.addFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
-	}
-
-	public 
-	void
-	removeFollowing( String poetId )
-	{
-		Assert.isTrue( SignUtils.isSignIn() );
-		followingDao.removeFollowing( new Following( poetId, SignUtils.getSignedInUsername() ) );
-	}
-
-	public 
-	void
 	setTodayPoetry( Today today )
 	{
 		todayDao.setToday( today );
@@ -291,6 +276,11 @@ extends AbstractService
 		final Reply reply
 	)
 	{
+		Poetry poetry = poetryDao.getPoetry( reply.getTargetId() );
+		if ( blockDao.exists( Block.class, new Block( poetry.getAuthor().getUsername(), reply.getWriter().getUsername() ) ) )
+		{
+			throw new IllegalArgumentException();
+		}
 		reply.setCreateDate( new Date() );
 		replyDao.addReply( reply );
 	}

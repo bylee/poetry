@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.poetry.dao.BlockDao;
 import com.poetry.dao.FollowingDao;
+import com.poetry.model.Block;
 import com.poetry.model.Following;
 
 import escode.KeyedFactory;
@@ -15,23 +17,26 @@ import escode.KeyedFactory;
 public class
 InstallFollowing
 extends AbstractInstall
-implements Install<Following>
+implements Install<Object>
 {
 	@Autowired
 	protected KeyedFactory<Object, String> idGenerator;
 	
 	@Autowired
 	protected FollowingDao followingDao;
+	
+	@Autowired
+	protected BlockDao blockDao;
 
 	@Override
 	public
-	Map<String, Following>
+	Map<String, Object>
 	install()
 	throws Exception
 	{
-		final HashMap<String, Following> ret = new HashMap<String, Following>();
+		final HashMap<String, Object> ret = new HashMap<String, Object>();
 		
-		final Following[] followings = new Following[] {
+		final Object[] relations = new Object[] {
 			new Following( "bylee", "anjong" ),
 			new Following( "csoonoosc", "anjong" ),
 			new Following( "csoonoosc", "bylee" ),
@@ -41,12 +46,23 @@ implements Install<Following>
 			new Following( "hellojintae", "hanseoung82" ),
 			new Following( "hellojintae", "anjong" ),
 			new Following( "hanseoung82", "anjong" ),
+			new Block( "bylee", "anjong" )
 		};
 		
-		for ( final Following following : followings )
+		for ( final Object relation : relations )
 		{
-			followingDao.addFollowing( following );
-			ret.put( idGenerator.create( following ), following );
+			if ( relation instanceof Following )
+			{
+				final Following following = (Following) relation;
+				followingDao.addFollowing( following );
+				ret.put( idGenerator.create( following ), relation );
+			}
+			else if ( relation instanceof Block )
+			{
+				final Block block = (Block) relation;
+				blockDao.addBlock( block );
+				ret.put( idGenerator.create( block ), relation );
+			}
 		}
 		
 		return ret;

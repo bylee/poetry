@@ -1,7 +1,5 @@
 package com.poetry.dao;
 
-import java.text.MessageFormat;
-
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Poet;
@@ -39,9 +37,12 @@ extends AbstractDao
 		final String username
 	)
 	{
-		final String query = 
-			MessageFormat.format( "select count(following.follower) from Following following where following.follower = ''{0}''" , username );
-		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+		return ( (Long) findOne(
+			"select count(following.follower) " +
+			"from Following following " +
+			"where following.follower = ?",
+			username
+		) ).intValue();
 	}
 
 	public
@@ -50,9 +51,12 @@ extends AbstractDao
 		final String username
 	)
 	{
-		final String query = 
-			MessageFormat.format( "select count(following.following) from Following following where following.following = ''{0}''" , username );
-		return ( (Long) getSession().createQuery( query ).uniqueResult() ).intValue();
+		return ( (Long) findOne(
+			"select count(following.following) " +
+			"from Following following " +
+			"where following.following = ?" ,
+			username
+		) ).intValue();
 	}
 
 }

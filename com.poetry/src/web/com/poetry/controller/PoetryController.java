@@ -221,47 +221,4 @@ extends AbstractController
 		return "success";
 	}
 	
-	/**
-	 * 시인을 팔로우한다.
-	 * 
-	 * @param poetId 시인의 아이디
-	 */
-	@RequestMapping(
-		value = "/following/{poetId}",
-		method = POST
-	)
-	public
-	@ResponseBody
-	String
-	addFollowing(
-		@PathVariable( "poetId" )
-		final String poetId
-	)
-	{
-		poetryService.addFollowing( poetId );
-		return "success";
-	}
-	
-	/**
-	 * 시인을 팔로우하지 않는다.
-	 * 
-	 * @param poetId 시인 아이디
-	 */
-	@RequestMapping(
-		value = "/following/{poetId}",
-		method = DELETE
-	)
-	public
-	@ResponseBody
-	String
-	deleteFollowing(
-		@PathVariable( "poetId" )
-		final String poetId
-	)
-	{
-		poetryService.removeFollowing( poetId );
-		return "success";
-	}
-	
-
 }
