@@ -138,6 +138,8 @@ $class('iampoet.FollowerController').extend(tau.ui.SceneController).define({
 					    	flag : 0,
 					    	poetId : user.username
 					    });
+					    addRemoveButton.flag = 0;
+					    addRemoveButton.poetId = user.username;
 					    userPanel.add(addRemoveButton);
 					    addRemoveButton.onEvent('tap', that.followerAction, that);
 					    
@@ -160,8 +162,8 @@ $class('iampoet.FollowerController').extend(tau.ui.SceneController).define({
 		var comp = event.getSource();
 		if (comp.flag == 0) {
 			tau.wreq({
-				type: 'DELETE',
-				url: '/follower/' + comp.poetId ,
+				type: 'POST',
+				url: '/block/' + comp.poetId ,
 				callbackFn : function (resp) {	
 					if (resp.status === 200) {
 						comp.flag = 1;
@@ -171,8 +173,8 @@ $class('iampoet.FollowerController').extend(tau.ui.SceneController).define({
 			});
 		} else {
 			tau.wreq({
-				type: 'POST',
-				url: '/follower/' + comp.poetId ,
+				type: 'DELETE',
+				url: '/block/' + comp.poetId ,
 				callbackFn : function (resp) {	
 					if (resp.status === 200) {
 						comp.flag = 0;

@@ -136,6 +136,7 @@ $class('iampoet.FollowingController').extend(tau.ui.SceneController).define({
 					    	flag : 0,
 					    	poetId : user.username
 					    });
+					    addRemoveButton.flag=0;
 					    addRemoveButton.poetId=user.username;
 					    userPanel.add(addRemoveButton);
 					    addRemoveButton.onEvent('tap', that.followingAction, that);
