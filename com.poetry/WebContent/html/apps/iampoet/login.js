@@ -105,11 +105,9 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 				//tau.util.setCookie('jsessionid', resp.data);
 				tau.util.setCookie('name', resp.data.username);
 				tau.util.setCookie('session', resp.data.jsessionid);
-				var dateObj = new Date();
-				var dateStr = dateObj.getFullYear() + '-' +(dateObj.getMonth()+1) + '-' + dateObj.getDate();
 				tau.wreq({
 					type: 'GET',
-					url : '/today/' + dateStr,
+					url : '/today/' + poetutil.getPoetDate(),
 					callbackFn : this.handleMain,
 					callbackCtx : this
 				});  

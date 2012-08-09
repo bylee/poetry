@@ -15,12 +15,12 @@ function initScene() {
 				id : 'poemPanel',
 				styles : {
 					backgroundColor : 'transparent',
-					height : '480px',
+					height : '400px',
 					width : 'auto',
-					backgroundSize : '480px auto'
+					'background-size' : 'cover',
+					'background-repeat' : 'no-repeat'
 				}
 	});
-	
 	
 	var authorPanel = new tau.ui.Panel(
 			{
@@ -80,35 +80,21 @@ function initScene() {
     }
 	});
 	authorPanel.add(commentLabel);
-	/*
-	var backImage = new tau.ui.ImageView({
-				id : 'backImage',
-				src : '/image/mainimage.jpeg',
-				styles : {
-					//bacauthorPaneldImage : '-webkit-gradient(linear, left top, left bottom,from(#EEDCDC),to(#FFFFFF))',
-					display : 'block',
-					height : '100%',
-					width : '320px',
-					border : 'none'
-				}
-	});
-	scrollPanel1.add(backImage);
-	*/
 	var textView1 = new tau.ui.TextView(
 			{
 				id : 'content',
-				text : '\n  하늘은 늘 거기에 있네\n\n 소리 없이 열려 있네\n\n 구름떼에 뒤덮이고\n\n 눈비에 가리워도\n\n 늘 거기에 열려\n\n 마알갛게 웃고 있네\n\n 지금은 안개 자욱한\n\n 저 산봉우리 너머로\n\n ...\n\n ...999\n\n...999\n\n...999\n\n...999\n\n \n  하늘은 늘 거기에 있네\n\n 소리 없이 열려 있네\n\n 구름떼에 뒤덮이고\n\n 눈비에 가리워도\n\n 늘 거기에 열려\n\n 마알갛게 웃고 있네\n\n 지금은 안개 자욱한\n\n 저 산봉우리 너머로\n\n ...\n\n ...999\n\n...999\n\n...999\n\n...999\n\n \n  하늘은 늘 거기에 있네\n\n 소리 없이 열려 있네\n\n 구름떼에 뒤덮이고\n\n 눈비에 가리워도\n\n 늘 거기에 열려\n\n 마알갛게 웃고 있네\n\n 지금은 안개 자욱한\n\n 저 산봉우리 너머로\n\n ...\n\n ...999\n\n...999\n\n...999\n\n...999\n\n ',
+				text : '',
 				styles : {
 					color : '#FFFFFF',
 					display : 'block',
-					height : 'auto',
+					height : '300px',
 					position : 'relative',
 					width : '95%',
 					'margin-right' : '10px',
-					zIndex : '10000',
 					'border-style' : 'none'
 						
-				}
+				},
+				
 			});
 	poemPanel.add(textView1);
 	scrollPanel1.add(poemPanel);

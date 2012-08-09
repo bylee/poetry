@@ -25,7 +25,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		
 		tau.wreq({
 	      type: 'GET',
-	      url : '/mission/' + '2012-08-05',//poetutil.getPoetDate(),
+	      url : '/mission/' + poetutil.getPoetDate(),
 	      callbackFn : function (resp) {
 	        if (resp.status === 200) {
 	          if (resp.data != null) {
@@ -50,6 +50,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	          if (this.lastId == null && resp.data.length == 0) {
 	            tau.alert('현재 미션시가 없습니다. 첫 도전을 해주세요~');
 	          } else {
+	        	this.poemData = resp.data;  
 	            this.loadingMissionPoet(resp.data);
 	          }
 	        } else {
@@ -71,6 +72,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       callbackFn : function (resp) {
         if (resp.status === 200) {
           scrollPanel.add(this.missionPanel);
+          this.poemData = resp.data;
           this.loadingMissionPoet(resp.data);
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
@@ -89,6 +91,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       },
       callbackFn : function (resp) {
         if (resp.status === 200) {
+        	this.poemData.push(resp.data);
             this.loadingMissionPoet(resp.data);
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
@@ -100,7 +103,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	
 	loadingMissionPoet: function (data) {
 	  var missionPoets = data;
-	
+	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
 	  var scene = this.getScene();
 	  var scrollPanel = scene.getComponent('mainPanel');
 	  
@@ -255,21 +258,59 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
         }
       });
       innerPanel2.add(commentLabel);
+      var contentPanel = new tau.ui.Panel({
+    	  id : poet.id,
+    	  styles : {
+    		  color : 'black',
+    		  marginTop : '10px',
+    		  height : '400px',
+    		  'background-image' : 'url('+rootURL + '/binary/' + this.missionData.imageId+')',
+    		  'background-size' : 'cover'
+    			  
+    	  }
+      });
+      var that = this;
+      var callBack = function (poet) {
+	  		return function () {
+	  			that.handlePoem(poet);
+	  		};
+	  }(poet);
+      contentPanel.onEvent('tap',callBack);
+      var title = new tau.ui.Label({
+    	  id : 'titlePanel',
+    	  text : poet.title,
+    	  styles : {
+    		  display: 'block',
+    		  textAlign : 'center'
+    	  }
+      });
+      contentPanel.add(title);
       var content = new tau.ui.TextView(
           {
             text : poet.contents,
             styles : {
               WebkitBorderRadius : '2px',
               //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
+              display : 'block',
               fontSize : '13px',
               marginTop : '13px',
-              borderTop : '1px solid black'
+              maxHeight : '300px',
             }
           }
-     );
-      poetPanel.add(content);
-      scrollPanel.add(poetPanel);
-      this.lastId = poet.id;
+      );
+      content.handleTouchMove = function (e, payload) {
+			
+			var pageY = e.changedTouches[0].pageY;
+			var topDelta = this.scrollY ? pageY - this.touchStartY : 0;
+			if (Math.abs(topDelta) < 30 && Math.abs(topDelta) != 0) {
+				tau.ui.TextView.$super.handleTouchMove.apply(this, arguments);
+				e.stopPropagation();
+			} 
+		};
+	      contentPanel.add(content);
+	      poetPanel.add(contentPanel);
+	      scrollPanel.add(poetPanel);
+	      this.lastId = poet.id;
 	  }
 	  scene.update();
 	  scrollPanel.refresh();
@@ -289,5 +330,19 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	
 	handleScrollStopPropagation: function (event){
 		event.stopPropagation();
+	},
+	
+	handlePoem: function (poem){
+		var seqNavi = this.getParent();
+		seqNavi.pushController(
+				new iampoet.PoemController(
+						{
+						  dataref : this,
+						  poem : poem,
+						  seqCtrl : seqNavi 
+						}
+				) 
+				,{ hideNavigationBar: false}
+		);
 	}
 });

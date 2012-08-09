@@ -11,7 +11,7 @@ $require('/my.js');
     poetutil = {
         getPoetDate : function() {
           var dateObj = new Date();
-          var month, date;
+          var month = null, date = null;
           if (dateObj.getMonth() < 9) {
             month = '0' + (dateObj.getMonth() + 1);
           }
@@ -20,7 +20,66 @@ $require('/my.js');
           }
           var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
           return dateStr;
-      }
+        },
+        preloadImage : function (url, onloadFn) {
+        	var img = new Image ();
+			img.onload = onloadFn;
+            img.src = url;
+        },
+        handleImageAni: function (data) {
+    		var imgComp = data.comp;
+    		var dom = imgComp.getDOM();
+    		var time = (data.time == null? '20s':data.time);
+    		
+    		var movingDistance = data.ratio*data.width - dom.clientWidth;
+    		if (movingDistance > 0) {
+    			
+    			var endlistener = function( event ) {
+    				dom.removeEventListener('webkitAnimationEnd',endlistener, false);
+    				dom.addEventListener( 
+    						'webkitAnimationEnd',
+    						startlistener,
+    						false 
+    				);
+    				var ani2 = new tau.fx.Animation({
+    					   from : {'background-position': -movingDistance +'px 0px'},
+    					   to : {'background-position': '0px 0px'}
+    					   }, {
+    					     timingFunction : 'linear',
+    					     duration : time, //시간 경과 설정
+    					     override : true, //애니메이션한 후 속성 유지
+    					     iterationCount : 1 //반복횟수
+    			     });
+    				ani2.animate(dom);
+    			};
+    			dom.addEventListener( 
+    					'webkitAnimationEnd',
+    					endlistener,
+    					false 
+    			);
+    			
+    			var startlistener = function () {
+    				dom.removeEventListener('webkitAnimationEnd',startlistener, false);
+    				dom.addEventListener( 
+    						'webkitAnimationEnd',
+    						endlistener,
+    						false 
+    				);
+    				var ani = new tau.fx.Animation({
+    					   from : {'background-position': '0px 0px'},
+    					   to : {'background-position': -movingDistance +'px 0px'}
+    					   }, {
+    					     timingFunction : 'linear',
+    					     duration : time, //시간 경과 설정
+    					     override : true, //애니메이션한 후 속성 유지
+    					     iterationCount : 1 //반복횟수
+    					     });
+    				ani.animate(dom);
+    			};
+    			startlistener();
+    		}
+    		
+    	}
     };
   }
 }) (window);

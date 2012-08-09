@@ -15,7 +15,7 @@ function initScene() {
         id : 'missionImageInfo',
         styles : {
           backgroundColor : '#FFFFFF',
-          backgroundImage : '-webkit-gradient(linear, left top, right top,from(#000000),to(#FFFFFF))',
+          backgroundImage : '-webkit-gradient(linear, 0% 0%, 0% 100%,from(#000000),to(#FFFFFF))',
           height : '150px',
           width : '100%'
         }
@@ -73,7 +73,7 @@ function initScene() {
       fontSize : '10px'
     },
     label : {
-      normal : 'Write Mission'
+      normal : '작성'
     }
   });
   scene.add(writeBtn);

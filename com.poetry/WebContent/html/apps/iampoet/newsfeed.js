@@ -34,6 +34,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 		  url : '/newsfeed',
 		  callbackFn : function (resp) {
 			  if (resp.status === 200) {
+				  this.poemData = resp.data;
 				  this.loadingNewsPoet(resp.data);
 			  } else {
 				  tau.alert('초기 데이타 로딩 실패'); 
@@ -53,6 +54,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       },
       callbackFn : function (resp) {
         if (resp.status === 200) {
+          this.poemData.push(resp.data);	
           this.loadingNewsPoet(resp.data);
           
         } else {
@@ -72,6 +74,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
       url : '/newsfeed',
       callbackFn : function (resp) {
         if (resp.status === 200) {
+          this.poemData = resp.data;
           this.loadingNewsPoet(resp.data);
         } else {
           tau.alert('추가 데이타 로딩 실패'); 
@@ -82,8 +85,8 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	},
 	
 	loadingNewsPoet: function (data) {
-	  var newsOfPoet = data;
-  
+	  var newsOfPoet = data;	
+	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
       var scene = this.getScene();
       var scrollPanel = scene.getComponent('mainPanel');
       for (var index in newsOfPoet) {
@@ -237,20 +240,58 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	        }
 	      });
 	      innerPanel2.add(commentLabel);
+	      var contentPanel = new tau.ui.Panel({
+	    	  id : poet.id,
+	    	  styles : {
+	    		  color : 'white',
+	    		  marginTop : '10px',
+	    		  height : '400px',
+	    		  'background-image' : 'url('+rootURL + '/binary/' + poet.image+')',
+	    		  'background-size' : 'cover'
+	    			  
+	    	  }
+	      });
+	      var that = this;
+	      var callBack = function (poet) {
+  	  		return function () {
+  	  			that.handlePoem(poet);
+  	  		};
+		  }(poet);
+	      contentPanel.onEvent('tap',callBack);
+	      var title = new tau.ui.Label({
+	    	  id : 'titlePanel',
+	    	  text : poet.title,
+	    	  styles : {
+	    		  display: 'block',
+	    		  textAlign : 'center'
+	    	  }
+	      });
+	      contentPanel.add(title);
+	      
 	      var content = new tau.ui.TextView(
 	          {
 	            text : poet.contents,
 	            styles : {
 	              WebkitBorderRadius : '2px',
 	              //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
-	              display : 'inline-block',
+	              display : 'block',
 	              fontSize : '13px',
 	              marginTop : '13px',
-	              borderTop : '1px solid black'
+	              maxHeight : '300px',
 	            }
 	          }
 	      );
-	      poetPanel.add(content);
+	      content.handleTouchMove = function (e, payload) {
+				
+				var pageY = e.changedTouches[0].pageY;
+				var topDelta = this.scrollY ? pageY - this.touchStartY : 0;
+				if (Math.abs(topDelta) < 30 && Math.abs(topDelta) != 0) {
+					tau.ui.TextView.$super.handleTouchMove.apply(this, arguments);
+					e.stopPropagation();
+				} 
+			};
+	      contentPanel.add(content);
+	      poetPanel.add(contentPanel);
 	      scrollPanel.add(poetPanel);
 	      this.lastId = poet.id;
     }
@@ -266,6 +307,21 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 						type : 'mypoetry'
 					}
 				})
+		);
+	},
+	
+	handlePoem: function (poem) {
+		
+		var seqNavi = this.getParent();
+		seqNavi.pushController(
+				new iampoet.PoemController(
+						{
+						  dataref : this,
+						  poem : poem,
+						  seqCtrl : seqNavi 
+						}
+				) 
+				,{ hideNavigationBar: false}
 		);
 	}
 	

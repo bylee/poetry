@@ -13,10 +13,10 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	},
  
 	init: function (){
+		
 	},
 	
 	destroy: function (){
-		
 	},
 	
 	sceneLoaded: function (){
@@ -54,15 +54,42 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		starNum.setText(this.poem.stars);
 		commentNum.setText(this.poem.replys);
 		authorName.setLabel('by '+this.poem.author.penName);
+		/*
 		poemPanel.setStyles({
-			'background': 'url('+rootURL + '/binary/' + this.poem.image+') no-repeat',
-			'background-size' : '480px'
+			'background-image': 'url('+rootURL + '/binary/' + this.poem.image+')'
 		});
+		*/
+		var that = this;
+		var url = rootURL + '/binary/' + this.poem.image;
+		var callbk = function (poempanel){
+			    return function () {
+						poempanel.setStyles({
+							'background-image':'url('+url+')',
+							'background-size' : 'cover',
+							'background-repeat' : 'no-repeat'
+						});
+						poetutil.handleImageAni({
+							comp : poempanel,
+							ratio : poempanel.getDOM().clientHeight/this.height,
+							width : this.width
+						} );
+					};
+		};
+		poetutil.preloadImage(
+				url, callbk(poemPanel)
+		);
+		
 		
 		poemContent.setText(this.poem.contents);
-		
-		
-		
+		poemContent.handleTouchMove = function (e, payload) {
+			
+			var pageY = e.changedTouches[0].pageY;
+			var topDelta = this.scrollY ? pageY - this.touchStartY : 0;
+			if (Math.abs(topDelta) < 30 && Math.abs(topDelta) != 0)  {
+				tau.ui.TextView.$super.handleTouchMove.apply(this, arguments);
+				e.stopPropagation();
+			} 
+		};
 	},
 	
 	handleLoadComment: function (resp) {
