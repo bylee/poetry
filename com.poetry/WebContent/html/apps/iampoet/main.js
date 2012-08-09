@@ -11,12 +11,12 @@ $require('/my.js');
     poetutil = {
         getPoetDate : function() {
           var dateObj = new Date();
-          var month = null, date = null;
-          if (dateObj.getMonth() < 9) {
-            month = '0' + (dateObj.getMonth() + 1);
-          }
-          if (dateObj.getDate() < 10) {
-            date = '0' + dateObj.getDate();
+          var month = dateObj.getMonth(), date = dateObj.getDate();
+          if (month < 9) {
+            month = '0' + (month + 1);
+          } 
+          if (date < 10) {
+            date = '0' + date;
           }
           var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
           return dateStr;

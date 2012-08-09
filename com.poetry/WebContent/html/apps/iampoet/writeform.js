@@ -59,7 +59,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
   	  	var that = this;
 		//ax.ext.ui.showProgress('Loading...');
   	  if (this.writeType == 'mission') {
-  		that.handlePoetry({id : this.imageId});
+  		that.handleSubmitPoetry({id : this.imageId});
   	  } else {
   		if (this.imageFile != null) {
   			ax.ext.net.upload(
@@ -68,34 +68,39 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
   	  	  			files,
   	  	  			function (resp) {
   				  	  	if (resp.status === 200) {
-  							that.handlePoetry(tau.parse(resp.data));
+  							that.handleSubmitPoetry(tau.parse(resp.data));
   						} else {tau.alert("시의 사진이 등록 되지 못했습니다. 다시 시도해 주세요");}
   	  	  			},
   	  	  			function (e) {
   	  	  				tau.alert("시의 사진이 등록 되지 못했습니다. 다시 시도해 주세요.");
   	  	  			}
   			);
-  		} else { tau.alert('사진을 업로드 해주세요~! ');}
+  		} else { 
+  			that.handleSubmitPoetry();
+  		}
   		
   	  }
   	  	
 	},
 	
-	handlePoetry: function (image) {
+	handleSubmitPoetry: function (image) {
 		var scene = this.getScene();
 		var title = scene.getComponent('title');
 		var contents = scene.getComponent('contents');
+		
+		var params = {
+			title: encodeURIComponent(title.getText()),
+			contents: encodeURIComponent(contents.getText()),
+			where: this.writeType	
+		};
+		
+		if (image != null) {
+			params.image = image.id;
+		}
 		tau.wreq({
 			type: 'POST',
 			url: '/poetry',
-			//contentType: 'multipart/form-data',
-			params: {
-				//file: this.imageFile,
-				title: encodeURIComponent(title.getText()),
-				contents: encodeURIComponent(contents.getText()),
-				image: image.id,
-				where: this.writeType
-			},
+			params: params,
 			callbackFn: function (resp) {
 					if (resp.status === 200) {
 						//TODO : 성공 실패 테스트 
