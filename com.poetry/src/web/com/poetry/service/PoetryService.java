@@ -187,7 +187,7 @@ extends AbstractService
 	}
 	
 	public
-	void
+	int
 	addStar(
 		final String poetryId
 	)
@@ -200,20 +200,22 @@ extends AbstractService
 		}
 		
 		starDao.addStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
+		return starDao.getTheNumberOfStar( poetryId );
 	}
 	
 	public
-	void
+	int
 	removeStar(
 		final String poetryId
 	)
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
 		starDao.removeStar( new Star( poetryId, SignUtils.getSignedInUsername() ) );
+		return starDao.getTheNumberOfStar( poetryId );
 	}
 
 	public
-	void
+	int
 	addBookmark(
 		final String poetryId
 	)
@@ -225,14 +227,17 @@ extends AbstractService
 			throw new IllegalArgumentException( "자신의 시를 북마크할 수 없습니다." );
 		}
 		bookmarkDao.addBookmark( new Bookmark( poetryId, SignUtils.getSignedInUsername() ) );
+		return bookmarkDao.getTheNumberOfBookmarks( poetryId );
 	}
 
 	public
-	void
+	int
 	removeBookmark( String poetryId )
 	{
 		Assert.isTrue( SignUtils.isSignIn() );
 		bookmarkDao.removeBookmark( new Bookmark( poetryId, SignUtils.getSignedInUsername() ) );
+		return bookmarkDao.getTheNumberOfBookmarks( poetryId );
+
 	}
 
 	public 

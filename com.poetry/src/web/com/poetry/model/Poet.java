@@ -53,6 +53,9 @@ implements UserDetails
 	@Transient
 	protected int nFollowers;
 	
+	@Transient
+	protected boolean bBlock;
+	
 	
 	public Poet()
 	{}
@@ -250,6 +253,19 @@ implements UserDetails
 	public void setTheNumberOfFollowers( final int nFollowers )
 	{
 		this.nFollowers = nFollowers;
+	}
+	
+	public boolean isBlock()
+	{
+		return this.bBlock;
+	}
+	
+	public
+	void setBlock(
+		final boolean bBlock
+	)
+	{
+		this.bBlock = bBlock;
 	}
 
 

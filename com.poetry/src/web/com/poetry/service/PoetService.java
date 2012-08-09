@@ -110,6 +110,7 @@ implements UserDetailsService
 		poet.setTheNumberOfFollowers( poetDao.getTheNumberOfFollowers( username ) );
 		poet.setTheNumberOfFollowings( poetDao.getTheNumberOfFollowings( username ) );
 		poet.setTheNumberOfBookmarks( bookmarkDao.getTheNumberOfBookmarks( username ) );
+		poet.setBlock( blockDao.exists( Block.class, new Block( SignUtils.getSignedInUsername(), username ) ) );
 		
 		return poet;
 	}
@@ -143,7 +144,7 @@ implements UserDetailsService
 		final String poetId
 	)
 	{
-		return followingDao.getUnblockedFollowers( poetId );
+		return getPoetDetail( followingDao.getFollowers( poetId ) );
 	}
 
 	public 

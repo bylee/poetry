@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import com.poetry.model.Reply;
 import com.poetry.service.PoetService;
 import com.poetry.service.PoetryService;
 import com.poetry.util.SignUtils;
+
+import escode.util.MapUtils;
 
 @Controller
 public class
@@ -148,14 +151,16 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	String
+	Map<String, Object>
 	addStar(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
-		poetryService.addStar( poetryId );
-		return "success";
+		return MapUtils.convert( new Object[][] { new Object[] {
+			"success",
+			poetryService.addStar( poetryId )
+		} } );
 	}
 	
 	/**
@@ -169,14 +174,16 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	String
+	Map<String, Object>
 	deleteStar(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
-		poetryService.removeStar( poetryId );
-		return "success";
+		return MapUtils.convert( new Object[][] { new Object[] {
+			"success",
+			poetryService.removeStar( poetryId )
+		} } );
 	}
 	
 	/**
@@ -190,14 +197,16 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	String
+	Map<String, Object>
 	addBookmark(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
-		poetryService.addBookmark( poetryId );
-		return "success";
+		return MapUtils.convert( new Object[][] { new Object[] {
+			"success",
+			poetryService.addBookmark( poetryId )
+		} } );
 	}
 	
 	/**
@@ -211,14 +220,16 @@ extends AbstractController
 	)
 	public
 	@ResponseBody
-	String
+	Map<String, Object>
 	deleteBookmark(
 		@PathVariable( "poetryId" )
 		final String poetryId
 	)
 	{
-		poetryService.removeBookmark( poetryId );
-		return "success";
+		return MapUtils.convert( new Object[][] { new Object[] {
+			"success",
+			poetryService.removeBookmark( poetryId )
+		} } );
 	}
 	
 }

@@ -98,6 +98,13 @@ implements Serializable
 		.append( follower, other.follower )
 		.isEquals();
 	}
+	
+	public String toString()
+	{
+		return following + ":" + follower;
+	}
+	
+	
 
 
 }
