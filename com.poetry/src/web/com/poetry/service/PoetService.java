@@ -143,7 +143,7 @@ implements UserDetailsService
 		final String poetId
 	)
 	{
-		return followingDao.getFollowers( poetId );
+		return followingDao.getUnblockedFollowers( poetId );
 	}
 
 	public 
