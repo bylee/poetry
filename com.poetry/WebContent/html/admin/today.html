@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 	<title>Admin page</title>
 	<link rel="stylesheet" href="../../css/datepicker.css" />
-	<link rel="stylesheet" href="../../css/bootstrap-combobox.css" />
 	
-	<script type="text/javascript" src="../../js/bootstrap-combobox.js"></script>
 	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../../js/bootstrap-carousel.js"></script>
+	<script type="text/javascript" src="../../js/backbone.paginator.js"></script>
 	
 </head>
 <body>
@@ -58,19 +58,11 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-				<div class="span4">
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios1" value="star" checked>가장 많은 별을 받은 시</label>
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="bookmark">가장 많은 북마크를 받은 시</label>
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="random">오늘 작성된 시 중에서 무작위</label>
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="manual">직접 선택</label>
-					 <label class="radio"><input type="radio" name="optionsRadios" id="optionsRadios2" value="query">쿼리 작성</label>
+				<div class="span4" id="choice">
 				</div>
 			</div>
 			<div class="row" id="candidates">
-				<div class="span6 query">
-				<textarea rows="10" cols="80"></textarea>
-				</div>
-				<div class="offset1 span5 manual">
+				<div class="span7 " style="height: 220px;" id="carouselContainer">
 				</div>
 			</div>
 		</div>
@@ -97,17 +89,39 @@ load = function( calendar ) {
 	} );
 };
 
+showPictures = function() {
+	$( "#pictures" ).show();
+}
+hidePictures = function() {
+	$( "#pictures" ).hide();
+}
+
+
 $( function() {
 	calendar =
 		new Calendar( { date: new Date( new Date().getTime() + 24 * 60 * 60 * 1000 ) } );
 	calendarView = new CalendarView( { el: $( "#dateContainer" ), model: calendar } ).render();
 	calendar.bind( "change:date", _.bind( load, calendarView ) );
+	
+	choice = new Choice();
+//	choice.add( new ChoiceItem( { id: "optionsRadios1", value: "star", name: "가장 많은 별을 받은 시", act: hidePictures } ) );
+//	choice.add( new ChoiceItem( { id: "optionsRadios2", value: "bookmark", name: "가장 많은 북마크를 받은 시", act: hidePictures } ) );
+//	choice.add( new ChoiceItem( { id: "optionsRadios3", value: "random", name: "오늘 작성된 시 중에서 무작위", act: hidePictures } ) );
+	choice.add( new ChoiceItem( { id: "optionsRadios4", value: "manual", name: "직접 선택", act: showPictures } ) );
+	
+	choiceView = new ChoiceView( { el: $("#choice" ), collection: choice } ).render();
 
 	
 	$( ".change" ).attr( "data-role", "modal" ).attr( "href", "#modal" );
-	$(document).ready(function(){
-	    $('.combobox').combobox();
-	  });
+	$( '#modal' ).on( 'hidden', function () {
+		choice.setSelection();
+	} );
+
+	poetries = new Poetries();
+	poetries.nextRequest();
+	carousel = new Carousel( { collection: poetries } ).render();
+	$( "#carouselContainer" ).html( carousel.el );
+	
 });
 </script>
 </html>

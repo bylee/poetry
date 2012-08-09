@@ -28,7 +28,9 @@ extends AbstractController
 		value = "/today/candidate",
 		method = GET
 	)
-	public List<Poetry>
+	public
+	@ResponseBody
+	List<Poetry>
 	getCandidate(
 		@RequestParam( value = "start", required = false )
 		final String start

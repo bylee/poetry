@@ -12,7 +12,6 @@ import com.poetry.dao.BlockDao;
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
 import com.poetry.dao.MissionPoetryDao;
-import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
 import com.poetry.dao.StarDao;
@@ -249,7 +248,13 @@ extends AbstractService
 		final String start
 	)
 	{
-		return null;
+		if ( null == start ) {
+			return todayDao.getCandidates();
+		}
+		else
+		{
+			return todayDao.getCandidates( start );
+		}
 	}
 
 	public List<Poetry>
