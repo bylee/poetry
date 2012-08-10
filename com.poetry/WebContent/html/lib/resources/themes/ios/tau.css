@@ -2967,7 +2967,8 @@
 	text-overflow: ellipsis;
 	text-align: inherit;
 	outline: none;
-	background: transparent
+	background: transparent;
+	color : inherit;
 }
 
 .tau-textfield-clearbutton {

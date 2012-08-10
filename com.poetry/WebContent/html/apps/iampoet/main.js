@@ -10,16 +10,16 @@ $require('/my.js');
   if (typeof tau.util != 'undefined') {
     poetutil = {
         getPoetDate : function() {
-          var dateObj = new Date();
-          var month = dateObj.getMonth(), date = dateObj.getDate();
-          if (month < 9) {
-            month = '0' + (month + 1);
-          } 
-          if (date < 10) {
-            date = '0' + date;
-          }
-          var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
-          return dateStr;
+        	var dateObj = new Date();
+            var month = dateObj.getMonth(), date = dateObj.getDate();
+            if (month < 9) {
+              month = '0' + (month + 1);
+            } 
+            if (date < 10) {
+              date = '0' + date;
+            }
+            var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
+            return dateStr;
         },
         preloadImage : function (url, onloadFn) {
         	var img = new Image ();
@@ -79,7 +79,71 @@ $require('/my.js');
     			startlistener();
     		}
     		
-    	}
+    	},
+    	
+    	fonts : [ 
+           {font : "NanumGothicBold", titlesize : '18px', contentsize : '15px'}, 
+    	   {font :"NanumGothic", titlesize : '18px', contentsize : '15px'},
+    	   {font : "NanumMyeongjo", titlesize : '18px', contentsize : '15px'},
+    	   {font : "NanumMyeongjoBold", titlesize : '18px', contentsize : '15px'},
+    	   {font : "NanumPen", titlesize : '30px', contentsize : '23px'},
+           {font : "NanumBrush", titlesize : '30px', contentsize : '23px'}
+        ],
+        
+        todayfonts : [ 
+                 {font : "NanumGothicBold", titlesize : '13px', contentsize : '10px'}, 
+          	   {font :"NanumGothic", titlesize : '13px', contentsize : '10px'},
+          	   {font : "NanumMyeongjo", titlesize : '13px', contentsize : '10px'},
+          	   {font : "NanumMyeongjoBold", titlesize : '13px', contentsize : '10px'},
+          	   {font : "NanumPen", titlesize : '20px', contentsize : '15px'},
+                 {font : "NanumBrush", titlesize : '20px', contentsize : '15px'}
+        ],
+        
+        settingPoetFontStyle: function (titlecmp, contentcmp, poet) {
+        	var fontSetting = poetutil.fonts[5];
+    		fontSetting.color = 'white';
+    		if (poet.titleFont != null) {
+    			fontSetting.color = poet.titleColor;
+    			fontSetting.font = poet.titleFont;
+    			fontSetting.titlesize = poet.titleSize + 'px';
+    			fontSetting.contentsize = poet.contentSize + 'px';
+    		}
+    		if (titlecmp != null) {
+    			titlecmp.setStyle('font-family', fontSetting.font);
+        		titlecmp.setStyle('font-size', fontSetting.titlesize);
+        		titlecmp.setStyle('color',fontSetting.color);
+    		}
+    		
+    		if (contentcmp != null) {
+    			contentcmp.setStyle('font-family', fontSetting.font);
+        		contentcmp.setStyle('font-size', fontSetting.contentsize);
+        		contentcmp.setStyle('color',fontSetting.color);
+    		}
+    		
+        },
+        
+        settingTodayPoetFontStyle: function (titlecmp, contentcmp, poet) {
+        	var fontSetting = poetutil.todayfonts[5];
+    		fontSetting.color = 'white';
+    		if (poet.titleFont != null) {
+    			fontSetting.color = poet.titleColor;
+    			fontSetting.font = poet.titleFont;
+    			fontSetting.titlesize = poet.titleSize + 'px';
+    			fontSetting.contentsize = poet.contentSize + 'px';
+    		}
+    		if (titlecmp != null) {
+    			titlecmp.setStyle('font-family', fontSetting.font);
+        		titlecmp.setStyle('font-size', fontSetting.titlesize);
+        		titlecmp.setStyle('color',fontSetting.color);
+    		}
+    		
+    		if (contentcmp != null) {
+    			contentcmp.setStyle('font-family', fontSetting.font);
+        		contentcmp.setStyle('font-size', fontSetting.contentsize);
+        		contentcmp.setStyle('color',fontSetting.color);
+    		}
+    		
+        }
     };
   }
 }) (window);

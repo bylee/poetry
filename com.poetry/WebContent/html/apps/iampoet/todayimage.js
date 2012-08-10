@@ -46,9 +46,9 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
 	  this.mainpoem = data;
 	  var scrollPanel1 = new tau.ui.ScrollPanel({
-	    styles : {
-	      position : ''
-	    }
+		  styles : {
+			  height : 'auto'
+		  }
 	  });
 	  var mainStyle = {
 			  height : '240px',
@@ -60,7 +60,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 			  width : '50%',
 			  height : '160px',
 			  display : 'inline-block',
-			  border : '1px solid white'
+			  border : '2px solid white'
 			  
 	  };
 	  scene.add(scrollPanel1);
@@ -71,6 +71,18 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		  });
 		  
 		  if (index == 0) {
+			  var todayImagePanel = new tau.ui.ImageView({
+				  src : '/image/today-icon.png',
+				  styles : {
+					  position : 'absolute',
+					  top : '8px',
+					  left : '16px',
+					  width : '59px',
+						  
+				  }
+			  });
+			  poempanel.add(todayImagePanel);
+			  
 			  var mainTitlePanel = new tau.ui.Panel({
 				  styles : {
 					  position : 'absolute',
@@ -79,20 +91,26 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 					  height : '50px'
 				  }
 			  });
+			  
+			  var missionLabel = new tau.ui.Label({
+				  text : 'TODAY MISSION',
+				  styles : {
+					  display : 'block',
+					  color : 'white',
+					  fontFamily : 'Charcoal CY',
+					  fontSize : '25px'
+						  
+				  }
+			  });
 			  var titleLabel = new tau.ui.Label({
-				  text : data[index].title,
+				  text : decodeURIComponent(data[index].title),
 				  styles : {
 					  display : 'block'
 				  }
 			  });
-			  var authorLabel = new tau.ui.Label({
-				  text : data[index].author.penName,
-				  styles : {
-					  display : 'block'
-				  }
-			  });
+			  poetutil.settingPoetFontStyle(titleLabel,null,data[index]);
+			  mainTitlePanel.add(missionLabel);
 			  mainTitlePanel.add(titleLabel);
-			  mainTitlePanel.add(authorLabel);
 			  poempanel.add(mainTitlePanel);
 		  } else {
 			  if ((index % 2) == 0) {
@@ -101,20 +119,21 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 				  poempanel.setStyle('width' , '60%');
 			  }
 			  var titleLabel = new tau.ui.Label({
-				  text : data[index].title,
+				  text : decodeURIComponent(data[index].title),
 				  styles : {
 					  position : 'absolute',
 					  top : '10px'
 				  }
 			  });
 			  var authorLabel = new tau.ui.Label({
-				  text : data[index].author.penName,
+				  text : decodeURIComponent(data[index].author.penName),
 				  styles : {
 					  position : 'absolute',
 					  bottom : '10px',
 					  right : '10px'
 				  }
 			  });
+			  poetutil.settingTodayPoetFontStyle(titleLabel,authorLabel,data[index]);
 			  poempanel.add(titleLabel);
 			  poempanel.add(authorLabel);
 		  }

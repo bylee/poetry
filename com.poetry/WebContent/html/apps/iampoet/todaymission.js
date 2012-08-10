@@ -30,7 +30,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	        if (resp.status === 200) {
 	          if (resp.data != null) {
 	            this.missionData = resp.data;
-	            missionInfoText.setText(this.missionData.description);
+	            missionInfoText.setText(decodeURIComponent(this.missionData.description));
 	            missionImage.setSrc(rootURL+"/binary/"+this.missionData.imageId);
 	          } else {
 	        	  tau.alert('미션 데이터 로딩 실패');
@@ -278,7 +278,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       contentPanel.onEvent('tap',callBack);
       var title = new tau.ui.Label({
     	  id : 'titlePanel',
-    	  text : poet.title,
+    	  text : decodeURIComponent(poet.title),
     	  styles : {
     		  display: 'block',
     		  textAlign : 'center'
@@ -287,7 +287,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       contentPanel.add(title);
       var content = new tau.ui.TextView(
           {
-            text : poet.contents,
+            text : decodeURIComponent(poet.contents),
             styles : {
               WebkitBorderRadius : '2px',
               //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
@@ -298,6 +298,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
             }
           }
       );
+      poetutil.settingPoetFontStyle(title,content, poet);
+      
       content.handleTouchMove = function (e, payload) {
 			
 			var pageY = e.changedTouches[0].pageY;

@@ -49,6 +49,15 @@ function initScene() {
           width : '100%'
         }
       });
+  missionPicInfo.handleTouchMove = function (e, payload) {
+		
+		var pageY = e.changedTouches[0].pageY;
+		var topDelta = this.scrollY ? pageY - this.touchStartY : 0;
+		if (Math.abs(topDelta) < 30 && Math.abs(topDelta) != 0)  {
+			tau.ui.TextView.$super.handleTouchMove.apply(this, arguments);
+			e.stopPropagation();
+		} 
+	};
   missionInfoTextPanel.add(missionPicInfo);
   var missionPic = new tau.ui.ImageView({
     id : 'missionImage',

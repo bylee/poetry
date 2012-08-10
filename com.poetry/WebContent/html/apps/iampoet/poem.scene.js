@@ -21,6 +21,18 @@ function initScene() {
 					'background-repeat' : 'no-repeat'
 				}
 	});
+	var titleLabel = new tau.ui.Label({
+		id : 'title',
+		styles : {
+			backgroundColor : 'transparent',
+			height : '30px',
+			width : '100%',
+			textAlign : 'center',
+			display : 'block'
+				
+		}
+	});
+	poemPanel.add(titleLabel);
 	
 	var authorPanel = new tau.ui.Panel(
 			{
@@ -47,7 +59,7 @@ function initScene() {
 	var starImage = new tau.ui.ImageView({
 		src : '/image/star.png',
 		styles: {
-		  width : '35px'
+		  width : '15px'
 		}
 		  
 	});
@@ -57,7 +69,7 @@ function initScene() {
 		text : '17',
 		styles : {
 		  color : 'white',
-      fontSize : '20px',
+      fontSize : '10px',
       paddingTop  : '6px'
 		}
 	});
@@ -65,7 +77,7 @@ function initScene() {
 	var commentImage = new tau.ui.ImageView({
 		src : '/image/comment.png',
     styles: {
-      width : '35px'
+      width : '15px'
     }
 
 	});
@@ -75,7 +87,7 @@ function initScene() {
 		text : '2',
 		styles : {
       color : 'white',
-      fontSize : '20px',
+      fontSize : '10px',
       paddingTop  : '6px'
     }
 	});
@@ -97,33 +109,44 @@ function initScene() {
 				
 			});
 	poemPanel.add(textView1);
-	scrollPanel1.add(poemPanel);
+	var toolPanel = new tau.ui.Panel({
+		id :'toolPanel',
+		styles : {
+			width : '100%',
+			height : '40px',
+			display : '-webkit-box',
+			'-webkit-box-orient':'horizontal',
+			'-webkit-box-pack':'justify',
+			'-webkit-box-align':'center',
+			paddingLeft : '20px',
+			paddingRight : '20px'
+		}
+	});
+	poemPanel.add(toolPanel);
+	
 	var starBtn = new tau.ui.Button({
 	  id : 'star',
 	  styles: {
-	    background: 'url(/image/star.png) transparent  no-repeat',
+	    background: 'url(/image/icon-white_01.png) transparent  no-repeat',
 	    backgroundSize: '30px',
 	    border: 'none',
-	    width: '50px',
-	    height: '50px'
-	  },
-	  backgroundImage: {
-      highlighted: '/image/star-sel.png'
-    }
+	    width: '30px',
+	    height: '30px',
+	    display : 'block'
+	  }
+	  
   });
 	starBtn.onEvent('tap',this.handleStar, this);
 	
   var replyBtn = new tau.ui.Button({
     id : 'reply',
     styles: {
-      background: 'url(/image/comment.png) transparent  no-repeat',
+      background: 'url(/image/icon-white_02.png) transparent  no-repeat',
       backgroundSize: '30px',
       border: 'none',
-      width: '50px',
-      height: '50px'
-    },
-    backgroundImage: {
-      highlighted: '/image/comment-sel.png'
+      width: '30px',
+      height: '30px',
+      display : 'block'
     }
   });
   replyBtn.onEvent('tap',this.handleReply, this);
@@ -131,14 +154,12 @@ function initScene() {
   var bookmarkBtn = new tau.ui.Button({
     id : 'bookmark',
     styles: {
-      background: 'url(/image/bookmark.png) transparent no-repeat',
+      background: 'url(/image/icon-white_03.png) transparent no-repeat',
       backgroundSize: '30px',
       border: 'none',
-      width: '50px',
-      height: '50px'
-    },
-    backgroundImage: {
-      highlighted: '/image/bookmark-sel.png'
+      width: '30px',
+      height: '30px',
+      display : 'block'
     }
   });
   bookmarkBtn.onEvent('tap',this.handleBookmark, this);
@@ -146,22 +167,22 @@ function initScene() {
   var followBtn = new tau.ui.Button({
     id : 'following',
     styles: {
-      background: 'url(/image/following.png) transparent  no-repeat',
-      backgroundSize: '40px',
+      background: 'url(/image/icon-white_04.png) transparent  no-repeat',
+      backgroundSize: '30px',
       border: 'none',
-      width: '50px',
-      height: '50px'
-    },
-    backgroundImage: {
-      highlighted: '/image/following-sel.png'
+      width: '30px',
+      height: '30px',
+      display : 'block',
+      backgroundPosition: '0px'
     }
   });
   followBtn.onEvent('tap',this.handleFollow, this);
   
-	var toolbar = new tau.ui.ToolBar({
-		dock : tau.ui.ToolBar.BOTTOM_DOCK,
-		components: [starBtn, replyBtn, bookmarkBtn, followBtn]
-	});
-	scene.add(toolbar);
+	toolPanel.add(starBtn);
+	toolPanel.add(replyBtn);
+	toolPanel.add(bookmarkBtn);
+	toolPanel.add(followBtn);
+	scrollPanel1.add(poemPanel);
+	
 	
 }

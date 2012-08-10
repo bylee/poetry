@@ -7,9 +7,8 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	},
  
 	init: function (){
-		this.stylingCtrl = new iampoet.PoemStyleController();
-		this.stylingCtrl.onEvent('cancelStyling', function () {this.dismissModal();});
-		this.stylingCtrl.onEvent('applyStyling', this.handleApplyStyling, this);
+		this.writefont = poetutil.fonts[5];
+		this.writefontcolor = 'black';
 		/*
 		window.deviceapis.camera.getCameras(function(cameraArray) {
 			try {
@@ -49,6 +48,14 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		
 		navBar.setRightItem(submitBtn);
 		
+		var title = scene.getComponent('title');
+		title.setStyle('font-family',this.writefont.font);
+		title.setStyle('font-size',this.writefont.titlesize);
+		title.setStyle('color', this.writefontcolor);
+		var contents = scene.getComponent('contents');
+		contents.setStyle('font-family',this.writefont.font);
+		contents.setStyle('font-size',this.writefont.contentsize);
+		contents.setStyle('color',this.writefontcolor);
 	},
 	
 	handleSummit: function () {
@@ -87,13 +94,33 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		var scene = this.getScene();
 		var title = scene.getComponent('title');
 		var contents = scene.getComponent('contents');
-		
+		var titlesize = 
+			this.writefont.titlesize.substr(
+					0,
+					this.writefont.titlesize.length-2);
+		var contentsize = 
+			this.writefont.contentsize.substr(
+					0,
+					this.writefont.contentsize.length-2);
 		var params = {
 			title: encodeURIComponent(title.getText()),
+			titleFont : this.writefont.font,
+			titleSize : titlesize,
+			titleColor: this.writefontcolor,
 			contents: encodeURIComponent(contents.getText()),
+			contentsFont : this.writefont.font,
+			contentsSize : contentsize,
+			contentsColor: this.writefontcolor,
 			where: this.writeType	
 		};
 		
+		/*
+		var params = {
+				title: title.getText(),
+				contents: contents.getText(),
+				where: this.writeType	
+		};
+		*/
 		if (image != null) {
 			params.image = image.id;
 		}
@@ -136,27 +163,44 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleLayout: function (event){
-		//TODO 컴포넌트 이슈로 모달 다이얼로그로 변경
-		/*
-		var popover = new tau.ui.PopoverController({width : '200px', height : '300px'});
+		this.popover = new tau.ui.PopoverController({width : '200px', height : '200px'});
 		var ctrl = new iampoet.PoemStyleController();
-		popover.presentCtrl(ctrl, event.getSource(), {
+		this.popover.presentCtrl(ctrl, event.getSource(), {
 			masking : true
 		});
-		*/
-		
-		this.presentModal(this.stylingCtrl,{layout: 'FULL', 'animate': 'vertical'});
-		
+		this.popover.onEvent('changeColor',this.handleChangeColor,this);
+		this.popover.onEvent('changeFont',this.handleChangeFont,this);
 		
 	},
 	
-	handleModalDismiss: function (event, payload) {
-		this.dismissModal();
+	handleChangeColor: function (event, color) {
+		var scene = this.getScene();
+		var title = scene.getComponent('title');
+		title.setStyle('color', color);
+		var contents = scene.getComponent('contents');
+		contents.setStyle('color',color);
+		this.writefontcolor = color;
 	},
 	
-	handleApplyStyling: function (evnet, payload) {
-		this.dismissModal(true);
-		event.stopPropogate();
-	}
+	handleChangeFont: function (event, font) {
+		var scene = this.getScene();
+		var fonts = poetutil.fonts;
+		var targetFont = null;
+		for (var index in fonts) {
+			if (fonts[index].font == font) {
+				targetFont = fonts[index];
+			}
+		}
+		this.writefont = targetFont;
+		
+		var title = scene.getComponent('title');
+		title.setStyle('font-family',targetFont.font);
+		title.setStyle('font-size',targetFont.titlesize);
+		var contents = scene.getComponent('contents');
+		contents.setStyle('font-family',targetFont.font);
+		contents.setStyle('font-size',targetFont.contentsize);
+
+	},
+	
 	
 });

@@ -260,7 +260,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	      contentPanel.onEvent('tap',callBack);
 	      var title = new tau.ui.Label({
 	    	  id : 'titlePanel',
-	    	  text : poet.title,
+	    	  text : decodeURIComponent(poet.title),
 	    	  styles : {
 	    		  display: 'block',
 	    		  textAlign : 'center'
@@ -270,7 +270,7 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	      
 	      var content = new tau.ui.TextView(
 	          {
-	            text : poet.contents,
+	            text : decodeURIComponent(poet.contents),
 	            styles : {
 	              WebkitBorderRadius : '2px',
 	              //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
@@ -281,6 +281,8 @@ $class('iampoet.NewsFeedController').extend(tau.ui.SceneController).define({
 	            }
 	          }
 	      );
+	      poetutil.settingPoetFontStyle(title,content, poet);
+	      
 	      content.handleTouchMove = function (e, payload) {
 				
 				var pageY = e.changedTouches[0].pageY;

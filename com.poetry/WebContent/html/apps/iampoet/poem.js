@@ -4,7 +4,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		this.poem = opts.poem;
 		this.seqCtrl = opts.seqCtrl;
 		this.dataref = opts.dataref;
-		this.setTitle(this.poem.title);
+		this.setTitle("시 보기");
 		this.status = {
 		    star : this.poem.star,
 		    bookmark : this.poem.bookmark,
@@ -30,7 +30,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	  var scene = this.getScene();
 		
 		var rootURL = tau.getCurrentContext().getConfig().rootURL;
-		
 		var starNum = scene.getComponent('starNum');
 		var commentNum = scene.getComponent('commentNum');
 		var authorName = scene.getComponent('author');
@@ -41,19 +40,19 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		var followingBtn = scene.getComponent('following');
 		
 		if (this.status.star) {
-		  starBtn.setBackgroundImage('/image/star-red.png');
+			starBtn.setBackgroundImage('/image/star-red.png');
 		}
 		if (this.status.bookmark) {
-      bookmarkBtn.setBackgroundImage('/image/bookmark-red.png');
-    }
+			bookmarkBtn.setBackgroundImage('/image/bookmark-red.png');
+		}
 		if (this.status.following) {
-      followingBtn.setBackgroundImage('/image/following-red.png');
-    }
+			followingBtn.setBackgroundImage('/image/following-red.png');
+		}
 		
 		
 		starNum.setText(this.poem.stars);
 		commentNum.setText(this.poem.replys);
-		authorName.setLabel('by '+this.poem.author.penName);
+		authorName.setLabel(decodeURIComponent(this.poem.author.penName));
 		/*
 		poemPanel.setStyles({
 			'background-image': 'url('+rootURL + '/binary/' + this.poem.image+')'
@@ -78,9 +77,12 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		poetutil.preloadImage(
 				url, callbk(poemPanel)
 		);
+		var title = scene.getComponent('title');
+		title.setText(decodeURIComponent(this.poem.title));
+		poetutil.settingPoetFontStyle(title,poemContent,this.poem);
 		
+		poemContent.setText(decodeURIComponent(this.poem.contents));
 		
-		poemContent.setText(this.poem.contents);
 		poemContent.handleTouchMove = function (e, payload) {
 			
 			var pageY = e.changedTouches[0].pageY;
@@ -90,6 +92,10 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 				e.stopPropagation();
 			} 
 		};
+		
+		if (this.poem.author.username == tau.util.getCookie('name')) {
+			scene.getComponent('toolPanel').setStyle('display',"none");
+		}
 	},
 	
 	handleLoadComment: function (resp) {
@@ -137,7 +143,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 						borderStyle : 'none'
 					},
 					label : {
-						normal : writer.penName
+						normal : decodeURIComponent(writer.penName)
 					}
 				});
 				commentPanel.add(penName);
@@ -153,7 +159,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 				commentPanel.add(timeLabel);
 				var comment = new tau.ui.TextView(
 					      {
-					        text : comments[index].contents,
+					        text : decodeURIComponent(comments[index].contents),
 					        styles : {
 					          WebkitBorderRadius : '2px',
 					          //backgroundImage : '-webkit-gradient(linear, left top, left bottom,from(#FFFFFF),to(#FFFFFF))',
@@ -181,8 +187,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         url : '/star/' + this.poem.id,
         callbackFn : function (resp) {
           if (resp.status === 200) {
-              tau.alert("별등록이 해제 되었습니다.");
-              starBtn.setBackgroundImage('/image/star.png');
+              starBtn.setBackgroundImage('/image/icon-white_01.png');
               this.status.star = false;
               this.handleDataChange('star', false);
           } else {tau.alert('별등록이 해제 되지 못했습니다. 다시 시도해 주세요.');}
@@ -196,7 +201,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         url : '/star/' + this.poem.id,
         callbackFn : function (resp) {
           if (resp.status === 200) {
-              tau.alert("별이 등록 되었습니다.");
               starBtn.setBackgroundImage('/image/star-red.png');
               this.status.star = true;
               this.handleDataChange('star', true);
@@ -227,8 +231,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         callbackFn : function (resp) {
           //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
           if (resp.status === 200) {
-            tau.alert('북마크가 해제 되었습니다.');
-            bookmarkBtn.setBackgroundImage('/image/bookmark.png');
+            bookmarkBtn.setBackgroundImage('/image/icon-white_03.png');
             this.status.bookmark = false;
             this.handleDataChange('bookmark', false);
           } else {tau.alert('북마크가 해제 되지 못했습니다. 다시 시도해 주세요.');}
@@ -242,7 +245,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         callbackFn : function (resp) {
           //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
           if (resp.status === 200) {
-            tau.alert('북마크가 등록 되었습니다.');
             bookmarkBtn.setBackgroundImage('/image/bookmark-red.png');
             this.status.bookmark = true;
             this.handleDataChange('bookmark', true);
@@ -263,9 +265,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         url : '/following/' + this.poem.author.username,
         callbackFn : function (resp) {
           if (resp.status === 200) {
-            //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
-            tau.alert('팔로워가 해제 되었습니다.');
-            followingBtn.setBackgroundImage('/image/following.png');
+            followingBtn.setBackgroundImage('/image/icon-white_04.png');
             this.status.following = false;
             this.handleDataChange('following', false);
           } else {tau.alert('팔로워가 해제 되지 못했습니다. 다시 시도해 주세요.');}
@@ -278,8 +278,6 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
         url : '/following/' + this.poem.author.username,
         callbackFn : function (resp) {
           if (resp.status === 200) {
-            //TODO 이미 등록 되었을 경우 해제하는 것을 변경.~
-            tau.alert('팔로워가 등록 되었습니다.');
             followingBtn.setBackgroundImage('/image/following-red.png');
             this.status.following = true;
             this.handleDataChange('following', true);

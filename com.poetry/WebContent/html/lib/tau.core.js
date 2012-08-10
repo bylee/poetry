@@ -1054,19 +1054,19 @@
     		  if (rootURL == undefined) { tau.alert("rootURL 설정이 안되었습니다."); return;}
     		  convertingOpts.method = opts.type;
     		  convertingOpts.url = rootURL + opts.url;
-    		  
+    		  convertingOpts.encoding = 'UTF-8';
     		  var name = tau.util.getCookie('name');
 			  var sessionid = tau.util.getCookie('session');
 			  
 			  if (name != null && sessionid != null) {
 				  convertingOpts.headers = { 
-						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded',
-							Cookie : 'name='+name+';JSESSIONID='+sessionid  
+						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded;charset=UTF-8',
+							Cookie : 'name='+name+';JSESSIONID='+sessionid
 				  };
 			  } else {
 				  convertingOpts.headers = { 
-						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded',
-	    		  };  
+						  	'Content-Type' : opts.contentType?opts.contentType : 'application/x-www-form-urlencoded;charset=UTF-8'
+	    		  };
 			  }
     		  
     		  
