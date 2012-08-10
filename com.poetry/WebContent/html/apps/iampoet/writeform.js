@@ -34,10 +34,14 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
-		
+		var config = tau.getConfig();
+  	  	var rootURL = config.rootURL;
+  	  	
 		if (this.writeType == 'mission') {
 		  var cameraBtn = scene.getComponent('pickImg');
 		  cameraBtn.setVisible(false);
+		  var imageView = scene.getComponent('mainImage');
+		  imageView.setSrc(rootURL+'/binary/'+this.imageId);
 		}
 		
 		var submitBtn = new tau.ui.Button({
