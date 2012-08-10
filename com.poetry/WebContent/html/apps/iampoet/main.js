@@ -100,13 +100,13 @@ $require('/my.js');
         ],
         
         settingPoetFontStyle: function (titlecmp, contentcmp, poet) {
-        	var fontSetting = poetutil.fonts[5];
+        	var fontSetting = poetutil.fonts[4];
     		fontSetting.color = 'white';
     		if (poet.titleFont != null) {
     			fontSetting.color = poet.titleColor;
     			fontSetting.font = poet.titleFont;
     			fontSetting.titlesize = poet.titleSize + 'px';
-    			fontSetting.contentsize = poet.contentSize + 'px';
+    			fontSetting.contentsize = poet.contentsSize + 'px';
     		}
     		if (titlecmp != null) {
     			titlecmp.setStyle('font-family', fontSetting.font);
@@ -143,6 +143,18 @@ $require('/my.js');
         		contentcmp.setStyle('color',fontSetting.color);
     		}
     		
+        },
+        calcLevel: function (user) {
+        	var result = '';
+        	var lvl = user.theNumberOfBookmarks + user.theNumberOfFollowings + user.theNumberOfFollowers + user.theNumberOfPoetries; 
+        	if (lvl < 100) {
+        		result = '초보시인';
+        	} else if (lvl < 300){
+        		result = '중수시인';
+        	} else {
+        		result = '시인';
+        	}	
+        	return result;
         }
     };
   }

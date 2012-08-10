@@ -195,7 +195,7 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		    		paddingLeft : '15px'
 		    	},
 		    	label : {
-		    		normal : author.penName
+		    		normal : decodeURIComponent(author.penName)
 		    	}
 		    });
 		    namePanel.add(penName);
@@ -297,7 +297,7 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		    innerPanel2.add(commentLabel);
 		    
 		    var content = new tau.ui.TextView({
-		    	text : poet.contents,
+		    	text : decodeURIComponent(poet.contents),
 		    	styles : {
 		                display : 'block',
 		                fontSize : '13px',

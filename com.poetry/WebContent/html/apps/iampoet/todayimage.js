@@ -8,6 +8,11 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	init: function (){
 		
 		this.onEvent('changeData',this.handleDataEvent, this);
+		this.handleLogin();
+		
+	},
+	
+	handleLogin: function () {
 		if(!tau.util.getCookie('name')) {
 			this.modalCtrl = new iampoet.LoginController();
 			this.modalCtrl.onEvent('dismiss', this.handleDismiss, this);
@@ -19,17 +24,17 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 		} else { 
 		  var dateStr = poetutil.getPoetDate();
 		  tau.wreq({
-        type: 'GET',
-        url : '/today/' + dateStr,//2012-07-14
-        callbackFn : function (resp) {
-          if (resp.status === 200) {
-            this.handleToday('todayData',resp.data);
-          } else {
-            tau.alert('초기 데이타 로딩 실패'); 
-          }
-        },
-        callbackCtx : this
-      });
+	        type: 'GET',
+	        url : '/today/' + dateStr,//2012-07-14
+	        callbackFn : function (resp) {
+	          if (resp.status === 200) {
+	            this.handleToday('todayData',resp.data);
+	          } else {
+	            tau.alert('초기 데이타 로딩 실패'); 
+	          }
+	        },
+	        callbackCtx : this
+		  });
 		}
 	},
 	
@@ -43,6 +48,7 @@ $class('iampoet.TodayImageController').extend(tau.ui.SceneController).define({
 	
 	handleToday: function (event,data){
 	  var scene = this.getScene();
+	  scene.removeAll(true);
 	  var rootURL = tau.getCurrentContext().getConfig().rootURL;
 	  this.mainpoem = data;
 	  var scrollPanel1 = new tau.ui.ScrollPanel({

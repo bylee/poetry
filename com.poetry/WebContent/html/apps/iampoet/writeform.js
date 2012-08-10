@@ -4,10 +4,11 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		this.setTitle("Write");
 		this.writeType = opts.mission.type;
 		this.imageId = opts.mission.imageId;
+		this.parentCtrl = opts.mission.parentCtrl;
 	},
  
 	init: function (){
-		this.writefont = poetutil.fonts[5];
+		this.writefont = poetutil.fonts[4];
 		this.writefontcolor = 'black';
 		/*
 		window.deviceapis.camera.getCameras(function(cameraArray) {
@@ -95,6 +96,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 	},
 	
 	handleSubmitPoetry: function (image) {
+		var that = this;
 		var scene = this.getScene();
 		var title = scene.getComponent('title');
 		var contents = scene.getComponent('contents');
@@ -135,6 +137,9 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 			callbackFn: function (resp) {
 					if (resp.status === 200) {
 						//TODO : 성공 실패 테스트 
+						if (this.parentCtrl != null) {
+							this.parentCtrl.loadingRefresh();
+						}
 						tau.alert("시가 등록 되었습니다.");
 					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
 					//ax.ext.ui.hideProgress();

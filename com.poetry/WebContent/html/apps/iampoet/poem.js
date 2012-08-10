@@ -1,4 +1,7 @@
 $require("/comment.js");
+$require('/my.js');
+
+
 $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	PoemController: function (opts){
 		this.poem = opts.poem;
@@ -53,6 +56,9 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		starNum.setText(this.poem.stars);
 		commentNum.setText(this.poem.replys);
 		authorName.setLabel(decodeURIComponent(this.poem.author.penName));
+		authorName.username = this.poem.author.userName;
+		authorName.onEvent('tap', this.gotoMyPage, this);
+		
 		/*
 		poemPanel.setStyles({
 			'background-image': 'url('+rootURL + '/binary/' + this.poem.image+')'
@@ -98,11 +104,32 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 		}
 	},
 	
+	handleReloadComment: function () {
+		var scene = this.getScene();
+		var scrollPanel = scene.getComponent('mainSpanel');
+		var commentsPanel = scene.getComponent('commentsPanel');
+		scrollPanel.remove(commentsPanel);
+		tau.wreq({
+		      type: 'GET',
+		      url: '/reply/' + this.poem.id,
+		      callbackFn : this.handleLoadComment,
+		      callbackCtx : this
+	    });
+		
+	},
+	
 	handleLoadComment: function (resp) {
 		if (resp.status === 200) {
 			//TODO resp.data.status 체크 필요.
 			var scene = this.getScene();
 			var scrollPanel = scene.getComponent('mainSpanel');
+			var commentsPanel = new tau.ui.Panel({
+				id : 'commentsPanel',
+				styles : {
+					backgroundColor : 'transparent'
+				}
+			});
+			scrollPanel.add(commentsPanel);
 			var rootURL = tau.getCurrentContext().getConfig().rootURL;
 			var comments = resp.data;
 			for ( var index in comments) {
@@ -147,8 +174,14 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 					}
 				});
 				commentPanel.add(penName);
+				penName.username = writer.username;
+			    penName.onEvent('tap', this.gotoMyPage, this);
+				
+			    var d=new Date(comments[index].createDate);
+			    var time=d.toLocaleDateString();
+			    
 				var timeLabel = new tau.ui.Label({
-					text : comments[index].createDate,
+					text : time,
 					styles : {
 						right : '5px',
 						'text-align' : 'right',
@@ -171,9 +204,10 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 					      }
 			     );
 				commentPanel.add(comment);
-				scrollPanel.add(commentPanel);
-				scrollPanel.render();
+				commentsPanel.add(commentPanel);
+				
 			}
+			scrollPanel.render();
 		} else {tau.alert('커맨트가 로딩되지 못했습니다. error code ' + resp.status);}
 	},
 	
@@ -215,7 +249,7 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 	
 	handleReply : function () {
 		this.seqCtrl.pushController(
-			new iampoet.CommentController({targetId : this.poem.id})
+			new iampoet.CommentController({targetId : this.poem.id, poemCtrl : this})
 		,{ hideNavigationBar: false});
 	},
 	
@@ -296,6 +330,12 @@ $class('iampoet.PoemController').extend(tau.ui.SceneController).define({
 					value : status
 				}
 		);
-	}
+	},
 	
+	
+	gotoMyPage : function(event) {
+		var comp = event.getSource();
+		var seqNavi = this.getParent();
+		seqNavi.pushController(new iampoet.MyController({name:comp.username}));			
+	},
 });

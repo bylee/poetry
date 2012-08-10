@@ -1,4 +1,6 @@
 $require('/writeform.js');
+$require('/my.js');
+
 $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 	TodayMissionController: function (opts){
 		this.setTitle('TodayMission');
@@ -162,12 +164,14 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
           paddingLeft : '15px'
         },
         label : {
-          normal : writer.penName
+          normal : decodeURIComponent(writer.penName)
         }
       });
       namePanel.add(penName);
+      penName.username = writer.username;
+      penName.onEvent('tap', this.gotoMyPage, this);
       var levelName = new tau.ui.Label({
-        text : writer.level,
+        text : poetutil.calcLevel(writer),
         styles : {
           display : 'block',
           fontSize : '15px',
@@ -191,7 +195,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
           display : 'inline',
           position : 'absolute',
           right : '5px',
-          color : 'black'
+          color : 'black',
+          width : '70px'
           
         }
       });
@@ -199,14 +204,14 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       var innerPanel1 = new tau.ui.Panel({
         styles : {
           display : 'inline-block',
-          width : '50px'
+          width : '30px'
         }
       });
       rightPanel.add(innerPanel1);
       var innerPanel2 = new tau.ui.Panel({
         styles : {
           display : 'inline-block',
-          width : '50px'
+          width : '30px'
         }
       });
       rightPanel.add(innerPanel2);
@@ -214,7 +219,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       var starImage = new tau.ui.ImageView({
         src : '/image/star.png',
         styles: {
-          width : '35px',
+          width : '25px',
           marginLeft : 'auto',
           marginRight : 'auto',
           display : 'block'
@@ -226,7 +231,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
         id : 'starNum',
         text : poet.stars,
         styles : {
-          fontSize : '20px',
+          fontSize : '15px',
           paddingTop  : '6px',
           'text-align' : 'center',
           display : 'block'
@@ -236,11 +241,12 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
       var commentImage = new tau.ui.ImageView({
         src : '/image/comment.png',
         styles: {
-          width : '35px',
+          width : '25px',
           marginLeft : 'auto',
           marginRight : 'auto',
           display : 'block',
-          paddingTop : '4px'
+          height : '24px',
+          paddingTop : '3px'
         }
 
       });
@@ -249,8 +255,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
         id : 'commentNum',
         text : poet.replys,
         styles : {
-          fontSize : '20px',
-          paddingTop  : '6px',
+          fontSize : '15px',
+          paddingTop  : '5.5px',
           'text-align' : 'center',
           display : 'block'
            
@@ -324,7 +330,8 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 				new iampoet.WriteformController({
 					mission : {
 						type : 'mission',
-						imageId : this.missionData.imageId
+						imageId : this.missionData.imageId,
+						parentCtrl : this
 					}
 				})
 		);
@@ -346,5 +353,11 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 				) 
 				,{ hideNavigationBar: false}
 		);
+	},
+	
+	gotoMyPage: function (event) {
+		var comp = event.getSource();
+		var seqNavi = this.getParent();
+		seqNavi.pushController(new iampoet.MyController({name:comp.username}));
 	}
 });

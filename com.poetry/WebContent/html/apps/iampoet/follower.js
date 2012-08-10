@@ -100,7 +100,7 @@ $class('iampoet.FollowerController').extend(tau.ui.SceneController).define({
 					    		paddingLeft : '15px'
 					    	},
 					    	label : {
-					    		normal : user.penName
+					    		normal : decodeURIComponent(user.penName)
 					    	}
 					    });
 					    namePanel.add(penName);						

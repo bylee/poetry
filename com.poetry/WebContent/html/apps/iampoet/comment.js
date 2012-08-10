@@ -4,6 +4,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
   CommentController: function(opts) {
 		this.setTitle('Comment');
 		this.targetId = opts.targetId;
+		this.poemCtrl = opts.poemCtrl;
 	},
 	
 	init: function (){
@@ -34,6 +35,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 	},
 	
 	handleSummit: function (){
+		var that = this;
 		var scene = this.getScene();
 		var editor = scene.getComponent('editor');
 		tau.wreq({
@@ -45,7 +47,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 			},
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
-					//TODO : 성공 실패 테스트 
+					that.poemCtrl.handleReloadComment(); 
 					tau.alert("커맨트가 등록 되었습니다.");
 				} else {tau.alert("커맨트가 등록 되지 못했습니다. 다시 시도해 주세요");}
 			}

@@ -91,7 +91,7 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 			        }
 					var ui = scene.getComponent('userIcon');
 					ui.setStyle('backgroundImage', 'url(' + imageSrc + ')');
-					scene.getComponent('myPenName').setText(resp.data.penName);
+					scene.getComponent('myPenName').setText(decodeURIComponent(resp.data.penName));
 					userLevel = calcLevel(resp.data);
 					var ul = scene.getComponent('myLevel');
 					ul.setText(userLevel);
