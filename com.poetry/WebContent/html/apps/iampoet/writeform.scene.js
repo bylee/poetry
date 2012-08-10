@@ -1,7 +1,7 @@
 function initScene() {
 	var scene = this.getScene();
 	var image = new tau.ui.ImageView({
-		src: '/image/splash.png',
+		src: '',
 		styles: {
 			top : '0px',
 			left : '0px',
