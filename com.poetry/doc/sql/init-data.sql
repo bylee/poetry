@@ -13,6 +13,8 @@ INSERT INTO Poet ( username, password, pen_name ) VALUES
 INSERT INTO Poetry( id, title, author, image, contents ) VALUES
 ( 'first', 'My First Poetry', 'bylee', 'aaaa', 'Hello, world' );
 
+
+
 select * from Poet;
 
 select * from Following;
@@ -24,7 +26,7 @@ select * from File;
 
 select * from Reply order by id desc;
 
-select * from poetry where author = 'bylee';
+select * from poetry where author = 'bylee' order by id desc;
 
 select * from Mission;
 

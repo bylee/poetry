@@ -1,12 +1,12 @@
 package com.poetry.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Poetry;
 import com.poetry.model.Today;
+import com.poetry.util.DateUtils;
 
 @Repository
 public class
@@ -21,24 +21,22 @@ extends AbstractDao
 	@SuppressWarnings("unchecked")
 	public List<Poetry> getCandidates()
 	{
-		final Date yesterday = new Date( System.currentTimeMillis() - 24 * 60 * 60 * 1000 );
 		return (List<Poetry>) find(
 			"from Poetry p " +
 			"where p.createdDate = ? " +
 			"order by p.id",
-			yesterday
+			DateUtils.getYesterday()
 		);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Poetry> getCandidates( final String start )
 	{
-		final Date yesterday = new Date( System.currentTimeMillis() - 24 * 60 * 60 * 1000 );
 		return (List<Poetry>) find(
 			"from Poetry p " +
 			"where p.createdDate = ? and p.id < ? " +
 			"order by p.id desc",
-			yesterday, start
+			DateUtils.getYesterday(), start
 		);
 	}
 	

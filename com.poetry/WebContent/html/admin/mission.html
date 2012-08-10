@@ -18,7 +18,7 @@
 	</div>
 	<div class="row">
 	    <div class="span6 fileupload-buttonbar" id="imageContainer">
-			<img width="100%" height="300">
+			<img width="100%" height="300px">
 		</div>
 	</div>
 	<div class="row">
@@ -119,6 +119,8 @@ $( function() {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
     } ).on('drop', loadImage );
+	
+	load( calendar );
 });
 </script>
 </html>

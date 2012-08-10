@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="utf-8">
+<head>
+<meta charset="UTF-8">
+	<title>Admin page</title>
+	<link rel="stylesheet" href="../../css/datepicker.css" />
+	
+	<script type="text/javascript" src="../../js/load-image.js"></script>
+	<script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+	
+	<style type="text/css">
+	.op {
+	opacity:0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+	}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="span6" id="description">
+			</div>
+		</div>
+		<div class="row">
+			<div class="span6"><input type="text" id="title" style="width: 100%"></div>
+		</div>
+		<div class="row">
+			<div class="span6" style="height: 300px;">
+				<img width="100%" height="300px" id="image" class="op" >
+				<div id="poetry" contenteditable="true" style="overflow:scroll; position: relative; width: 100%; height: 300px; top: -300px;"">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="offset5">
+			<button id="send" class="btn btn-primary">등록하기</button>
+			</div>
+		</div>
+	</div>
+</body>
+	
+<script type="text/javascript">
+$( function() {
+	url = "../../mission/" + DPGlobal.formatDate( calendar.getDate(), DPGlobal.parseFormat( "yyyy-mm-dd" ) );
+	console.log( "trying "+url );
+	$.ajax( {
+		type : "GET",
+		dataType: "json",
+		url : url,
+		success: function( json )  
+		{
+			var id = "";
+			if ( json ) {
+				id = json.imageId;
+				$( "#image" ).attr( "src", "../../binary/" + id );
+				$( "#image" ).data( "id", id );
+				$( "#description" ).text( json.description );
+			}
+			console.log( "Request image :%s", id );
+			return false;
+		},
+		error: function( e )
+		{
+			alert( "미션을 가져오지 못했습니다. :" + e );
+			return false;
+		}
+		
+	} );
+	
+	$( "#send" ).click( function() {
+		$.ajax( {
+			type: "POST",
+			dataType: "text",
+			url: "../../poetry?where=mission",
+			data: {
+				title: $( "#title" ).val(),
+				contents: $( "#poetry" ).text(),
+				image: $( "#image" ).data( "id" )
+			},
+			success: function( json ) {
+				alert( "시를 성공적으로 등록하였습니다." );
+				$( "#title" ).val( "" );
+				$( "#poetry" ).text( "" );
+			}
+		} );
+	} );
+	
+});
+</script>
+</html>

@@ -65,7 +65,7 @@ extends AbstractService
 		final Poetry poetry
 	)
 	{
-		
+		poetry.setCreatedDate( new Date() );
 		poetryDao.addNewPoetry( poetry );
 		return poetry;
 	}
