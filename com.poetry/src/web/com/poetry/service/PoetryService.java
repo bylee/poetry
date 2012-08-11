@@ -179,7 +179,7 @@ extends AbstractService
 					index = null;
 					continue;
 				}
-				while ( i < index.getTarget() )
+				if ( i < index.getTarget() )
 				{
 					// 뭘로 채울까?
 					if ( null == remains )
@@ -193,37 +193,45 @@ extends AbstractService
 						final Today t = new Today( new Date(), i );	// TODO
 						poetries.put( t, remainsIter.next() );
 					}
-				}
-				
-				if ( "user".equals( index.getType() ) )
-				{
-					poetries.put( index, userPoetries.get( index ) );
-					index = null;
-				}
-				else if ( "star".equals( index.getType() ) )
-				{
-					if ( null == starCandidates )
+					else
 					{
-						starCandidates = new LinkedList<String>( poetryDao.getMostStaredTodayPoetries( date ) );
-					}
-					while ( !starCandidates.isEmpty() )
-					{
-						final String poetryId = starCandidates.remove();
-						if ( poetries.keySet().contains( poetryId ) )
-						{
-							continue;
-						}
-						poetries.put( index, addDetailInformation(
-							poetryDao.getPoetry( poetryId ),
-							SignUtils.getSignedInUsername()
-						) );
-						index = null;
-						break;
+						throw new IllegalArgumentException();
 					}
 				}
 				else
 				{
-					throw new IllegalArgumentException();
+					
+					if ( "user".equals( index.getType() ) )
+					{
+						poetries.put( index, userPoetries.get( index ) );
+						index = null;
+					}
+					else if ( "star".equals( index.getType() ) )
+					{
+						if ( null == starCandidates )
+						{
+							starCandidates = new LinkedList<String>( poetryDao.getMostStaredTodayPoetries( date ) );
+						}
+						while ( !starCandidates.isEmpty() )
+						{
+							final String poetryId = starCandidates.remove();
+							if ( poetries.keySet().contains( poetryId ) )
+							{
+								continue;
+							}
+							poetries.put( index, addDetailInformation(
+								poetryDao.getPoetry( poetryId ),
+								SignUtils.getSignedInUsername()
+							) );
+							index = null;
+							break;
+						}
+					}
+					else
+					{
+						throw new IllegalArgumentException();
+					}
+					
 				}
 			}
 			else
