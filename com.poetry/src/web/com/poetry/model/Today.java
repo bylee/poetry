@@ -1,14 +1,37 @@
 package com.poetry.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Today
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class
+Today
+implements Serializable, Comparable<Today>
 {
+	
+	private static final long serialVersionUID = -8406626183534773276L;
+
+	@Id
 	protected Date date;
 	
-	protected String target;
+	@Id
+	protected int target;
 	
-	protected String poet;
+	protected String type;
+	
+	protected String poetry;
+	
+	public Today() {}
+	
+	public Today( final Date date, final int target )
+	{
+		this.date = date;
+		this.target = target;
+	}
+	
 
 	/**
 	 * @return the date
@@ -29,7 +52,7 @@ public class Today
 	/**
 	 * @return the target
 	 */
-	public String getTarget()
+	public int getTarget()
 	{
 		return target;
 	}
@@ -37,25 +60,46 @@ public class Today
 	/**
 	 * @param target the target to set
 	 */
-	public void setTarget( String target )
+	public void setTarget( int target )
 	{
 		this.target = target;
 	}
 
+	public String getType()
+	{
+		return this.type;
+	}
+	
+	public void setType( final String type )
+	{
+		this.type = type;
+	}
+	
 	/**
 	 * @return the poet
 	 */
-	public String getPoet()
+	public String getPoetry()
 	{
-		return poet;
+		return poetry;
 	}
 
 	/**
-	 * @param poet the poet to set
+	 * @param poetry the poet to set
 	 */
-	public void setPoet( String poet )
+	public void setPoetry(
+		final String poetry
+	)
 	{
-		this.poet = poet;
+		this.poetry = poetry;
+	}
+
+	public
+	int
+	compareTo(
+		final Today other
+	)
+	{
+		return this.target - other.target;
 	}
 	
 	

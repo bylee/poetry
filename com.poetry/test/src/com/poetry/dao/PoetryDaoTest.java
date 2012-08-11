@@ -48,7 +48,7 @@ PoetryDaoTest
 			new Object[] { "e6e4aa26ac156ff551af4309b958f5d7", 2L }
 		} ) );
 		
-		final List<String> poetries = poetryDao.getTodayPoetryCandidates( new Date() );
+		final List<String> poetries = poetryDao.getMostStaredTodayPoetries( new Date() );
 		assertEquals( 1, poetries.size() );
 		assertEquals( "e6e4aa28ac156ff528294f626e4d4ef1", poetries.get( 0 ) );
 	}

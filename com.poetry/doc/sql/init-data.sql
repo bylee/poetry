@@ -60,3 +60,7 @@ select * from following
 select * 
 from following f
 where f.following = 'anjong' and ( f.following, f.follower ) not in ( select b.following, b.follower from block b )
+
+select *
+from Poetry p, Today t
+where t.poetry = p.id and t.date = ?

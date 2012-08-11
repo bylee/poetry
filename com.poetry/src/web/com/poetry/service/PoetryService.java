@@ -2,8 +2,12 @@ package com.poetry.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -141,21 +145,90 @@ extends AbstractService
 	{
 		int nPoetry = 5;
 		
-		final List<Poetry> poetries = new ArrayList<Poetry>();
-		final List<String> todayCandidates = poetryDao.getTodayPoetryCandidates( date );
-		if ( 0 < todayCandidates.size() )
+		final TreeMap<Today, Poetry> poetries = new TreeMap<Today, Poetry>();
+		final Map<Today, Poetry> userPoetries = poetryDao.getUserSpecificTodayPoetry( date );
+
+		final Iterator<Today> userIter = userPoetries.keySet().iterator();
+		Today index = null;
+		LinkedList<String> starCandidates = null;
+		List<Poetry> remains = null;
+		Iterator<Poetry> remainsIter = null;
+
+		for ( int i = 0 ; i < nPoetry ; ++i )
 		{
-			final int nPick = random.nextInt( todayCandidates.size() );
-			final String poetryId = todayCandidates.get( nPick );
-			final Poetry poetry = poetryDao.getPoetry( poetryId );
-			addDetailInformation( poetry, SignUtils.getSignedInUsername() );
-			poetries.add( poetry );
+			if ( null == index )
+			{
+				if ( userIter.hasNext() ) {
+					index = userIter.next();
+				}
+			}
+			
+			if ( null != index )
+			{
+				if ( nPoetry <= index.getTarget() )
+				{
+					index = null;
+					continue;
+				}
+				while ( i < index.getTarget() )
+				{
+					// 뭘로 채울까?
+				}
+				
+				if ( "user".equals( index.getType() ) )
+				{
+					poetries.put( index, userPoetries.get( index ) );
+					index = null;
+				}
+				else if ( "star".equals( index.getType() ) )
+				{
+					if ( null == starCandidates )
+					{
+						starCandidates = new LinkedList<String>( poetryDao.getMostStaredTodayPoetries( date ) );
+					}
+					while ( !starCandidates.isEmpty() )
+					{
+						final String poetryId = starCandidates.remove();
+						if ( poetries.keySet().contains( poetryId ) )
+						{
+							continue;
+						}
+						poetries.put( index, addDetailInformation(
+							poetryDao.getPoetry( poetryId ),
+							SignUtils.getSignedInUsername()
+						) );
+						index = null;
+						break;
+					}
+				}
+				else
+				{
+					throw new IllegalArgumentException();
+				}
+			}
+			else
+			{
+				if ( null == remains )
+				{
+					remains = poetryDao.listPoetry();
+					remainsIter = remains.iterator();
+				}
+				
+				if ( remainsIter.hasNext() )
+				{
+					final Today t = new Today( new Date(), i );	// TODO
+					poetries.put( t, remainsIter.next() );
+				}
+			}
 		}
 		
-		List<Poetry> remains = poetryDao.listPoetry();
-		poetries.addAll( addDetailInformation( remains.subList( 0, Math.min( remains.size(), nPoetry - poetries.size() ) ), SignUtils.getSignedInUsername() ) );
+		final ArrayList<Poetry> ret = new ArrayList<Poetry>();
+		for ( final Today t : poetries.keySet() )
+		{
+			ret.add( poetries.get( t ) );
+		}
 		
-		return poetries.subList( 0, Math.min( poetries.size(), 5 ) );
+		return ret;
 	}
 
 	public

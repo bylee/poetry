@@ -1,23 +1,30 @@
 package com.poetry.install;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.poetry.dao.BinaryDao;
 import com.poetry.dao.PoetDao;
+import com.poetry.model.Binary;
 import com.poetry.model.Poet;
 
 @Component
 public class
-InstallUser
+InstallPoet
+extends AbstractInstall
 implements Install<Poet>
 {
 	@Autowired
+	protected BinaryDao binaryDao;
+	
+	@Autowired
 	protected PoetDao userDao;
 
-	public Map<String, Poet> install()
+	public Map<String, Poet> install() throws IOException
 	{
 		final HashMap<String, Poet> ret = new HashMap<String, Poet>();
 		final Poet[] poets = new Poet[] {
@@ -30,6 +37,15 @@ implements Install<Poet>
 		
 		for ( final Poet poet : poets )
 		{
+			final Binary poetImage = new Binary(
+				poet.getUsername() + "jpg",
+				poet.getUsername(),
+				"image/jpg",
+				load( poet.getUsername() + ".jpg" )
+			);
+			binaryDao.addNewBinary( poetImage );
+			
+			poet.setIcon( poetImage.getId() );
 			userDao.addNewPoet( poet );
 			ret.put( poet.getUsername(), poet );
 		}

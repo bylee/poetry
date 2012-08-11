@@ -29,7 +29,7 @@ InstallAll
 	protected SessionFactory sessionFactory;
 	
 	@Autowired
-	protected InstallUser user;
+	protected InstallPoet user;
 	
 	@Autowired
 	protected InstallMission mission;

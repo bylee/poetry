@@ -7,7 +7,7 @@ create table Poet
 (
 	username varchar( 32 ) primary key,
 	pen_name varchar( 32 ),
-	icon varchar( 32 ),
+	icon varchar( 40 ),
 	password varchar( 64 ),
 	email varchar( 128 ),
 	authority varchar( 128 )
@@ -80,8 +80,10 @@ create table Mission
 create table Today
 (
 	date date primary key,
-	target varchar( 40 ),
-	poet varchar( 64 )
+	target integer,
+	type varchar( 64 ),
+	poetry varchar( 64 )
+	
 );
 
 create table MissionPoetry

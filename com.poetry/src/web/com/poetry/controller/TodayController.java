@@ -73,7 +73,9 @@ extends AbstractController
 	public
 	@ResponseBody
 	String
-	setTodayPoetry( Today today )
+	setTodayPoetry(
+		final Today today
+	)
 	{
 		poetryService.setTodayPoetry( today );
 		return "success";

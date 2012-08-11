@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.stereotype.Repository;
 
 import com.poetry.model.Poetry;
+import com.poetry.model.Today;
 
 
 @Repository
@@ -27,8 +30,34 @@ extends AbstractDao
 	
 	@SuppressWarnings("unchecked")
 	public
+	Map<Today, Poetry>
+	getUserSpecificTodayPoetry(
+		final Date date
+	)
+	{
+		final TreeMap<Today, Poetry> ret = new TreeMap<Today, Poetry>();
+		
+		final List<Object[]> results = (List<Object[]>) find(
+			"from Poetry p, Today t " +
+			"where t.poetry = p.id and t.date = ?",
+			date
+		);
+		
+		for ( final Object[] result : results )
+		{
+			final Poetry poetry = (Poetry) result[0];
+			final Today today = (Today) result[1];
+			
+			ret.put( today, poetry );
+		}
+		
+		return ret;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public
 	List<String>
-	getTodayPoetryCandidates(
+	getMostStaredTodayPoetries(
 		final Date date
 	)
 	{
