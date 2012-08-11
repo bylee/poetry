@@ -29,8 +29,8 @@ extends AbstractDao
 	{
 		return extract(
 			(List<Object[]>) find(
-				"from Poetry p, MissionPoetry mp " +
-				"where p.id = mp.poetryId and mp.date = ? order by p.id",
+				"from Poetry p, MissionPoetry mp, Mission m " +
+				"where p.id = mp.poetryId and mp.missionId = m.id and m.date = ? order by p.id",
 				date
 			),
 			0
@@ -48,7 +48,7 @@ extends AbstractDao
 		return extract(
 			(List<Object[]>) find(
 				"from Poetry p, MissionPoetry mp " +
-				"where p.id = mp.poetryId and mp.date = ? and mp.poetryId > ? order by p.id",
+				"where p.id = mp.poetryId and mp.missionId = m.id and m.date = ? and mp.poetryId > ? order by p.id",
 				date, start
 			),
 			0

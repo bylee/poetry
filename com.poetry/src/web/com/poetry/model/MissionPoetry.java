@@ -13,13 +13,16 @@ public class MissionPoetry
 	
 	protected Date date = new Date();
 	
+	protected String missionId;
+	
 	protected String poetryId;
 	
 	public MissionPoetry() {}
 	
-	public MissionPoetry( final String poetId )
+	public MissionPoetry( final String poetId, final String missionId )
 	{
 		this.poetryId = poetId;
+		this.missionId = missionId;
 	}
 
 	/**
@@ -52,6 +55,16 @@ public class MissionPoetry
 	public void setDate( Date date )
 	{
 		this.date = date;
+	}
+	
+	public String getMissionId()
+	{
+		return this.missionId;
+	}
+	
+	public void setMissionId( final String missionId )
+	{
+		this.missionId = missionId;
 	}
 
 	/**

@@ -37,11 +37,21 @@ implements Install<Poet>
 		
 		for ( final Poet poet : poets )
 		{
+			String name = poet.getUsername() + ".jpg";
+			byte[] icon = load( name );
+			String mime = "image/jpg";
+			if ( null == icon )
+			{
+				name = poet.getUsername() + ".png";
+				icon = load( name );
+				mime = "image/png";
+			}
+ 
 			final Binary poetImage = new Binary(
-				poet.getUsername() + "jpg",
+				name,
 				poet.getUsername(),
-				"image/jpg",
-				load( poet.getUsername() + ".jpg" )
+				mime,
+				icon
 			);
 			binaryDao.addNewBinary( poetImage );
 			
