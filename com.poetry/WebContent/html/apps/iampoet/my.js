@@ -18,8 +18,13 @@ function calcLevel(user) {
 
 $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	MyController: function (opts){
-		this.setTitle('My Page');
 		this.curr_name = opts.name;
+		var name = tau.util.getCookie('name');
+		if (opts.name === name || opts.name == undefined) {
+			this.setTitle('My Page');
+		} else {
+			this.setTitle(opts.penname);
+		}
 	},
  
 	init: function () {
@@ -32,7 +37,6 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
-		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
 		
@@ -53,6 +57,11 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 		var myFollowerInfo = scene.getComponent('followerInfo');
 		myFollowerInfo.onEvent('tap', this.gotoFollower, this);
 		
+		var name = tau.util.getCookie('name');
+		if (this.curr_name === name || this.curr_name == undefined) {
+		} else {
+			scene.getComponent('logout').setVisible(false);
+		}
 	},
 	
 	handleLogout:function() {
@@ -75,8 +84,10 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	},
 	
 	getMyInfo: function (){
-		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		var scene = this.getScene();
+		var config = tau.getConfig();
+    var rootURL = config.rootURL;
+    
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
 			name = this.curr_name;
@@ -93,7 +104,7 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 			        }
 					var ui = scene.getComponent('userIcon');
 					ui.setStyle('backgroundImage', 'url(' + imageSrc + ')');
-					scene.getComponent('myPenName').setText(decodeURIComponent(resp.data.penName));
+					scene.getComponent('myPenName').setText(resp.data.penName);
 					userLevel = calcLevel(resp.data);
 					var ul = scene.getComponent('myLevel');
 					ul.setText(userLevel);

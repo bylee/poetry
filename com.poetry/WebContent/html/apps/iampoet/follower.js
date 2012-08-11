@@ -26,6 +26,7 @@ $class('iampoet.FollowerController').extend(tau.ui.SceneController).define({
 		
 		var scene = this.getScene();
 		var followersT = scene.getComponent('followerTable');
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
