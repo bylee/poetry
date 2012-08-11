@@ -17,36 +17,29 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
 		
-		var myPoemScrollPanel = new tau.ui.ScrollPanel({
+		var scrollPanel = new tau.ui.ScrollPanel({
 			id : 'myPoemPanel',
 		    pullDownLabel: ['업데이트하시려면 아래로 당기세요.', '업데이트하시려면 당겼다 놓으세요.', '업데이트중...'],
 		    pullToRefresh: 'both',
 		    pullUpLabel: ['추가로 보실려면 위로 당기세요.', '추가하시려면 당겼다 놓으세요.', '업데이트중...'],
 		    pullDownFn : tau.ctxAware(this.refreshPoems, this),
 		    pullUpFn : tau.ctxAware(this.addPoems, this),
-		    styles : {
-		        position : ''
-		    },
 		    hScroll: false
 		});
-		scene.add(myPoemScrollPanel);
+		scene.add(scrollPanel);
 
-		var table = new tau.ui.Table({
-			id : 'poemTable'
-		});
-		myPoemScrollPanel.add(table);
-
-		var iampoetImg = new tau.ui.ImageView({
-			src : '/image/my-page-logo.png',
-			styles : {
-				width : '108px',
-				height : '91px',
-				marginLeft : '110px',
-				marginRight : '120px',
-				border : 'none'
-			}
-		})
-		myPoemScrollPanel.add(iampoetImg);	
+		
+//		var iampoetImg = new tau.ui.ImageView({
+//			src : '/image/my-page-logo.png',
+//			styles : {
+//				width : '108px',
+//				height : '91px',
+//				marginLeft : '110px',
+//				marginRight : '120px',
+//				border : 'none'
+//			}
+//		})
+//		myPoemScrollPanel.add(iampoetImg);	
 		
 		this.getPoems();
 		
@@ -80,8 +73,8 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 	refreshPoems : function() {
 		var that = this;
 		var scene = this.getScene();
-		var poemsT = scene.getComponent('poemTable');
-		poemsT.removeAll();
+		var scrollPanel = scene.getComponent('myPoemPanel');
+		scrollPanel.removeAll();
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
 			name = this.curr_name;
@@ -103,7 +96,6 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 	addPoems : function() {
 		var that = this;
 		var scene = this.getScene();
-		var poemsT = scene.getComponent('poemTable');
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
 			name = this.curr_name;
@@ -126,9 +118,8 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 	
 	loadPoems : function(poems) {
 		var scene = this.getScene();
-		var poemsT = scene.getComponent('poemTable');
-		
-//		var poems = resp.data;
+		var scrollPanel = scene.getComponent('myPoemPanel')
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		for (var poem in poems) {
 			var imageSrc = '/image/icon-person.png';
 			var author = poems[poem].author;
@@ -137,13 +128,6 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 				imageSrc = rootURL + '/binary/' + author.icon;
 	        }
 		      
-			var Ttablecell = new tau.ui.TableCell({
-				styles : {
-					height : '160px',
-		            margin : '5px auto 0px auto'
-				}
-			});
-			
 			var poetPanel = new tau.ui.Panel({
 				styles : {
 		            backgroundColor : '#FFFFFF',
@@ -151,9 +135,9 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 		            border : '1px solid rgb(102,102,102)',
 		            padding : '5px',
 		            'box-shadow': '2px 2px 5px #888888',
-		            width : '100%',
-		            height : '100%',
-//		            margin : '20px auto 0px auto',
+		            width : '95%',
+		            height : '160px',
+		            margin : '10px auto 0px auto',
 		            '-webkit-border-radius' : '7px'
 				}
 			});
@@ -296,7 +280,7 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 		                fontSize : '13px',
 		                marginTop : '13px',
 		                borderTop : '1px solid black',
-		                height : '30px'
+		                height : '80px'
 		    	},
 			    vScroll: false,
 			    hScroll: false
@@ -306,13 +290,14 @@ $class('iampoet.MyPoemController').extend(tau.ui.SceneController).define({
 		    this.lastId = poet.id
 		    poetPanel.add(content);
 
-		    Ttablecell.setContentItem(poetPanel);
-			poemsT.add(Ttablecell);
+		    scrollPanel.add(poetPanel);
 		}
-		poemsT.render();		
+	    scene.update();
+	    scrollPanel.refresh();
 	},
 	
 	detailPoetry : function(event) {
+		var scene = this.getScene();
 		var comp = event.getSource();
 		var seqNavi = this.getParent();
 		seqNavi.pushController(

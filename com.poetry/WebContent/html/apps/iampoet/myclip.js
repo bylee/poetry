@@ -24,22 +24,11 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		    pullUpLabel: ['추가로 보실려면 위로 당기세요.', '추가하시려면 당겼다 놓으세요.', '업데이트중...'],
 		    pullDownFn : tau.ctxAware(this.refreshClips, this),
 		    pullUpFn : tau.ctxAware(this.addClips, this),
-		    styles : {
-		        position : ''
-		    },
 		    hScroll: false
 		});
 		scene.add(myClipPoemScrollPanel);
 
 		
-		var table = new tau.ui.Table({
-			id : 'clipTable',
-			styles : {
-				height:'100%'
-			}
-		});
-		myClipPoemScrollPanel.add(table);
-
 		var iampoetImg = new tau.ui.ImageView({
 			src : '/image/my-page-logo.png',
 			styles : {
@@ -50,7 +39,7 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 				border : 'none'
 			}
 		})
-		myClipPoemScrollPanel.add(iampoetImg);	
+		scene.add(iampoetImg);	
 		
 		this.getClips();
 		
@@ -84,8 +73,8 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 	refreshClips : function() {
 		var that = this;
 		var scene = this.getScene();
-		var clipsT = scene.getComponent('clipTable');
-		clipsT.removeAll();
+		var scrollPanel = scene.getComponent('myClipPoemPanel');
+		scrollPanel.removeAll();
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
 			name = this.curr_name;
@@ -106,7 +95,6 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 	addClips : function() {
 		var that = this;
 		var scene = this.getScene();
-		var clipsT = scene.getComponent('clipTable');
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
 			name = this.curr_name;
@@ -130,7 +118,8 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 	loadClips : function(clips) {
 		var that = this;		
 		var scene = this.getScene();
-		var clipsT = scene.getComponent('clipTable');
+		var scrollPanel = scene.getComponent('myClipPoemPanel');
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 
 		for ( var poem in clips) {
 			var imageSrc = '/image/icon-person.png';
@@ -140,13 +129,6 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 				imageSrc = rootURL + '/binary/' + author.icon;
 	        }
 		      
-			var Ttablecell = new tau.ui.TableCell({
-				styles : {
-					height : '160px',
-		            margin : '5px auto 0px auto'
-				}
-			});
-			
 			var poetPanel = new tau.ui.Panel({
 				styles : {
 		            backgroundColor : '#FFFFFF',
@@ -154,9 +136,9 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		            border : '1px solid rgb(102,102,102)',
 		            padding : '5px',
 		            'box-shadow': '2px 2px 5px #888888',
-		            width : '100%',
-		            height : '100%',
-//		            margin : '20px auto 0px auto',
+		            width : '95%',
+		            height : '160px',
+		            margin : '10px auto 0px auto',
 		            '-webkit-border-radius' : '7px'
 				}
 			});
@@ -200,9 +182,8 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		    });
 		    namePanel.add(penName);
 		    penName.username = author.username;
+		    penName.penname = author.penName;
 		    penName.onEvent('tap', that.gotoMyPage, that);
-		    
-	      
 		    
 		    var levelName = new tau.ui.Label({
 		    	text : calcLevel(poet.author),
@@ -310,17 +291,16 @@ $class('iampoet.MyClipController').extend(tau.ui.SceneController).define({
 		    this.lastId = poet.id
 		    poetPanel.add(content);
 
-		    Ttablecell.setContentItem(poetPanel);
-		    clipsT.add(Ttablecell);
+		    scrollPanel.add(poetPanel);
 		}
-		clipsT.render();		
+	    scene.update();
+	    scrollPanel.refresh();	
 	},
 	
 	gotoMyPage : function(event) {
 		var comp = event.getSource();
-//		tau.alert(comp + ' : move : ' + comp.username);
 		var seqNavi = this.getParent();
-		seqNavi.pushController(new iampoet.MyController({name:comp.username}));			
+		seqNavi.pushController(new iampoet.MyController({name:comp.username, penname:comp.penname}));			
 	},
 
 	detailPoetry : function(event) {

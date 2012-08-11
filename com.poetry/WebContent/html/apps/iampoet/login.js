@@ -13,7 +13,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
-		scene.getComponent('cancel').onEvent(tau.rt.Event.TAP, this.fireDismiss, this);
+		//scene.getComponent('cancel').onEvent(tau.rt.Event.TAP, this.fireDismiss, this);
 		scene.getComponent('login').onEvent(tau.rt.Event.TAP, this.handleLogin, this);
 	},
 	
@@ -25,7 +25,7 @@ $class('iampoet.LoginController').extend(tau.ui.SceneController).define({
 		var scene = this.getScene();
 		var id = scene.getComponent('id').getText();
 		var pw = scene.getComponent('pw').getText();
-		var remember = scene.getComponent('remember').getValue();
+		//var remember = scene.getComponent('remember').getValue();
 		
 		/*
 		var req = tau.req({
