@@ -13,9 +13,9 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" lazy-init="true">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1/d61550affe19f4a518e88aca0a71334f4?useUnicode=true&amp;characterEncoding=UTF8"/>
-		<property name="username" value="uGeZpi1M5397x"/>
-		<property name="password" value="p6snBXZeUQs7J"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1/poetry?useUnicode=true&amp;characterEncoding=UTF8"/>
+		<property name="username" value="poet"/>
+		<property name="password" value="poet"/>
 	</bean>
 	
 	<tx:annotation-driven/>

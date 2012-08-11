@@ -14,6 +14,6 @@ config({
     {title : '뉴스피드', icon: '/image/wall.png', selectedIcon: '/image/wall-sel.png'},
     {title : '나', icon: '/image/me.png', selectedIcon: '/image/me-sel.png'}
   ],
-  rootURL 	: 'http://poetry.cloudfoundry.com',
+  rootURL 	: 'http://localhost:8080/ROOT',
   reqType : 'mobello'
 });

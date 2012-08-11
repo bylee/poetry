@@ -24,26 +24,8 @@ public class
 HomeController
 extends AbstractController
 {
-	@Autowired( required = false )
-	protected InstallAll install;
-	
 	@Autowired
 	protected MissionService binaryService;
-	
-	@RequestMapping()
-	public
-	@ResponseBody
-	String
-	install() throws Exception
-	{
-		if ( null == install )
-		{
-			return "fail";
-		}
-		
-		install.execute();
-		return "success";
-	}
 	
 	@RequestMapping(
 		value = "/binary",
