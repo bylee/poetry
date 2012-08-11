@@ -32,6 +32,7 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	
 	sceneLoaded: function () {
 		var scene = this.getScene();
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		var writeBtn = scene.getComponent('write');
 		this.getNavigationBar().setRightItem(writeBtn);
 		
@@ -74,6 +75,7 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 	},
 	
 	getMyInfo: function (){
+		var rootURL = tau.getCurrentContext().getConfig().rootURL;
 		var scene = this.getScene();
 		var name = tau.util.getCookie('name');
 		if (this.curr_name) {
@@ -87,7 +89,7 @@ $class('iampoet.MyController').extend(tau.ui.SceneController).define({
 //					scene.getComponent('myName').setText(resp.data.username);
 					var imageSrc = '/image/icon-person.png';
 					if ((resp.data.icon != null) && (resp.data.icon !== 'null')) {
-						imageSrc = rootURL + '/binary/' + author.icon;
+						imageSrc = rootURL + '/binary/' + resp.data.icon;
 			        }
 					var ui = scene.getComponent('userIcon');
 					ui.setStyle('backgroundImage', 'url(' + imageSrc + ')');
