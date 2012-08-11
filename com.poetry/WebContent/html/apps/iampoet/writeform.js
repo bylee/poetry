@@ -149,8 +149,9 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 						//TODO : 성공 실패 테스트 
 						if (this.parentCtrl != null) {
 							this.parentCtrl.loadingRefresh();
-							seqNavi.popController(); 
+							 
 						}
+						seqNavi.popController();
 						tau.alert("시가 등록 되었습니다.");
 					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
 					//ax.ext.ui.hideProgress();
