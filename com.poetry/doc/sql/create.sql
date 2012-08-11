@@ -89,6 +89,7 @@ create table Today
 create table MissionPoetry
 (
 	id varchar( 40 ) primary key,
+	missionId varchar( 40 ),
 	date date,
 	poetryId varchar( 40 )
 );

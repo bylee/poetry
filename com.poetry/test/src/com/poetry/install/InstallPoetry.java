@@ -74,32 +74,32 @@ implements Install<Poetry>
 		final Object[] poetries = new Object[] {
 			// 오늘의 미션 시들
 			new Poetry( "님의 침묵", poets.get( "bylee" ), null, mission.getImageId() ),
-			new MissionPoetry( null ),
+			new MissionPoetry(),
 			new Reply( null, poets.get( "anjong" ), "굿~" ),
 			new Bookmark( null, "anjong" ),
 			
 			new Poetry( "두루미천남성", poets.get( "anjong" ), null, mission.getImageId() ),
-			new MissionPoetry( null ),
+			new MissionPoetry(),
 			new Bookmark( null, "bylee" ),
 			new Star( null, "bylee" ),
 			
 			
 			new Poetry( "사랑의 무게", poets.get( "csoonoosc" ), null, mission.getImageId() ),
-			new MissionPoetry( null ),
+			new MissionPoetry(),
 			new Reply( null, poets.get( "anjong" ), "굿~" ),
 			new Reply( null, poets.get( "hellojintae" ), "굿~2" ),
 			new Bookmark( null, "bylee" ),
 			new Star( null, "bylee" ),
 			
 			new Poetry( "그래도 좋은 인연", poets.get( "hellojintae" ), null, mission.getImageId() ),
-			new MissionPoetry( null ),
+			new MissionPoetry(),
 			new Reply( null, poets.get( "anjong" ), "굿~" ),
 			new Bookmark( null, "anjong" ),
 			new Bookmark( null, "bylee" ),
 			new Star( null, "bylee" ),
 			
 			new Poetry( "내 생애 가장 아름다운 편지", poets.get( "hanseoung82" ), null, mission.getImageId() ),
-			new MissionPoetry( null ),
+			new MissionPoetry(),
 			new Reply( null, poets.get( "anjong" ), "굿~" ),
 			new Reply( null, poets.get( "hellojintae" ), "굿~2" ),
 			new Bookmark( null, "bylee" ),
@@ -166,6 +166,7 @@ implements Install<Poetry>
 			{
 				final MissionPoetry missionPoetry = (MissionPoetry) poetries[i];
 				missionPoetry.setPoetryId( poetry.getId() );
+				missionPoetry.setMissionId( missionId );
 				missionPoetryDao.addMissionPoetry( missionPoetry );
 			}
 			else if ( poetries[i] instanceof Poetry )

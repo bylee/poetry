@@ -14,7 +14,7 @@ INSERT INTO Poetry( id, title, author, image, contents ) VALUES
 ( 'first', 'My First Poetry', 'bylee', 'aaaa', 'Hello, world' );
 
 
-
+select * from poetry
 select * from Poet;
 
 select * from Following;
@@ -22,7 +22,7 @@ select * from Following;
 select * from Bookmark;
 
 
-select * from File;
+select * from File where  id='12a9285bfac7e900c0a807f45bdf59bd0d63a2cf';
 
 select * from Reply order by id desc;
 
@@ -36,7 +36,7 @@ select * from Star;
 
 select * from today
 
-select * from missionpoetry, poetry where missionpoetry.poetryid = poetry.id and missionpoetry.date = ? order by poetry.id
+select * from missionpoetry, poetry where missionpoetry.poetryid = poetry.id order by poetry.id
 
 select poetry.id, count( * ) rank
 from poetry, star

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.poetry.dao.BlockDao;
 import com.poetry.dao.BookmarkDao;
 import com.poetry.dao.FollowingDao;
+import com.poetry.dao.MissionDao;
 import com.poetry.dao.MissionPoetryDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.dao.ReplyDao;
@@ -22,11 +23,13 @@ import com.poetry.dao.StarDao;
 import com.poetry.dao.TodayDao;
 import com.poetry.model.Block;
 import com.poetry.model.Bookmark;
+import com.poetry.model.Mission;
 import com.poetry.model.MissionPoetry;
 import com.poetry.model.Poetry;
 import com.poetry.model.Reply;
 import com.poetry.model.Star;
 import com.poetry.model.Today;
+import com.poetry.util.DateUtils;
 import com.poetry.util.SignUtils;
 
 import escode.util.Assert;
@@ -55,6 +58,9 @@ extends AbstractService
 	protected StarDao starDao;
 	
 	@Autowired( required = false )
+	protected MissionDao missionDao;
+
+	@Autowired( required = false )
 	protected MissionPoetryDao missionPoetDao;
 	
 	@Autowired( required = false )
@@ -81,7 +87,8 @@ extends AbstractService
 	)
 	{
 		addNewPoetry( poetry );
-		missionPoetDao.addMissionPoetry( new MissionPoetry( poetry.getId() ) );
+		final Mission mission = missionDao.getMission( DateUtils.getTomorrow() );
+		missionPoetDao.addMissionPoetry( new MissionPoetry( poetry.getId(), mission.getId() ) );
 		
 		return poetry;
 	}
