@@ -46,7 +46,15 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		}
 		
 		var submitBtn = new tau.ui.Button({
-			label : '전송'
+			label : '전송',
+			styles : {
+				color : 'black',
+				border : '1px solid rgb(102,102,102)',
+				backgroundImage: '-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #FFFFFF),'+
+						'color-stop(50%, RGB(234,234,234)), color-stop(51%, RGB(223,223,223)),'+
+						'color-stop(100%, RGB(211,211,211)) )'
+			}
+				
 		});
 		submitBtn.onEvent('tap',this.handleSummit, this);
 		var navBar = this.getNavigationBar();
@@ -130,6 +138,8 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 		if (image != null) {
 			params.image = image.id;
 		}
+		var seqNavi = this.getParent();
+		
 		tau.wreq({
 			type: 'POST',
 			url: '/poetry',
@@ -139,6 +149,7 @@ $class('iampoet.WriteformController').extend(tau.ui.SceneController).define({
 						//TODO : 성공 실패 테스트 
 						if (this.parentCtrl != null) {
 							this.parentCtrl.loadingRefresh();
+							seqNavi.popController();
 						}
 						tau.alert("시가 등록 되었습니다.");
 					} else {tau.alert("시가 등록 되지 못했습니다. 다시 시도해 주세요");}
