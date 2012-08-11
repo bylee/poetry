@@ -21,6 +21,18 @@ $require('/my.js');
             var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
             return dateStr;
         },
+        getMissionDate : function() {
+        	var dateObj = new Date();
+            var month = dateObj.getMonth(), date = dateObj.getDate()+1;
+            if (month < 9) {
+              month = '0' + (month + 1);
+            } 
+            if (date < 10) {
+              date = '0' + date;
+            }
+            var dateStr = dateObj.getFullYear() + '-' + month + '-' + date;
+            return dateStr;
+        },
         preloadImage : function (url, onloadFn) {
         	var img = new Image ();
 			img.onload = onloadFn;

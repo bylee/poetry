@@ -27,7 +27,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
 		
 		tau.wreq({
 	      type: 'GET',
-	      url : '/mission/' + poetutil.getPoetDate(),
+	      url : '/mission/' + poetutil.getMissionDate(),
 	      callbackFn : function (resp) {
 	        if (resp.status === 200) {
 	          if (resp.data != null) {
@@ -46,7 +46,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
     
 		tau.wreq({
 	      type: 'GET',
-	      url : '/missionpoetry/' + poetutil.getPoetDate(),
+	      url : '/missionpoetry/' + poetutil.getMissionDate(),
 	      callbackFn : function (resp) {
 	        if (resp.status === 200) {
 	          if (this.lastId == null && resp.data.length == 0) {
@@ -70,7 +70,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
     scrollPanel.removeAll();
     tau.wreq({
       type: 'GET',
-      url : '/missionpoetry/'+ poetutil.getPoetDate(),
+      url : '/missionpoetry/'+ poetutil.getMissionDate(),
       callbackFn : function (resp) {
         if (resp.status === 200) {
           scrollPanel.add(this.missionPanel);
@@ -87,7 +87,7 @@ $class('iampoet.TodayMissionController').extend(tau.ui.SceneController).define({
   loadingAddData: function () {
     tau.wreq({
       type: 'GET',
-      url : '/missionpoetry/'+ poetutil.getPoetDate(),
+      url : '/missionpoetry/'+ poetutil.getMissionDate(),
       params : {
         start : this.lastId
       },
