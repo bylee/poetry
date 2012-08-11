@@ -103,5 +103,9 @@ implements Serializable, Comparable<Today>
 	}
 	
 	
+	public String toString()
+	{
+		return date + ":" + target + "-" + target + "," + poetry;
+	}
 
 }

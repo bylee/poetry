@@ -154,6 +154,7 @@ extends AbstractService
 		
 		final TreeMap<Today, Poetry> poetries = new TreeMap<Today, Poetry>();
 		final Map<Today, Poetry> userPoetries = poetryDao.getUserSpecificTodayPoetry( date );
+		logger.trace( "User specification :{}", userPoetries );
 
 		final Iterator<Today> userIter = userPoetries.keySet().iterator();
 		Today index = null;
@@ -169,6 +170,7 @@ extends AbstractService
 					index = userIter.next();
 				}
 			}
+			logger.trace( "Iteration :{}, index :{}", i, index );
 			
 			if ( null != index )
 			{
@@ -180,6 +182,17 @@ extends AbstractService
 				while ( i < index.getTarget() )
 				{
 					// 뭘로 채울까?
+					if ( null == remains )
+					{
+						remains = poetryDao.listPoetry();
+						remainsIter = remains.iterator();
+					}
+					
+					if ( remainsIter.hasNext() )
+					{
+						final Today t = new Today( new Date(), i );	// TODO
+						poetries.put( t, remainsIter.next() );
+					}
 				}
 				
 				if ( "user".equals( index.getType() ) )

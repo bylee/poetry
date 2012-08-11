@@ -11,16 +11,20 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.poetry">
-		<level value="debug" />
+		<level value="trace" />
+	</logger>
+
+	<logger name="com.poetry.web">
+		<level value="warn" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 	
 	<logger name="org.hibernate">
-		<level value="info" />
+		<level value="warn" />
 	</logger>
 	
 	<!-- Root Logger -->

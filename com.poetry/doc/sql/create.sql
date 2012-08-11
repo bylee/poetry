@@ -3,7 +3,7 @@ SET SESSION max_allowed_packet = 1024 * 1024 * 32;
 
 create database poetry default character set utf8 collate utf8_general_ci;
 
-create table Poet
+create table poet
 (
 	username varchar( 32 ) primary key,
 	pen_name varchar( 32 ),
@@ -14,7 +14,7 @@ create table Poet
 	
 );
 
-create table File
+create table file
 (
 	id varchar( 40 ) primary key,
 	name varchar( 256 ),
@@ -23,7 +23,7 @@ create table File
 	contents mediumblob
 );
 
-create table Poetry
+create table poetry
 (
 	id varchar( 40 ) primary key,
 	title varchar( 256 ),
@@ -39,7 +39,7 @@ create table Poetry
 	contentsColor varchar( 16 )
 );
 
-create table Reply
+create table reply
 (
 	id varchar( 40 ) primary key,
 	targetId varchar( 40 ),
@@ -48,28 +48,28 @@ create table Reply
 	createdDate date
 );
 
-create table Following
+create table following
 (
 	following varchar( 40 ),
 	follower varchar( 40 ),
 	constraint following_unique primary key ( following, follower )
 );
 
-create table Star
+create table star
 (
 	poetryId varchar( 40 ),
 	poetId varchar( 40 ),
 	constraint star_unique primary key( poetryId, poetId )
 );
 
-create table Bookmark
+create table bookmark
 (
 	poetryId varchar( 40 ),
 	poetId varchar( 40 ),
 	constraint bookmark_unique primary key( poetryId, poetId )
 );
 
-create table Mission
+create table mission
 (
 	id varchar( 40 ) primary key,
 	date date,
@@ -77,7 +77,7 @@ create table Mission
 	description TEXT
 );
 
-create table Today
+create table today
 (
 	date date primary key,
 	target integer,
@@ -86,7 +86,7 @@ create table Today
 	
 );
 
-create table MissionPoetry
+create table missionPoetry
 (
 	id varchar( 40 ) primary key,
 	missionId varchar( 40 ),
@@ -94,7 +94,7 @@ create table MissionPoetry
 	poetryId varchar( 40 )
 );
 
-create table Block
+create table block
 (
 	following varchar( 40 ),
 	follower varchar( 40 ),

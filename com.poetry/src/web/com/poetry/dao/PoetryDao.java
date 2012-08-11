@@ -47,6 +47,7 @@ extends AbstractDao
 		{
 			final Poetry poetry = (Poetry) result[0];
 			final Today today = (Today) result[1];
+			logger.trace( "Poetry :{} Today :{}", poetry, today );
 			
 			ret.put( today, poetry );
 		}

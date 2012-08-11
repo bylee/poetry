@@ -63,6 +63,7 @@ extends AbstractController
 		final Date date
 	)
 	{
+		logger.trace( "Date :{}", date );
 		return poetryService.getTodayPoetries( date );
 	}
 	

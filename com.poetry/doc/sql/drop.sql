@@ -10,6 +10,18 @@ delete from Today;
 delete from MissionPoetry;
 delete from Block;
 
+delete from poet;
+delete from file;
+delete from poetry;
+delete from reply;
+delete from following;
+delete from star;
+delete from bookmark;
+delete from mission;
+delete from today;
+delete from missionPoetry;
+delete from block;
+
 drop table Poet;
 drop table File;
 drop table Poetry;
