@@ -36,6 +36,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 	
 	handleSummit: function (){
 		var that = this;
+		var seqNavi = this.getParent();
 		var scene = this.getScene();
 		var editor = scene.getComponent('editor');
 		tau.wreq({
@@ -48,6 +49,7 @@ $class('iampoet.CommentController').extend(tau.ui.SceneController).define(
 			callbackFn : function (resp) {
 				if (resp.status === 200) {
 					that.poemCtrl.handleReloadComment(); 
+					seqNavi.popController();
 					tau.alert("커맨트가 등록 되었습니다.");
 				} else {tau.alert("커맨트가 등록 되지 못했습니다. 다시 시도해 주세요");}
 			}
