@@ -36,8 +36,8 @@
 	<script type="text/javascript">
 	$( function () {
 		var menu = new Menu();
-		menu.add( new MenuItem( { id:"today", name:"오늘의 시 선정", url:"today.html" } ) );
 		menu.add( new MenuItem( { id:"mission", name:"내일의 시 미션", url:"mission.html" } ) );
+		menu.add( new MenuItem( { id:"today", name:"오늘의 시 선정", url:"today.html" } ) );
 		menu.add( new MenuItem( { id:"write", name:"미션 시 쓰기", url:"writing.html" } ) );
 		new MenuView( { el: $("#menu"), collection: menu } ).render();
 	} );

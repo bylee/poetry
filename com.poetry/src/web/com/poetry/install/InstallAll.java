@@ -63,24 +63,7 @@ InstallAll
 
 		try
 		{
-			// 사용자를 등록한다.
-			final Map<String, Poet> users = user.install();
-			logger.info( "Users :{}", users );
-			
-			// 오늘의 미션을 등록한다.
-			final Map<String, Mission> missions = mission.install();
-			logger.info( "Missions :{}", missions );
-			
-			// 사용자간의 관계를 등록한다.
-			final Map<String, Object> relations = following.install();
-			logger.info( "Followings :{}", relations );
-			
-			// 시를 등록한다.
-			poetry.setPoets( users );
-			poetry.setMissions( missions );
-			final Map<String, Poetry> poeties = poetry.install();
-			logger.info( "Poetries :{}", poeties );
-			
+			execute();
 		}
 		finally
 		{
@@ -88,6 +71,27 @@ InstallAll
 			session.flush();
 			SessionFactoryUtils.closeSession( session );
 		}
+	}
+	
+	public void execute() throws Exception
+	{
+		// 사용자를 등록한다.
+		final Map<String, Poet> users = user.install();
+		logger.info( "Users :{}", users );
+		
+		// 오늘의 미션을 등록한다.
+		final Map<String, Mission> missions = mission.install();
+		logger.info( "Missions :{}", missions );
+		
+		// 사용자간의 관계를 등록한다.
+		final Map<String, Object> relations = following.install();
+		logger.info( "Followings :{}", relations );
+		
+		// 시를 등록한다.
+		poetry.setPoets( users );
+		poetry.setMissions( missions );
+		final Map<String, Poetry> poeties = poetry.install();
+		logger.info( "Poetries :{}", poeties );
 	}
 	
 }
